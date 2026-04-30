@@ -1,0 +1,468 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ICS-PA日记-PA4 | RedKold的小站</title><meta name="author" content="RedKold"><meta name="copyright" content="RedKold"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="边做边写的没有重新整理，全当记录一下。  Some reference Blog | Five EmbedDev 多道程序 上下文切换 Basic Idea:  Context switching is the process stack switching How to find Context of other processes? Use a cp  pointer (Context poi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICS-PA日记-PA4">
+<meta property="og:url" content="https://redkold.github.io/2026/03/24/pa4-note/index.html">
+<meta property="og:site_name" content="RedKold的小站">
+<meta property="og:description" content="边做边写的没有重新整理，全当记录一下。  Some reference Blog | Five EmbedDev 多道程序 上下文切换 Basic Idea:  Context switching is the process stack switching How to find Context of other processes? Use a cp  pointer (Context poi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png">
+<meta property="article:published_time" content="2026-03-24T02:00:45.000Z">
+<meta property="article:modified_time" content="2026-03-24T02:02:22.961Z">
+<meta property="article:author" content="RedKold">
+<meta property="article:tag" content="止于至善">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ICS-PA日记-PA4",
+  "url": "https://redkold.github.io/2026/03/24/pa4-note/",
+  "image": "https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png",
+  "datePublished": "2026-03-24T02:00:45.000Z",
+  "dateModified": "2026-03-24T02:02:22.961Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "RedKold",
+      "url": "https://redkold.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://redkold.github.io/2026/03/24/pa4-note/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ICS-PA日记-PA4',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://kold.oss-cn-shanghai.aliyuncs.com/ppp.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-bars"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo"><i class="fa-fw fas fa-wheelchair-alt"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" alt="Logo"><span class="site-name">RedKold的小站</span></a><a class="nav-page-title" href="/"><span class="site-name">ICS-PA日记-PA4</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-bars"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo"><i class="fa-fw fas fa-wheelchair-alt"></i><span> 说说</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ICS-PA日记-PA4</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-24T02:00:45.000Z" title="发表于 2026-03-24 10:00:45">2026-03-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-24T02:02:22.961Z" title="更新于 2026-03-24 10:02:22">2026-03-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>边做边写的没有重新整理，全当记录一下。</p>
+<hr>
+<h2 id="Some-reference">Some reference</h2>
+<p><a target="_blank" rel="noopener" href="https://www.five-embeddev.com/">Blog | Five EmbedDev</a></p>
+<h2 id="多道程序">多道程序</h2>
+<h3 id="上下文切换">上下文切换</h3>
+<p>Basic <strong>Idea</strong>:</p>
+<ul>
+<li>Context switching is the process stack switching<br>
+How to find <em>Context</em> of other processes?</li>
+<li>Use a <code>cp</code>  pointer (Context pointer) to record the <em>Context</em> structure’s position.<br>
+操作系统使用的是 <code>PCB</code> 结构 (process, control block)。每一个进程维护一个 PCB</li>
+</ul>
+<p>我们首先来做内核线程。</p>
+<h4 id="创建内核线程上下文">创建内核线程上下文</h4>
+<p>创建内核线程上下文的函数是 <code>kcontext()</code>，在 <code>abstract-machine/am/src/$ISA/nemu/cte.c</code> 中定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Context *<span class="title function_">kcontext</span><span class="params">(Area kstack, <span class="type">void</span> (*entry)(<span class="type">void</span> *), <span class="type">void</span> *arg)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>kstack</code> 是栈的范围</li>
+<li><code>entry</code> 是内核线程的入口</li>
+<li><code>arg</code> 是内核线程的参数</li>
+</ul>
+<p>在 <code>kstack</code> 的底部创建一个以 <code>entry</code> 为入口的上下文结构 <code>Context c</code>。</p>
+<ul>
+<li><code>return value</code>: 返回 <code>&amp;c</code>，该结构的指针。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> Context *<span class="title function_">kcontext</span><span class="params">(Area kstack, <span class="type">void</span> (*entry)(<span class="type">void</span> *), <span class="type">void</span> *arg)</span> &#123;</span><br><span class="line">   <span class="comment">// alloc a space at kstack.end</span></span><br><span class="line">   Context *c = (Context*) (<span class="type">uintptr_t</span>)kstack.end-<span class="keyword">sizeof</span>(Context);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">memset</span>(c,<span class="number">0</span>,<span class="keyword">sizeof</span>(Context));</span><br><span class="line"></span><br><span class="line"><span class="number">0</span>   <span class="comment">// set the entrance pc</span></span><br><span class="line">   c-&gt;mepc = (<span class="type">uintptr_t</span>)entry;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> c;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>Stack frame 如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">|               |</span><br><span class="line">+---------------+ &lt;---- kstack.end</span><br><span class="line">|               |</span><br><span class="line">|    context    |</span><br><span class="line">|               |</span><br><span class="line">+---------------+ &lt;--+</span><br><span class="line">|               |    |</span><br><span class="line">|               |    |</span><br><span class="line">|               |    |</span><br><span class="line">|               |    |</span><br><span class="line">+---------------+    |</span><br><span class="line">|       cp      | ---+</span><br><span class="line">+---------------+ &lt;---- kstack.start</span><br><span class="line">|               |</span><br></pre></td></tr></table></figure>
+<h4 id="线程-进程调度">线程/进程调度</h4>
+<p>CTE 负责创建上下文和切换上下文。具体切换到，则是 OS 的工作。</p>
+<p>我们用 <code>schedule()</code> 函数实现。用 <code>current</code> 指针，指向当前运行进程的 PCB，这样就可以用 <code>current</code> 决定接下来调度的进程。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nanos-lite/src/proc.c</span></span><br><span class="line">Context* <span class="title function_">schedule</span><span class="params">(Context *prev)</span> &#123;</span><br><span class="line">  <span class="comment">// save the context pointer</span></span><br><span class="line">  current-&gt;cp=prev;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// switch between pcb[0] and pcb[1]</span></span><br><span class="line">  current = (current == &amp;pcb[<span class="number">0</span>] ? &amp; &amp;pcb[<span class="number">1</span>] : &amp;pcb[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// then return the new Context</span></span><br><span class="line">  <span class="keyword">return</span> current-&gt;cp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们需要修改 <code>trap.S</code> 的汇编代码，使其完成上下文切换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">.globl __am_asm_trap</span><br><span class="line">__am_asm_trap:</span><br><span class="line">  addi sp, sp, -CONTEXT_SIZE</span><br><span class="line"></span><br><span class="line">  MAP(REGS, PUSH)</span><br><span class="line"></span><br><span class="line">  csrr t0, mcause</span><br><span class="line">  csrr t1, mstatus</span><br><span class="line">  csrr t2, mepc</span><br><span class="line"></span><br><span class="line">  STORE t0, OFFSET_CAUSE(sp)</span><br><span class="line">  STORE t1, OFFSET_STATUS(sp)</span><br><span class="line">  STORE t2, OFFSET_EPC(sp)</span><br><span class="line"></span><br><span class="line">  # set mstatus.MPRV to pass difftest</span><br><span class="line">  li a0, (1 &lt;&lt; 17)</span><br><span class="line">  or t1, t1, a0</span><br><span class="line">  csrw mstatus, t1</span><br><span class="line"></span><br><span class="line">  mv a0, sp</span><br><span class="line">  call __am_irq_handle</span><br><span class="line"></span><br><span class="line">  # after am_irq_handle return, we move a0 to sp</span><br><span class="line">  mv sp, a0</span><br><span class="line"></span><br><span class="line">  LOAD t1, OFFSET_STATUS(sp)</span><br><span class="line">  LOAD t2, OFFSET_EPC(sp)</span><br><span class="line">  csrw mstatus, t1</span><br><span class="line">  csrw mepc, t2</span><br><span class="line"></span><br><span class="line">  MAP(REGS, POP)</span><br><span class="line"></span><br><span class="line">  addi sp, sp, CONTEXT_SIZE</span><br><span class="line">  mret</span><br></pre></td></tr></table></figure>
+<p>做完这些之后，顺利输出 <code>?</code>，不要惊慌，这是因为我们还没有处理 <code>kcontext</code> 的参数。<br>
+<img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260106145055.png" alt="image.png|400"></p>
+<h4 id="内核线程的参数">内核线程的参数</h4>
+<p>此处应该阅读 <code>riscv32</code> 的调用约定，查询 ABI 手册，来修改 <code>kcontext()</code> 函数，支持传参。<br>
+<a target="_blank" rel="noopener" href="https://riscv.org/wp-content/uploads/2024/12/riscv-calling.pdf">riscv32 ABI</a> 规定，函数第一个参数用 <code>a0</code> 寄存器来传。这里是 <code>GPR2</code> 宏。</p>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260106154056.png" alt="image.png|400"></p>
+<p>完成了切换。</p>
+<h2 id="OS-中的上下文切换">OS 中的上下文切换</h2>
+<h3 id="Nanos-lite">Nanos-lite</h3>
+<p>Nanos-lite 是我们的轻量级操作系统。<br>
+我们在其中实现上下文切换。</p>
+<ul>
+<li>
+<p><strong>实现</strong> <code>context_kload</code></p>
+</li>
+<li>
+<p>完成<br>
+<img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260106165158.png" alt="image.png|400"></p>
+</li>
+</ul>
+<h2 id="用户进程">用户进程</h2>
+<h3 id="创建用户进程上下文">创建用户进程上下文</h3>
+<p>和内核线程不同，用户西进程的代码都在用户区。我们在 AM 中实现 <code>ucontext()</code> 函数</p>
+<p>然后再在 <code>nanos-lite</code> 中实现 <code>context_uload</code> 来调用 <code>ucontext</code> 加载用户上下文</p>
+<ul>
+<li>设置 navy-apps 中的 <code>_start</code>，在 <code>libs/libos/src/crt0/start.S</code> 中。</li>
+</ul>
+<p>Nanos-lite 和 Navy 作约定：Nanos-lite 把栈顶位置设置到 <code>GPRx</code> 中，然后由 Navy 里面的 <code>_start</code> 来把栈顶位置真正设置到栈指针寄存器中。</p>
+<p>目前我们让Nanos-lite把 <code>heap.end</code> 作为用户进程的栈顶, 然后把这个栈顶赋给用户进程的栈指针寄存器就可以了.</p>
+<blockquote>
+<p>目前用户栈的分配方式是直接将<strong>堆区末尾的一部分作为用户栈。</strong></p>
+</blockquote>
+<p><code>GPRx</code> 即返回值寄存器，<code>a0</code><br>
+<code>mv sp a0</code></p>
+<p>这样，可以在运行<em>仙剑奇侠传</em>的同时，运行 <code>hello_fun</code></p>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260108141130.png" alt="image.png|400"></p>
+<h3 id="用户进程的参数">用户进程的参数</h3>
+<p>用户进程有自己的参数，参考 <code>main()</code> 完整的原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[], <span class="type">char</span>* envp[])</span>；</span><br></pre></td></tr></table></figure>
+<p>我们要把 <code>argc</code> 的地址作为参数传递给 <code>call_main</code>，RISC-V 的 ABI 约定第一个参数是 <code>a0</code>。</p>
+<p>需要修改 <code>call_main</code> 代码完成解析，这是一个简单的指针训练。</p>
+<p>然后还需要修改 <code>context_uload</code> 的原型，使其支持参数。</p>
+<p>回忆一下<strong>栈帧</strong>的知识，你现在需要把参数赋值到栈中。</p>
+<p>所以要在 <code>context_uload</code> 函数中做出修改，把传给 <code>context_uload</code> 的参数，一个个压入用户栈。</p>
+<p>现在用户栈初始情况不是一个空栈了，其栈帧如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">|               |</span><br><span class="line">+---------------+ &lt;---- ustack.end</span><br><span class="line">|  Unspecified  |</span><br><span class="line">+---------------+</span><br><span class="line">|               | &lt;----------+</span><br><span class="line">|    string     | &lt;--------+ |</span><br><span class="line">|     area      | &lt;------+ | |</span><br><span class="line">|               | &lt;----+ | | |</span><br><span class="line">|               | &lt;--+ | | | |</span><br><span class="line">+---------------+    | | | | |</span><br><span class="line">|  Unspecified  |    | | | | |</span><br><span class="line">+---------------+    | | | | |</span><br><span class="line">|     NULL      |    | | | | |</span><br><span class="line">+---------------+    | | | | |</span><br><span class="line">|    ......     |    | | | | |</span><br><span class="line">+---------------+    | | | | |</span><br><span class="line">|    envp[1]    | ---+ | | | |</span><br><span class="line">+---------------+      | | | |</span><br><span class="line">|    envp[0]    | -----+ | | |</span><br><span class="line">+---------------+        | | |</span><br><span class="line">|     NULL      |        | | |</span><br><span class="line">+---------------+        | | |</span><br><span class="line">| argv[argc-1]  | -------+ | |</span><br><span class="line">+---------------+          | |</span><br><span class="line">|    ......     |          | |</span><br><span class="line">+---------------+          | |</span><br><span class="line">|    argv[1]    | ---------+ |</span><br><span class="line">+---------------+            |</span><br><span class="line">|    argv[0]    | -----------+</span><br><span class="line">+---------------+</span><br><span class="line">|      argc     |</span><br><span class="line">+---------------+ &lt;---- cp-&gt;GPRx</span><br><span class="line">|               |</span><br></pre></td></tr></table></figure>
+<p>之前将 <code>cp-&gt;GPRx</code> 设置为 <code>heap.end</code>，其实是基于</p>
+<ul>
+<li>用户栈为空。</li>
+<li>用户栈从堆区末尾开始。<br>
+的假设。而现在，为了支持带参数的用户进程，我们必须做出修改了。</li>
+</ul>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260108164500.png" alt="image.png|400"></p>
+<p>接下来尝试修改仙剑奇侠传的代码，如果识别到 <code>--skip</code> 就跳过开场动画。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">! <span class="number">473</span> <span class="keyword">if</span>(!(<span class="built_in">strcmp</span>(argv[<span class="number">0</span>], <span class="string">&quot;--skip&quot;</span>) == <span class="number">0</span>))&#123;</span><br><span class="line">+ <span class="number">474</span>     PAL_TrademarkScreen();</span><br><span class="line">+ <span class="number">475</span>    &#125;</span><br><span class="line">  <span class="number">476</span>    PAL_SplashScreen();</span><br></pre></td></tr></table></figure>
+<p>经过修改后，PAL 确实跳过了 trademark 界面。</p>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260108165646.png" alt="image.png|400"></p>
+<p>但是一个个为应用程序设置参数，不显示。我们需要在<code> NTerm</code> 中提供解析参数支持，就和真正的 linux 程序一样。</p>
+<p>很自然想到系统调用 <code>execve</code>。实际上它的原型就是</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">char</span> *<span class="type">const</span> argv[], <span class="type">char</span> *<span class="type">const</span> envp[])</span>;</span><br></pre></td></tr></table></figure>
+<p>通过修改 <code>syscall.c</code> 中系统调用，加载参数调用 <code>execve</code> 即可</p>
+<p>最后在 nterm 增加了解析功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">sh_handle_cmd</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *cmd)</span> &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;handle the cmd: %s\n&quot;</span>,cmd);</span><br><span class="line">	<span class="comment">// parse the cmd</span></span><br><span class="line">	<span class="type">char</span> buf[<span class="number">128</span>];</span><br><span class="line">	<span class="built_in">strncpy</span>(buf, cmd, <span class="keyword">sizeof</span>(buf)<span class="number">-1</span>);</span><br><span class="line">	buf[<span class="keyword">sizeof</span>(buf)<span class="number">-1</span>]=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">size_t</span> n = <span class="built_in">strlen</span>(buf);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(n&gt;<span class="number">0</span> &amp;&amp; buf[n<span class="number">-1</span>] == <span class="string">&#x27;\n&#x27;</span>)&#123;</span><br><span class="line">		buf[n<span class="number">-1</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">char</span>* argv[<span class="number">16</span>];</span><br><span class="line">	<span class="type">int</span> argc=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">char</span> *token = strtok(buf, <span class="string">&quot; &quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(token !=<span class="literal">NULL</span> &amp;&amp; argc &lt; <span class="number">15</span>)&#123;</span><br><span class="line">		argv[argc++] = token;</span><br><span class="line">		token = strtok(<span class="literal">NULL</span>, <span class="string">&quot; &quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	argv[argc] = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(argc&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		execve(argv[<span class="number">0</span>], argv, <span class="literal">NULL</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// ignore the enter sign</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在可以通过 nterm 输入 <code>/bin/pal --skip</code> 实现跳过 trademark 启动 pal 了</p>
+<h2 id="超越容量的界限">超越容量的界限</h2>
+<p>和分段机制相比, 分页机制更灵活, 甚至可以使用超越物理地址上限的虚拟地址. 现在我们从数学的角度来理解这两点. 撇去存储保护机制不谈, 我们可以把这分段和分页的过程分别抽象成两个数学函数:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y = seg(x) = seg.base + x</span><br><span class="line">y = page(x)</span><br></pre></td></tr></table></figure>
+<h3 id="把虚存管理抽象为-VME">把虚存管理抽象为 VME</h3>
+<p>虚存的本质是一个映射（VA -&gt; PA），虚存管理的本质是维护这个映射。</p>
+<p>有以下的 API</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个默认的地址空间</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">protect</span><span class="params">(AddrSpace *as)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 销毁指定的地址空间</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">unprotect</span><span class="params">(AddrSpace *as)</span>;</span><br></pre></td></tr></table></figure>
+<p>地址空间 <code>AddrSpace</code> 的定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AddrSpace</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> pgsize;</span><br><span class="line">  Area area;</span><br><span class="line">  <span class="type">void</span> *ptr;</span><br><span class="line">&#125; AddrSpace;</span><br></pre></td></tr></table></figure>
+<p>我们还需要对 <code>ucontext</code> 函数进行修改。</p>
+<p><code>vme_init</code> ：定义在 <code>abstract-machine/am/src/riscv/nemu/vme.c</code> 中，负责初始化 VME 环境。</p>
+<blockquote>
+<p><code>vme_init()</code> 会通过 <code>map()</code> 来填写内核虚拟地址空间的映射. 这些映射十分特殊, 它们的 <code>va</code> 和 <code>pa</code> 是相同的, 我们将它们称为&quot;恒等映射&quot;(identical mapping).——PA 手册</p>
+</blockquote>
+<p>我们使用 <code>risc-v</code>，需要硬件对 <em>VME</em>进行处理。实际上 <code>vme.c</code> 中的 <code>set_satp</code> 就是一条 ASM inst</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">set_satp</span><span class="params">(<span class="type">void</span> *pdir)</span>&#123;</span><br><span class="line">	<span class="type">uintptr_t</span> mode = lul &lt;&lt; (__riscv_xlen - <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;csrw satp, %0&quot;</span> : : <span class="string">&quot;r&quot;</span>(mode | ((uintptr)pdir &gt;&gt; <span class="number">12</span>)))</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>终于要回到 NEMU 做点事情了。</p>
+<p>注意及时 assertion！</p>
+<h4 id="实现isa-mmu-translate">实现<code>isa_mmu_translate</code></h4>
+<p>参考手册 (4.3 Sv32: Page-Based 32-bit Virtual-Memory Systems)实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type);</span><br></pre></td></tr></table></figure>
+<p>对内存区间为<code>[vaddr, vaddr + len)</code>, 类型为<code>type</code>的内存访问进行地址转换. 函数返回值可能为:</p>
+<ul>
+<li><code>pg_paddr</code> | <code>MEM_RET_OK</code>: 地址转换成功, 其中<code>pg_paddr</code>为物理页面的地址(而不是<code>vaddr</code>翻译后的物理地址)</li>
+<li><code>MEM_RET_FAIL</code>: 地址转换失败, 原因包括权限检查失败等不可恢复的原因, 一般需要抛出异常</li>
+<li><code>MEM_RET_CROSS_PAGE</code>: 地址转换失败, 原因为访存请求跨越了页面的边界</li>
+</ul>
+<p>这个函数在NEMU层面实现翻译虚拟地址到物理地址页面地址。</p>
+<p>RV32在 <code>satp</code> 寄存器中存储PPN</p>
+<p>我们对 <code>satp</code> 新增的定义在 <code>nemu/src/isa/riscv32/include/isa-def.h&quot;</code> 中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>![[Pasted image 20260112220229.png]]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">|	MODE		|	ASID		|	PPN		|</span><br><span class="line">|	1			|	9			|	22		|</span><br></pre></td></tr></table></figure>
+<p>SV 32 的虚拟地址有 32 bit，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// virtual address</span><br><span class="line">|	VPN[1]	|	VPN[0]	|	page offset	|</span><br><span class="line">|	10		|	10		|	12			|</span><br></pre></td></tr></table></figure>
+<p>而物理地址 PA 有 34 位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// physical address</span><br><span class="line">|	PPN[1]	|	PPN[0]	|	page offset	|</span><br><span class="line">|	12		|	10		|	12			|</span><br></pre></td></tr></table></figure>
+<p>PPN 实际我们是从 <code>satp</code> 获得的。定义一个宏来获得 PPN</p>
+<p><a target="_blank" rel="noopener" href="https://www.five-embeddev.com/riscv-priv-isa-manual/Priv-v1.12/supervisor#sec:sv32">The RISC-V Instruction Set Manual, Volume II: Privileged Architecture | Five EmbedDev</a><br>
+详细的转换过程可以阅读。</p>
+<p>RV 32 的 Sv 32 虚拟地址机制采取二级页表的形式。</p>
+<h4 id="实现-VME-中的-map">实现 VME 中的 map</h4>
+<p>这个是[[#实现<code>isa_mmu_translate</code>]] 的逆过程。<br>
+VME 里的 map 定义在 abstract-machine 中，具体来说</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void map(AddrSpace *as, void *va, void *pa, int prot);</span><br></pre></td></tr></table></figure>
+<p>它用于将地址空间 <code>as</code> 中虚拟地址 <code>va</code> 所在的虚拟页, 以 <code>prot</code> 的权限映射到 <code>pa</code> 所在的物理页. 当 <code>prot</code> 中的present位为 <code>0</code> 时, 表示让 <code>va</code> 的映射无效. 由于我们不打算实现保护机制, 因此权限 <code>prot</code> 暂不使用.</p>
+<p><code>map()</code> 是VME中的核心API, 它需要在虚拟地址空间 <code>as</code> 的页目录和页表中填写正确的内容, 使得将来在分页模式下访问一个虚拟页(参数 <code>va</code>)时, 硬件进行page table walk后得到的物理页, 正是之前在调用 <code>map()</code> 时给出的目标物理页(参数 <code>pa</code>). 这再次体现了分页是一个软硬协同才能工作的机制: 如果 <code>map()</code> 没有正确地填写这些内容, 将来硬件进行page table walk的时候就无法取得正确的物理页.</p>
+<h3 id="在分页机制下运行用户程序">在分页机制下运行用户程序</h3>
+<p><strong>几个需要更新的点</strong>：</p>
+<ol>
+<li>Navy 中 <code>make</code> 需要加 <code>VME=1</code> 参数，以映射到正确位置</li>
+<li>Nanos-lite 中，<code>context_uload</code> 需要在开头调用 <code>protect()</code></li>
+<li>需要对用户栈进行处理</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Context</span> &#123;</span></span><br><span class="line">   <span class="comment">// <span class="doctag">TODO:</span> fix the order of these members to match trap.S</span></span><br><span class="line">   <span class="comment">// uintptr_t mepc, mcause, gpr[NR_REGS], mstatus;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// new order to match trap.S</span></span><br><span class="line">   <span class="type">uintptr_t</span> gpr[NR_REGS],mcause, mstatus, mepc;</span><br><span class="line">   <span class="type">void</span> *pdir;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>void *pdir</code> 是一级页表的物理地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[/home/kasumi/PAs/ics2024/nanos-lite/src/loader.c,40,loader] opening the fle: /bin/dummy</span><br><span class="line">[/home/kasumi/PAs/ics2024/nanos-lite/src/loader.c,78,loader] Loading Segment: VA[0x40000000, 0x40004dfc), Filelen: 19964</span><br><span class="line">=== map: ===</span><br><span class="line">va: 0x40000000</span><br><span class="line">pa: 0x82677000</span><br><span class="line">=== end ===</span><br><span class="line">map: alloc new page!</span><br><span class="line">alloc new page! from 0x82678000 to 0x82679000</span><br><span class="line">=== map: ===</span><br><span class="line">va: 0x40001000</span><br><span class="line">pa: 0x82679000</span><br><span class="line">=== end ===</span><br><span class="line">=== map: ===</span><br><span class="line">va: 0x40002000</span><br><span class="line">pa: 0x8267a000</span><br><span class="line">=== end ===</span><br><span class="line">=== map: ===</span><br><span class="line">va: 0x40003000</span><br><span class="line">pa: 0x8267b000</span><br><span class="line">=== end ===</span><br><span class="line">=== map: ===</span><br><span class="line">va: 0x40004000</span><br><span class="line">pa: 0x8267c000</span><br><span class="line">=== end ===</span><br><span class="line">[/home/kasumi/PAs/ics2024/nanos-lite/src/loader.c,78,loader] Loading Segment: VA[0x40005000, 0x400058d8), Filelen: 2200</span><br><span class="line">=== map: ===</span><br><span class="line">va: 0x40005000</span><br><span class="line">pa: 0x8267d000</span><br><span class="line">=== end ===</span><br><span class="line"></span><br><span class="line">Program received signal SIGSEGV, Segmentation fault.</span><br><span class="line">0x000055555555e467 in isa_mmu_translate (vaddr=12, len=len@entry=4, type=type@entry=1) at src/isa/riscv32/system/mmu.c:42</span><br><span class="line">42         paddr_t pa = (pt_2[VPN0(va_raw)] &amp; (~0xfff)) | OFFSET(va_raw);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>定位到了 <code>isa_mmu_translate</code> 出发了错误。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[/home/kasumi/PAs/ics2024/nanos-lite/src/loader.c,116,loader] ELF entry at 0x40000420</span><br></pre></td></tr></table></figure>
+<p>因此 <code>Loader</code> 的逻辑没问题。可能是用户 stack 转移的问题</p>
+<p>这段手册的提示直接点出了你目前 <code>Segmentation Fault</code> 的核心症结：<strong>你的 <code>sp</code> 寄存器里装的是物理地址（PA），但在分页模式下，CPU 需要的是虚拟地址（VA）。</strong></p>
+<p>结合你之前的 GDB 状态 <code>gpr[2] (sp) = 0x82649f40</code>，这显然是一个物理地址</p>
+<p>在 <code>am</code> 中 <code>trap.S</code> 中做出修改，<code>#define CONTEXT_SIZE  ((NR_REGS + 3 + 1) * XLEN) ，增加对 </code>pdir` 的支持</p>
+<p>这里最后发现是 <code>context_uload</code> 在调用 <code>ucontext</code> 时候，没有传入 <code>pcb-&gt;as</code> 导致地址空间没有正确设置。多加 assert 啊还是要</p>
+<h3 id="实现-mm-brk">实现 <code>mm_brk()</code></h3>
+<p>这里真是埋了不少坑啊，因为 PA 3 省略了很多实现，包括 brk 堆顶的维护，malloc 只是增加了堆顶，而没有做其他检查。在实现 VME 之后要忙活很多</p>
+<p>发现了极小的内存访问，发现是 <code>navy-apps</code> 中的 <code>libos</code> 库实现的有问题。我们借助 <code>sbrk</code> 的封装，实现 <code>brk</code>，但是系统调用角度 <code>SYS_brk</code> 应该传入的不是增量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *_sbrk(<span class="type">intptr_t</span> increment) &#123;</span><br><span class="line">  <span class="comment">// get the _end;</span></span><br><span class="line">  <span class="keyword">if</span>(cur_brk == <span class="literal">NULL</span>)&#123;</span><br><span class="line">     cur_brk = (<span class="type">void</span>*)&amp;end;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">void</span>* new_brk=(<span class="type">void</span>*)cur_brk+increment;</span><br><span class="line">  <span class="comment">// if(_syscall_(SYS_brk, increment,0,0) == 0) &#123;</span></span><br><span class="line">  <span class="keyword">if</span>(_syscall_(SYS_brk, cur_brk + increment, <span class="number">0</span>, <span class="number">0</span>))&#123;</span><br><span class="line">    cur_brk = new_brk;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">void</span>*)(cur_brk - increment);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">void</span> *)<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>注意处理 mm_brk 的边界对齐问题</p>
+<p>我们用户程序有一份内核映射（实际上是 <code>0x80000000 - </code> 的恒等映射），具体来说在 <code>protect()</code> 函数中绑定，所以不需要切换</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">protect</span><span class="params">(AddrSpace *as)</span> &#123;</span><br><span class="line">  PTE *updir = (PTE*)(pgalloc_usr(PGSIZE));</span><br><span class="line">  as-&gt;ptr = updir;</span><br><span class="line">  as-&gt;area = USER_SPACE;</span><br><span class="line">  as-&gt;pgsize = PGSIZE;</span><br><span class="line">  <span class="comment">// map kernel space</span></span><br><span class="line">  <span class="built_in">memcpy</span>(updir, kas.ptr, PGSIZE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>发现用户栈 <code>0x7ffffcac</code> 从没有被 map 过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Walking page table: vaddr=80001bb8, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001e98, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001e9c, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=825ab428, pt1_entry=825be000</span><br><span class="line">Walking page table: vaddr=80001ea0, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001ea4, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=82585f6c, pt1_entry=825be000</span><br><span class="line">Walking page table: vaddr=80001ea8, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001eac, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001eb0, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001eb4, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001eb8, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001ebc, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=80001bbc, pt1_entry=825b5000</span><br><span class="line">Walking page table: vaddr=7ffffcac, pt1_entry=00000000</span><br></pre></td></tr></table></figure>
+<p>检查 <code>satp</code>，发现 <code>0x7ffffcac</code> 的 satp 和前面的不一样，证明 <code>schedule</code> 时候地址空间发生了异变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[/home/kasumi/PAs/ics2024/nanos-lite/src/proc.c,58,schedule] Schedule from current 1 -&gt; next 1</span><br><span class="line">riscv32-nemu-interpreter: src/isa/riscv32/system/mmu.c:46: isa_mmu_translate: Assertion `pt_1[VPN1(va_raw)]&#x27; failed.</span><br></pre></td></tr></table></figure>
+<p>经检查也是 <code>schedule</code> 之后出了问题<br>
+我们发现 <code>schedule</code> 调用了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> __am_get_cur_as(Context *c)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (c-&gt;pdir != <span class="literal">NULL</span>)</span><br><span class="line">    c-&gt;pdir = (vme_enable ? (<span class="type">void</span> *)get_satp() : <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是我起初的代码没有加 <code>c-&gt;pdir!=NULL</code> 的检查，导致我对内核的 <code>c-&gt;pdir</code> 的 <code>NULL</code> 标记失效，从而错误的切换了地址空间</p>
+<p>之后又出现了 <code>Conflict Map</code> 问题，经检查又是老生常谈的 <code>mm_brk</code> 的重复映射。这次是因为我 <code>max_brk</code> 维护直接写得 <code>max_brk = brk(usr's parameter)</code> 但是 <code>navy-apps</code> 中通过 <code>sbrk(int increment)</code> 做 <code>SYS_brk</code> 的系统调用的时候，有时候是负值，这就导致我检查边界有问题的重复映射，修改为 <code>max_brk = max(max_brk, brk)</code> 解决了这个问题。现在用户程序和内核程序可以同时运行了。<br>
+![[Pasted image 20260214004918.png]]</p>
+<h2 id="来自外部的声音">来自外部的声音</h2>
+<h3 id="抢占分时系统">抢占分时系统</h3>
+<p>这里我按部就班，按照手册，<s>很顺利的完成了</s>但却不然，遇到了很奇怪的 bug，从内核程序切换到 PAL 之后，会过一段时间报一个 <code>access addr: 0</code> 的错误</p>
+<p>这显然不是 VME 的锅了（因为分时只改变了我们 <code>schedule</code> 的时机，从 <code>yield</code> 到外部中断 <code>timer-interrupt</code>），经过一番痛苦的 debug（即从新增的代码寻找可能得影响），发现是 <code>abstract-machine</code> 层的遗留问题：正确处理 <code>mepc</code> 更新的时机（<code>+=4</code> 来跳过 <code>ecall</code>，但是外部中断不用跳！）</p>
+<p>在 RISC-V 中，<strong>异常 (Exception)</strong> 和 <strong>中断 (Interrupt)</strong> 对 <code>mepc</code> 的处理要求是不同的：</p>
+<ol>
+<li>
+<p><strong>同步异常 (如 <code>ecall</code>)</strong>：<code>mepc</code> 指向的是 <code>ecall</code> 指令本身。如果你不加 4，<code>mret</code> 返回后会再次执行 <code>ecall</code>，陷入死循环。所以 <code>yield</code> 和 <code>syscall</code> 必须 <code>+4</code>。</p>
+</li>
+<li>
+<p><strong>外部中断 (如 <code>timer interrupt</code>)</strong>：<code>mepc</code> 指向的是<strong>被中断打断的那条指令</strong>。这条指令还没有被执行完（或者还没开始执行）。处理完中断后，你应该原封不动地返回到这条指令。<strong>如果你在这里 <code>+4</code>，你就跳过了用户程序的一条指令。</strong></p>
+</li>
+<li></li>
+</ol>
+<p>![[Pasted image 20260215012336.png]]</p>
+<p>这是一个 PA 3 留下的坑：即 RISC-V 在何种时机更新 <code>PC</code>? 在 [[ICS-PA3 note#系统调用（Nano-lite 层）]] 我们曾经提到过：要在正确的地方做出更新 <code>mepc</code>, 当时我只是简单的在 <code>am/src/riscv/nemu/cte.c : __am_irq_handle</code> 的最前面做出更新</p>
+<p>但是，当我们引入 <strong>外部中断</strong> 之后，事情变得不一样：外部中断并不是靠一条 <code>ecall</code> 指令来完成自陷 (trap) 的，所以不需要跳过这一条指令（还记得 PA 3，你没有跳过指令，然后 yield-test 会一直循环打印吗？）。</p>
+<p>修正这个问题后，PA 4-3 的第一部分通过</p>
+<h3 id="用户栈切换">用户栈切换</h3>
+<p>而为了实现上述功能, 我们又需要解决如下问题:</p>
+<ul>
+<li>如何识别进入CTE之前处于用户态还是内核态? - <code>pp</code> (Previous Privilege)</li>
+<li>CTE的代码如何知道内核栈在什么位置? - <code>ksp</code> (Kernel Stack Pointer)</li>
+<li>如何知道将要返回的是用户态还是内核态? - <code>np</code> (Next Privilege)</li>
+<li>CTE的代码如何知道用户栈在什么位置? - <code>usp</code> (User Stack Pointer)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void __am_asm_trap() &#123;</span><br><span class="line">  if (ksp != 0) &#123;   // ksp is global</span><br><span class="line">    c-&gt;usp = $sp;   // usp should be in Context</span><br><span class="line">    $sp = ksp;</span><br><span class="line">  &#125;</span><br><span class="line">  c-&gt;np = (ksp == 0 ? KERNEL : USER);  // np should be in Context</span><br><span class="line"></span><br><span class="line">  ksp = 0;          // support re-entry of CTE</span><br><span class="line"></span><br><span class="line">  // save context</span><br><span class="line"></span><br><span class="line">  __am_irq_handle(c);</span><br><span class="line"></span><br><span class="line">  // restore context</span><br><span class="line"></span><br><span class="line">  if (c-&gt;np == USER) &#123;</span><br><span class="line">    ksp = $sp;</span><br><span class="line">    $sp = c-&gt;usp;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return_from_trap();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在我们的实现中，我们把</p>
+<ul>
+<li><code>np</code> 映射为 <code>c-&gt;np</code></li>
+<li><code>ksp</code> 映射为 <code>mscratch</code> 寄存器</li>
+<li><code>sp</code> 映射为 <code>gpr[sp]</code></li>
+</ul>
+<p>由于 <code>ksp</code> 总是在 <code>pp == USER</code> 的时候被使用，且 <code>ksp</code> 的值肯定不为 0，所以可以用 <code>ksp == 0</code> 表示 <code>pp == KERNEL</code></p>
+<ul>
+<li>若当前位于用户态, 则<code>ksp</code>的值为内核栈的栈底</li>
+<li>若当前位于内核态, 则<code>ksp</code>的值为<code>0</code></li>
+</ul>
+<p>根据伪代码修改 <code>trap.S</code> 即可</p>
+<table>
+<thead>
+<tr>
+<th><br></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storing a PPN in <code>satp</code>, rather than a physical address, supports a physical address space larger than 4 GiB for RV32.<br><br>The <code>satp</code>.PPN field might not be capable of holding all physical page numbers. Some platform standards might place constraints on the values <code>satp</code>.PPN may assume, e.g., by requiring that all physical page numbers corresponding to main memory be representable.</td>
+</tr>
+</tbody>
+</table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://redkold.github.io/">RedKold</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://redkold.github.io/2026/03/24/pa4-note/">https://redkold.github.io/2026/03/24/pa4-note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://redkold.github.io" target="_blank">RedKold的小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/">止于至善</a></div><div class="post-share"><div class="social-share" data-image="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/30/own-the-moment/" title="Own the moment - To kids in 阳光学校"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Own the moment - To kids in 阳光学校</div></div><div class="info-2"><div class="info-item-1"> 其实我们一直想记录毕业的学子的事情 把你们这样的优秀学生做成一期专栏 然后给在校的学弟学妹们讲讲你们求学的经历 包括走出去之后面对大学生活，眼界的开阔各方面，包括自己专业的前景，自己在大学的生活各方面 主要目的就是鼓励学弟学妹刻苦学习，走出去，见识外面的世界，发现更大更广阔的天地 你自由发挥就好 结合自己求学之路，奋斗历程，还要结合自己大学生活，专业前景等各方面 图文并茂 可以拍些大学生活照片，丰富多彩的大学生活，对专业的认知    🤖：好的，我清楚了解了你的需求。现在，请我用最简单，最专业的方式，为你写出给同学们的增语…  友谊的华丽乐章  「教室的窗外传来欢快的声音，阳光透过树影洒下一片灿烂。」  如果选择一个方式回忆阳光，十二岁到十五岁的岁月，脑子里浮现的就是这样的画面。时间仿佛静止，但在青春的风中一切事物都在摇曳着，摇曳到了离开阳光的那一天。在阳光的日子，如同友谊的华丽乐章，对我而言是第一的宝物。   图 1: 2020 年 8 月 28 日，离开青龙去前和朋友们坐公交坐到终点站走回县城，日落和云都很美。  令人水土不服。以突飞猛进态势从孩童成长为少年的日子里，只要和...</div></div></div></a><a class="pagination-related" href="/2025/12/29/ics-5-link-load/" title="NJU ICS 程序的链接和加载 Note"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">NJU ICS 程序的链接和加载 Note</div></div><div class="info-2"><div class="info-item-1">Section 5 程序的链接和加载执行 本文结合了 CMU CSAPP 课程和 NJU ICS 的内容 由于 CSAPP 英文讲授且英文打起来更方便, 多数用英文书写。 ELF Executable and Linkable Format 关于 ELF 表可以阅读 PA 2 的部分。 链接的本质  合并不同的 Section，形成一个大的表。 可执行文件的内存映像   符号和符号解析 每一个 可重定位目标模块m 都有一个符号表，定义了在 m 中定义的符号。有三种链接器符号。  Global symbols（全局符号）  由模块 m 定义并能被其他模块引用的模块。 非 Static 的函数名和非 static 的全局变量名。   External symbols(外部符号)  由其他模块定义并被模块 m 引用的全局符号  如 main.c，函数名 swap     Local symbols(本地符号)  由模块 m 定义和引用的带 static 的函数名和变量名。因其生存期为整个程序运行过程，故并不分配在栈中，而是分配在 static data 区（静态数据区），即在 .dat...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/10/FBDP-lab1/" title="金融大数据处理技术(FBDP) lab1 日志"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="info-item-2">金融大数据处理技术(FBDP) lab1 日志</div></div><div class="info-2"><div class="info-item-1">实验概况 本实验是南京大学计算机金融实验班 2023 级，金融大数据处理技术 (FBDP) 的 Hadoop 实验 1，主要是熟悉环境配置。  设备：Macbook Pro M4, ram: 24g docker + ubuntu 22.04 hadoop-3.4.2-aarch64  任务 1 环境准备 我们先用 docker 部署一个单机伪分布模式。  在终端 (我使用 iTerm2 -zsh) 输入 docker exec -it &lt;container_id&gt; /bin/bash 进入容器 sudo apt install 安装 vim 以修改设置 docker cp 命令将宿主机 Mac 下载好的 Hadoop 文件传输，解压，配置环境变量。  vi ~/.bashrc    123456789export HADOOP_HOME=/usr/local/hadoopexport HADOOP_INSTALL=$HADOOP_HOMEexport HADOOP_MAPRED_HOME=$HADOOP_HOMEexport HADOOP_COMMON_HOME=$...</div></div></div></a><a class="pagination-related" href="/2025/08/29/ICS-dairy/" title="ICS-PA日记-PA0"><img class="cover" src="https://www.manongbook.com/d/file/other/4d618006a4f9bf0b13c8a84c0de380f40.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-29</div><div class="info-item-2">ICS-PA日记-PA0</div></div><div class="info-2"><div class="info-item-1">这学期选了大名鼎鼎的 ICS，在刘杰老师班做 RISC-V 的 PA 实验。写一篇博客，来记录踩过的坑和心路历程。 PA 实验手册可参考：PA 实验手册 PA 0 主要是环境的安装和配置，我采取的方案是 MacOS 用 Windows App 连接阿里云服务器 (Ub untu 22.04) 做实验。本来以为在计算机网络课上完之后，对配置远程连接已经不在话下。但是还是遇到了一些问题。  在希望的道路上，曲曲折折的前进  运行环境搭建 1. 环境准备   云服务器：阿里云 Ubuntu 20.04   用户：kasumi（非 root，避免直接用 root 破坏环境）  之前的计网实验我都是用 root 账户做的，还沾沾自喜不用 sudo 真方便，现在看来是隐患极大的…    桌面环境：xfce 4 + xrdp  配置远程桌面 GUI，是为后面的 PA 需要一些图形化内容做准备。这个方案我的 Windows 和 Mac 都可以很方便访问阿里云的 Ubuntu，很方便我做实验和玩耍    目标：能跑 make menuconfig，配置并启动 PA 框架。    2. 安装和基本配...</div></div></div></a><a class="pagination-related" href="/2025/07/29/algorithm-blog/" title="算法成长日记"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_6759.jpeg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-29</div><div class="info-item-2">算法成长日记</div></div><div class="info-2"><div class="info-item-1">前面的话 到大三了才深刻意识到自己算法基础的薄弱，趁暑期有时间应该多做一些算法题。 写一个 c++小算法还不如大一的自己了。所以在这里分享一些。   更新了分类栏目。 争取每工作日做一道题。 POPIAPA，PIPOPA,  POPIPAPAPIPOPA!  其他小知识 树状数组 树状数组-利用 lowbit 的特殊数组数据结构，有奇效   前置知识 lowbit  lowbit 即一个 $n$ 的数用二进制表示，其最低位的为 1 以及其后的 0 组成的数。 $44=(101100){(2)}$，$lowbit((101100{(2)}))=(100)_{(2)}=4$ 怎么得到呢？  将这个数取反，然后+1（这其实等价于取负），再和原来的数 与 就好了。 可以论证，$lowbit(x)=x&amp;(-x)$      通过树状数组结构可以快速得到一个数组某个位置前面的数 （作为一个数，它前面的数是它的子节点）  注意：$t[x]$ 保存以 $x$ 为根的子树中叶节点的值的和。$t[4]=t[2]+t[3]+a[4]=a[1]+a[2]+a[3]+a[4]$    观察进一步发...</div></div></div></a><a class="pagination-related" href="/2025/11/06/ics-pa2/" title="ICS-PA日记-PA2"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-06</div><div class="info-item-2">ICS-PA日记-PA2</div></div><div class="info-2"><div class="info-item-1">概况 本实验通过了所有 OJ 样例，实现了所有必做功能。 必答题备忘链接： 程序是个状态机-理解YEMU的执行过程 整理一条指令在 NEMU 中的执行过程 程序如何运行-理解打字小游戏如何运行 编译与链接 1 编译与链接 2 了解 Makefile 不停计算的机器 理解 YEMU 如何执行程序 理解 YEMU 如何执行程序   YEMU 可以看成是一个简化版的 NEMU, 它们的原理是相通的, 因此你需要理解 YEMU 是如何执行程序的. 具体地, 你需要  画出在 YEMU 上执行的加法程序的状态机 通过 RTFSC 理解 YEMU 如何执行一条指令  思考一下, 以上两者有什么联系?   画出在 YEMU 上执行的加法程序的状态机  在 YEMU 上执行的加法程序为： 12345678910uint8_t M[NMEM] = &#123;   // 内存, 其中包含一个计算z = x + y的程序  0b11100110,  // load  6#     | R[0] &lt;- M[y]  0b00000100,  // mov   r1, r0 | R[1] &lt;-...</div></div></div></a><a class="pagination-related" href="/2025/09/14/pa1/" title="ICS PA1 report"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">ICS PA1 report</div></div><div class="info-2"><div class="info-item-1">前言 这是 ICS PA 要求提交的实验报告。一份更具有生活化气息的通关日记待我总结一下通关全流程，修一点 bug 再来更新～ 实验进度 我完成了 PA 1 的所有内容，通过了所有测试样例，并为了调试方便，加入了逻辑与或非等运算符。 一些问题和思考 为什么 printf() 的输出要换行  事实上我经常忘记加换行，但我发现这样就会出现 &lt;some word you print balabala&gt; (nemu) ，这会使得终端页面异常丑陋，同时输出可能堆叠在一堆里，不好看。 同时，printf() 写到标准输出 stdout 并不是立刻刷新，而 \n 起到一个刷新的作用，使用换行符能及时显示，避免程序异常退出导致缓存区 log 信息没有输出。  再探表达式解析 - 分治法和栈 我在大一的 程序设计基础实验 曾经完成过一个基于 Qt 的图形化计算器，可以计算包含括号的、有小数和负数的四则运算计算器。 事实上，当时我对于 - 的多义性（二目运算符 SUB? 单目运算符 NEG ?）的处理是采用了复杂的分类讨论。由于我用栈+后缀表达式实现算术式解析 (我曾经参考的文章) ，我...</div></div></div></a><a class="pagination-related" href="/2025/12/22/ics-2/" title="NJU ICS Section2 数据的机器级表示与处理 Note"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-22</div><div class="info-item-2">NJU ICS Section2 数据的机器级表示与处理 Note</div></div><div class="info-2"><div class="info-item-1"> Section 2 ：数据的机器级表示与处理 ——数值数据的表示 关于高级语言-&gt;机器语言  表示 链接 执行  本章主要学习数据的机器级表示 Intro. Kahan 累加算法  浮点数存在误差  4000000 个 0.1(float) 相加（C 语言）结果可能不是 400,000 为了解决累加误差，有经典的 Kahan 累加算法    1234567891011function KahanSum(input)    var sum = 0.0    var c = 0.0          //A running compensation for lost low-order bits.    for i = 1 to input.length do        y = input[i] - c    //So far, so good: c is zero.        t = sum + y         //Alas, sum is big, y small, so low-order digits of y are lost.        c = (...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">RedKold</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/redkold"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/redkold" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:redkold233@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/23341766" target="_blank" title="Bilibili"><i class="fa-brands fa-bilibili" style="color: ##23ade5;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">为博客加入了giscus评论区系统~~来水群~~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-reference"><span class="toc-number">1.</span> <span class="toc-text">Some reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E9%81%93%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">多道程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-number">2.1.</span> <span class="toc-text">上下文切换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">2.1.1.</span> <span class="toc-text">创建内核线程上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="toc-number">2.1.2.</span> <span class="toc-text">线程&#x2F;进程调度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.3.</span> <span class="toc-text">内核线程的参数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OS-%E4%B8%AD%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">OS 中的上下文切换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nanos-lite"><span class="toc-number">3.1.</span> <span class="toc-text">Nanos-lite</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">用户进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-number">4.1.</span> <span class="toc-text">创建用户进程上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">用户进程的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E8%B6%8A%E5%AE%B9%E9%87%8F%E7%9A%84%E7%95%8C%E9%99%90"><span class="toc-number">5.</span> <span class="toc-text">超越容量的界限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%8A%E8%99%9A%E5%AD%98%E7%AE%A1%E7%90%86%E6%8A%BD%E8%B1%A1%E4%B8%BA-VME"><span class="toc-number">5.1.</span> <span class="toc-text">把虚存管理抽象为 VME</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0isa-mmu-translate"><span class="toc-number">5.1.1.</span> <span class="toc-text">实现isa_mmu_translate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-VME-%E4%B8%AD%E7%9A%84-map"><span class="toc-number">5.1.2.</span> <span class="toc-text">实现 VME 中的 map</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6%E4%B8%8B%E8%BF%90%E8%A1%8C%E7%94%A8%E6%88%B7%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.2.</span> <span class="toc-text">在分页机制下运行用户程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-mm-brk"><span class="toc-number">5.3.</span> <span class="toc-text">实现 mm_brk()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A5%E8%87%AA%E5%A4%96%E9%83%A8%E7%9A%84%E5%A3%B0%E9%9F%B3"><span class="toc-number">6.</span> <span class="toc-text">来自外部的声音</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A2%E5%8D%A0%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">6.1.</span> <span class="toc-text">抢占分时系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%A0%88%E5%88%87%E6%8D%A2"><span class="toc-number">6.2.</span> <span class="toc-text">用户栈切换</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/own-the-moment/" title="Own the moment - To kids in 阳光学校">Own the moment - To kids in 阳光学校</a><time datetime="2026-04-30T08:47:03.000Z" title="发表于 2026-04-30 16:47:03">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/24/pa4-note/" title="ICS-PA日记-PA4">ICS-PA日记-PA4</a><time datetime="2026-03-24T02:00:45.000Z" title="发表于 2026-03-24 10:00:45">2026-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/29/ics-5-link-load/" title="NJU ICS 程序的链接和加载 Note"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NJU ICS 程序的链接和加载 Note"/></a><div class="content"><a class="title" href="/2025/12/29/ics-5-link-load/" title="NJU ICS 程序的链接和加载 Note">NJU ICS 程序的链接和加载 Note</a><time datetime="2025-12-29T05:18:27.000Z" title="发表于 2025-12-29 13:18:27">2025-12-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/22/ics-2/" title="NJU ICS Section2 数据的机器级表示与处理 Note"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NJU ICS Section2 数据的机器级表示与处理 Note"/></a><div class="content"><a class="title" href="/2025/12/22/ics-2/" title="NJU ICS Section2 数据的机器级表示与处理 Note">NJU ICS Section2 数据的机器级表示与处理 Note</a><time datetime="2025-12-22T03:05:17.000Z" title="发表于 2025-12-22 11:05:17">2025-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/12/some-thoughts/" title="some-thoughts">some-thoughts</a><time datetime="2025-12-12T13:40:51.000Z" title="发表于 2025-12-12 21:40:51">2025-12-12</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By RedKold</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RedKold/redkold.github.io',
+      'data-repo-id': 'R_kgDOPFXMMA',
+      'data-category-id': 'DIC_kwDOPFXMMM4Cvdm_',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,165 +1,64 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ICS-PA日记-PA2 | RedKold的小站</title><meta name="author" content="RedKold"><meta name="copyright" content="RedKold"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概况 本实验通过了所有 OJ 样例，实现了所有必做功能。 必答题备忘链接： 程序是个状态机-理解YEMU的执行过程 整理一条指令在 NEMU 中的执行过程 程序如何运行-理解打字小游戏如何运行 编译与链接 1 编译与链接 2 了解 Makefile 不停计算的机器 理解 YEMU 如何执行程序 理解 YEMU 如何执行程序   YEMU 可以看成是一个简化版的 NEMU, 它们的原理是相通的, 因">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ICS-PA日记-PA2">
-<meta property="og:url" content="https://redkold.github.io/2025/11/06/ics-pa2/index.html">
-<meta property="og:site_name" content="RedKold的小站">
-<meta property="og:description" content="概况 本实验通过了所有 OJ 样例，实现了所有必做功能。 必答题备忘链接： 程序是个状态机-理解YEMU的执行过程 整理一条指令在 NEMU 中的执行过程 程序如何运行-理解打字小游戏如何运行 编译与链接 1 编译与链接 2 了解 Makefile 不停计算的机器 理解 YEMU 如何执行程序 理解 YEMU 如何执行程序   YEMU 可以看成是一个简化版的 NEMU, 它们的原理是相通的, 因">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP">
-<meta property="article:published_time" content="2025-11-06T05:57:49.000Z">
-<meta property="article:modified_time" content="2025-11-06T06:18:17.468Z">
-<meta property="article:author" content="RedKold">
-<meta property="article:tag" content="止于至善">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP"><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "ICS-PA日记-PA2",
-  "url": "https://redkold.github.io/2025/11/06/ics-pa2/",
-  "image": "https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP",
-  "datePublished": "2025-11-06T05:57:49.000Z",
-  "dateModified": "2025-11-06T06:18:17.468Z",
-  "author": [
-    {
-      "@type": "Person",
-      "name": "RedKold",
-      "url": "https://redkold.github.io/"
-    }
-  ]
-}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://redkold.github.io/2025/11/06/ics-pa2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
-    (() => {
-      
-    const saveToLocal = {
-      set: (key, value, ttl) => {
-        if (!ttl) return
-        const expiry = Date.now() + ttl * 86400000
-        localStorage.setItem(key, JSON.stringify({ value, expiry }))
-      },
-      get: key => {
-        const itemStr = localStorage.getItem(key)
-        if (!itemStr) return undefined
-        const { value, expiry } = JSON.parse(itemStr)
-        if (Date.now() > expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return value
-      }
-    }
-
-    window.btf = {
-      saveToLocal,
-      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
-        script.onload = script.onreadystatechange = () => {
-          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
-        }
-        script.onerror = reject
-        document.head.appendChild(script)
-      }),
-      getCSS: (url, id) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onload = link.onreadystatechange = () => {
-          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
-        }
-        link.onerror = reject
-        document.head.appendChild(link)
-      }),
-      addGlobalFn: (key, fn, name = false, parent = window) => {
-        if (!false && key.startsWith('pjax')) return
-        const globalFn = parent.globalFn || {}
-        globalFn[key] = globalFn[key] || {}
-        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
-        parent.globalFn = globalFn
-      }
-    }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICS-PA日记-PA2 · RedKold的小站</title>
+  <meta name="description" content="勇敢、智慧、真诚">
   
-      
-      const activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      const activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
+<link rel="stylesheet" href="/css/style.css">
 
-      btf.activateDarkMode = activateDarkMode
-      btf.activateLightMode = activateLightMode
+  <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
 
-      const theme = saveToLocal.get('theme')
-    
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <a class="brand-link" href="/">
+        <span class="seal-mark" aria-hidden="true">墨</span>
+        <span class="brand-text">
+          <span class="brand-title">RedKold的小站</span>
+          <span class="brand-subtitle">勇敢、智慧、真诚</span>
+        </span>
+      </a>
+    </div>
+    <nav class="site-nav">
+      <a href="/">首页</a>
+      <a href="/archives">归档</a>
+      <a href="/tags">标签</a>
+      <a href="/categories">分类</a>
+      <a href="/shuoshuo">说说</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container post-wrap">
+  <article class="post">
+    <header class="post-header">
+      <p class="post-date">2025年11月06日</p>
+      <h1 class="post-title">ICS-PA日记-PA2</h1>
+      <div class="post-meta">
+        <span>作者：RedKold</span>
         
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
-      }
+          <span class="meta-sep">·</span>
+          <span class="card-tags">
+            <a class="tag" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/">止于至善</a>
+          </span>
+        
+        
+          <span class="meta-sep">·</span>
+          <span>更新于 2025年11月06日</span>
+        
+      </div>
+    </header>
+
     
-      
-    const detectApple = () => {
-      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-  
-    })()
-  </script><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
-  copy: {
-    success: '复制成功',
-    error: '复制失败',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'null',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyloadPlugin: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'ICS-PA日记-PA2',
-  isHighlightShrink: false,
-  isToc: true,
-  pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://kold.oss-cn-shanghai.aliyuncs.com/ppp.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-bars"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo"><i class="fa-fw fas fa-wheelchair-alt"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" alt="Logo"><span class="site-name">RedKold的小站</span></a><a class="nav-page-title" href="/"><span class="site-name">ICS-PA日记-PA2</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-bars"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo"><i class="fa-fw fas fa-wheelchair-alt"></i><span> 说说</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ICS-PA日记-PA2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-06T05:57:49.000Z" title="发表于 2025-11-06 13:57:49">2025-11-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-06T06:18:17.468Z" title="更新于 2025-11-06 14:18:17">2025-11-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="概况">概况</h2>
+      <figure class="post-cover"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP" alt="ICS-PA日记-PA2 封面"></figure>
+    
+
+    <div class="post-content typography" id="post-content">
+      <h2 id="概况">概况</h2>
 <p>本实验通过了所有 OJ 样例，<strong>实现了所有必做功能</strong>。</p>
 <p><strong>必答题备忘链接</strong>：<br>
 <a href="#%E7%90%86%E8%A7%A3-YEMU-%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F">程序是个状态机-理解YEMU的执行过程</a><br>
@@ -170,16 +69,14 @@
 <a href="#%E4%BA%86%E8%A7%A3-Makefile">了解 Makefile</a></p>
 <h2 id="不停计算的机器">不停计算的机器</h2>
 <h5 id="理解-YEMU-如何执行程序">理解 YEMU 如何执行程序</h5>
-<div class="note question flat"><p>理解 YEMU 如何执行程序</p>
-</div>
-<blockquote>
-<p>YEMU 可以看成是一个简化版的 NEMU, 它们的原理是相通的, 因此你需要理解 YEMU 是如何执行程序的. 具体地, 你需要</p>
+<div class="note question"><span class="note-label">问</span><div class="note-body"><p>理解 YEMU 如何执行程序<br>
+YEMU 可以看成是一个简化版的 NEMU, 它们的原理是相通的, 因此你需要理解 YEMU 是如何执行程序的. 具体地, 你需要</p>
 <ul>
 <li>画出在 YEMU 上执行的加法程序的状态机</li>
 <li>通过 RTFSC 理解 YEMU 如何执行一条指令</li>
 </ul>
 <p>思考一下, 以上两者有什么联系?</p>
-</blockquote>
+</div></div>
 <blockquote>
 <p>画出在 YEMU 上执行的加法程序的状态机</p>
 </blockquote>
@@ -215,12 +112,10 @@
 </ul>
 </li>
 </ul>
-<div class="note tip flat"><p><strong>未识别的指令行为</strong></p>
-</div>
-<blockquote>
-<p>YEMU 在 switch 的 default 部分写了一些逻辑。<br>
+<div class="note tip"><span class="note-label">示</span><div class="note-body"><p><strong>未识别的指令行为</strong><br>
+YEMU 在 switch 的 default 部分写了一些逻辑。<br>
 未识别的指令，会打印 <code>Invalid instruction</code> 信息，更新 <code>halt = 1</code> 标识结束。</p>
-</blockquote>
+</div></div>
 <ul>
 <li><strong>执行</strong>：
 <ul>
@@ -247,10 +142,8 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">exec_once</span><span class="params">(Decode *s, <span class="type">vaddr_t</span> pc)</span> &#123;</span><br><span class="line">  s-&gt;pc = pc;</span><br><span class="line">  s-&gt;snpc = pc;</span><br><span class="line">  isa_exec_once(s);</span><br><span class="line">  cpu.pc = s-&gt;dnpc;</span><br><span class="line">  <span class="comment">/* some other isa and trace stuff */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// nemu/src/isa/$ISA/inst.c</span></span><br><span class="line"><span class="comment">// Start to parse the decode</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">isa_exec_once</span><span class="params">(Decode *s)</span> &#123;</span><br><span class="line">  s-&gt;isa.inst = inst_fetch(&amp;s-&gt;snpc, <span class="number">4</span>); <span class="comment">// the update of snpc is here</span></span><br><span class="line">	<span class="comment">// Add itrace here</span></span><br><span class="line">  IFDEF(CONFIG_ITRACE, ringbuf_push(&amp;itrace_rb, s-&gt;pc, s-&gt;isa.inst)); </span><br><span class="line">  <span class="keyword">return</span> decode_exec(s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// nemu/include/cpu/ifetch.h</span></span><br><span class="line"><span class="comment">// 取指令,实际就是从内存加载</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint32_t</span> <span class="title function_">inst_fetch</span><span class="params">(<span class="type">vaddr_t</span> *pc, <span class="type">int</span> len)</span> &#123;</span><br><span class="line">  <span class="comment">// vaddr_ifetch is aka  paddr_read</span></span><br><span class="line">  <span class="type">uint32_t</span> inst = vaddr_ifetch(*pc, len);</span><br><span class="line">  <span class="comment">// update the pc</span></span><br><span class="line">  (*pc) += len;</span><br><span class="line">  <span class="comment">// inst is a 32bit uint number(for our riscv32)</span></span><br><span class="line">  <span class="keyword">return</span> inst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><strong>这里有一个有趣的问题</strong></p>
 <h5 id="编译与链接-1">编译与链接 1</h5>
-<div class="note icon-padding flat"><i class="note-icon faq"></i><p>尝试去掉 <code>static</code> 和 <code>inline</code> 试试？</p>
-</div>
-<blockquote>
-<p>在 <code>nemu/include/cpu/ifetch.h</code> 中, 你会看到由 <code>static inline</code> 开头定义的 <code>inst_fetch()</code> 函数. 分别尝试去掉 <code>static</code>, 去掉 <code>inline</code> 或去掉两者, 然后重新进行编译, 你可能会看到发生错误. 请分别解释为什么这些错误会发生/不发生? 你有办法证明你的想法吗?<br>
+<div class="note faq"><span class="note-label">问</span><div class="note-body"><p>尝试去掉 <code>static</code> 和 <code>inline</code> 试试？<br>
+在 <code>nemu/include/cpu/ifetch.h</code> 中, 你会看到由 <code>static inline</code> 开头定义的 <code>inst_fetch()</code> 函数. 分别尝试去掉 <code>static</code>, 去掉 <code>inline</code> 或去掉两者, 然后重新进行编译, 你可能会看到发生错误. 请分别解释为什么这些错误会发生/不发生? 你有办法证明你的想法吗?<br>
 <strong>去掉各一个不会报错</strong>，去掉两者会报错。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ld: /home/zhu/nju-pa/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: in function `inst_fetch&#x27;:</span><br><span class="line">inst.c:(.text+0x1600): multiple definition of `inst_fetch&#x27;; /home/zhu/nju-pa/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o:hostcall.c:(.text+0x0): first defined here</span><br></pre></td></tr></table></figure>
 <p>多个包含了 <code>ifetch</code> 的 <code>.c</code> 文件，发生了多定义问题。<br>
@@ -258,26 +151,22 @@
 <code>inline</code> 作为内联关键字，其在所有引用 <code>ifetch</code> <strong>的部分会替换为这部分文字</strong>，<strong>所以不涉及重复定义问题</strong><br>
 而 <code>static</code> 声明了 <code>ifetch</code> <strong>的链接属性</strong>为 <code>internal linkage</code>，它仅在当前源文件 (translation unit) 中可见，所以不会被其他文件引用到。<br>
 <strong>可以理解为每个文件都持有了一个互不干扰的副本</strong>（生成目标文件时候不会导出符号）</p>
-</blockquote>
+</div></div>
 <p>完成取指令之后就要开始译码了</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">decode_exec</span><span class="params">(Decode *s)</span> &#123;</span><br><span class="line">  s-&gt;dnpc = s-&gt;snpc;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INSTPAT_INST(s) ((s)-&gt;isa.inst)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INSTPAT_MATCH(s, name, type, ... <span class="comment">/* execute body */</span> ) &#123; \</span></span><br><span class="line"><span class="meta">  int rd = 0; \</span></span><br><span class="line"><span class="meta">  word_t src1 = 0, src2 = 0, imm = 0; \</span></span><br><span class="line"><span class="meta">  decode_operand(s, &amp;rd, &amp;src1, &amp;src2, &amp;imm, concat(TYPE_, type)); \</span></span><br><span class="line"><span class="meta">  __VA_ARGS__ ; \</span></span><br><span class="line"><span class="meta">&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// You can add some new pattern match rule here, to implement a new instruction</span></span><br><span class="line">  INSTPAT_START();</span><br><span class="line">  INSTPAT(<span class="string">&quot;0000000 ????? ????? 000 ????? 01100 11&quot;</span>, add    , R, R(rd) = src1 + src2);</span><br><span class="line">  INSTPAT(<span class="string">&quot;??????? ????? ????? 000 ????? 00100 11&quot;</span>, addi   , I, R(rd) = src1 + imm);</span><br><span class="line">  INSTPAT(<span class="string">&quot;0000000 ????? ????? 111 ????? 01100 11&quot;</span>, and    , R, R(rd) = (src1 &amp; src2));</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* more inst parse work */</span></span><br><span class="line">  INSTPAT_END();</span><br><span class="line"></span><br><span class="line">  R(<span class="number">0</span>) = <span class="number">0</span>; <span class="comment">// reset $zero to 0</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个函数很巧妙的利用<strong>宏</strong>完成了指令的解码。不同类型的<strong>立即数获取</strong>和<strong>寄存器获取</strong>（寄存器值获取对于 <code>riscv32</code> 是指令类型无关的）都有相对应的函数接口。</p>
 <p>解码了操作码之后，<strong>需要解码操作数</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> R(i) gpr(i)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Mr vaddr_read</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Mw vaddr_write</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">  TYPE_I, TYPE_U, TYPE_S,</span><br><span class="line">  TYPE_J, TYPE_R, TYPE_B,</span><br><span class="line">  TYPE_N, <span class="comment">// none</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MACROs to decode the oprand</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> src1R() do &#123; *src1 = R(rs1); &#125; while (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> src2R() do &#123; *src2 = R(rs2); &#125; while (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> immI() do &#123; *imm = SEXT(BITS(i, 31, 20), 12); &#125; while(0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> immU() do &#123; *imm = SEXT(BITS(i, 31, 12), 20) &lt;&lt; 12; &#125; while(0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> immS() do &#123; *imm = (SEXT(BITS(i, 31, 25), 7) &lt;&lt; 5) | BITS(i, 11, 7); &#125; while(0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> immJ() do &#123; \</span></span><br><span class="line"><span class="meta">	*imm = SEXT( \</span></span><br><span class="line"><span class="meta">		(BITS(i,31,31) &lt;&lt; 20) | <span class="comment">/* imm[20] */</span> \</span></span><br><span class="line"><span class="meta">		(BITS(i,19,12) &lt;&lt; 12) | <span class="comment">/* imm[19:12] */</span> \</span></span><br><span class="line"><span class="meta">		(BITS(i,20,20) &lt;&lt; 11) | <span class="comment">/* imm[11] */</span> \</span></span><br><span class="line"><span class="meta">		(BITS(i,30,21)) &lt;&lt; 1, <span class="comment">/* imm[10:1] */</span> \</span></span><br><span class="line"><span class="meta">		21 \</span></span><br><span class="line"><span class="meta">	);&#125; while(0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> immB() do &#123; \</span></span><br><span class="line"><span class="meta">	*imm = SEXT( \</span></span><br><span class="line"><span class="meta">		(BITS(i, 31, 31) &lt;&lt; 12) | \</span></span><br><span class="line"><span class="meta">		(BITS(i, 30, 25) &lt;&lt; 5 ) | \</span></span><br><span class="line"><span class="meta">		(BITS(i, 11, 8 ) &lt;&lt; 1 ) | \</span></span><br><span class="line"><span class="meta">		(BITS(i, 7 , 7 )) &lt;&lt; 11, \</span></span><br><span class="line"><span class="meta">		12 \</span></span><br><span class="line"><span class="meta">	); \</span></span><br><span class="line"><span class="meta">&#125; while(0) </span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">decode_operand</span><span class="params">(Decode *s, <span class="type">int</span> *rd, <span class="type">word_t</span> *src1, <span class="type">word_t</span> *src2, <span class="type">word_t</span> *imm, <span class="type">int</span> type)</span> &#123;</span><br><span class="line">  <span class="type">uint32_t</span> i = s-&gt;isa.inst;</span><br><span class="line">  <span class="type">int</span> rs1 = BITS(i, <span class="number">19</span>, <span class="number">15</span>);</span><br><span class="line">  <span class="type">int</span> rs2 = BITS(i, <span class="number">24</span>, <span class="number">20</span>);</span><br><span class="line">  *rd     = BITS(i, <span class="number">11</span>, <span class="number">7</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// some RISC-V format</span></span><br><span class="line">  <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">    <span class="keyword">case</span> TYPE_I: src1R();          immI(); <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> TYPE_U:                   immU(); <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> TYPE_S: src1R(); src2R(); immS(); <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> TYPE_J: 				   immJ(); <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> TYPE_R: src1R(); src2R(); 		   <span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> TYPE_B: src1R(); src2R(); immB(); <span class="keyword">break</span>; </span><br><span class="line">    <span class="keyword">case</span> TYPE_N: <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span>: panic(<span class="string">&quot;unsupported type = %d&quot;</span>, type);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在获取操作数之后，在 <code>decode_exec</code> 中将进行对应的寄存器和内存和 pc 操作来改变程序的状态。<strong>并进入下一条指令执行</strong>。</p>
-<div class="note note flat"><p><strong>额外的问题</strong>：程序是怎么<strong>装载</strong>到 NEMU 的？</p>
-</div>
-<blockquote>
-<p><code>nemu</code> 本身是一个 <code>monitor</code> 或者说 <code>debugger</code>，是一个运行程序的程序。程序的装载发生在 <code>init_monitor</code> 函数中。在初始化了内存和 isa 和 trace 相关之后，他会执行 <code>init_monitor</code> 函数并 <code>load_image</code> (<code>NEMU</code> 提供了默认的 <code>image</code>，如果 <code>image</code> 文件未指定会执行默认程序并在正常情况下 <code>hit good trap</code>)</p>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p><strong>额外的问题</strong>：程序是怎么<strong>装载</strong>到 NEMU 的？<br>
+<code>nemu</code> 本身是一个 <code>monitor</code> 或者说 <code>debugger</code>，是一个运行程序的程序。程序的装载发生在 <code>init_monitor</code> 函数中。在初始化了内存和 isa 和 trace 相关之后，他会执行 <code>init_monitor</code> 函数并 <code>load_image</code> (<code>NEMU</code> 提供了默认的 <code>image</code>，如果 <code>image</code> 文件未指定会执行默认程序并在正常情况下 <code>hit good trap</code>)</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">long</span> <span class="title function_">load_img</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (img_file == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    Log(<span class="string">&quot;No image is given. Use the default build-in image.&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4096</span>; <span class="comment">// built-in image size</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  FILE *fp = fopen(img_file, <span class="string">&quot;rb&quot;</span>);</span><br><span class="line">  Assert(fp, <span class="string">&quot;Can not open &#x27;%s&#x27;&quot;</span>, img_file);</span><br><span class="line"></span><br><span class="line">  fseek(fp, <span class="number">0</span>, SEEK_END);</span><br><span class="line">  <span class="type">long</span> size = ftell(fp);</span><br><span class="line"></span><br><span class="line">  Log(<span class="string">&quot;The image is %s, size = %ld&quot;</span>, img_file, size);</span><br><span class="line"></span><br><span class="line">  fseek(fp, <span class="number">0</span>, SEEK_SET);</span><br><span class="line">  <span class="type">int</span> ret = fread(guest_to_host(RESET_VECTOR), size, <span class="number">1</span>, fp);</span><br><span class="line">  assert(ret == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  fclose(fp);</span><br><span class="line">  <span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>很简单，我们读取 <code>img_file</code>，并一行一行把 <code>image</code> 里面的机器码指令读到 pc 的一行一行的位置中。<br>
 这里要理解 <strong>读到了</strong>哪里，要阅读如下的宏</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// nemu/include/memory/paddr.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PMEM_LEFT  ((paddr_t)CONFIG_MBASE)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PMEM_RIGHT ((paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RESET_VECTOR (PMEM_LEFT + CONFIG_PC_RESET_OFFSET)</span></span><br></pre></td></tr></table></figure>
 <p>可以看到其实从 <code>PC</code> 的起始位置开始读。其中 <code>CONFIG_PC_RESET_OFFSET</code> 可以在 <code>menuconfig</code> 修改，默认是 <code>0x0</code>。<strong>注意字节序的转换</strong>。</p>
-</blockquote>
-<div class="note summary flat"><p><strong><em>关于立即数位数的理解</em></strong></p>
-</div>
-<blockquote>
+</div></div>
+<div class="note summary"><span class="note-label">结</span><div class="note-body"><p><strong><em>关于立即数位数的理解</em></strong></p>
 <ul>
 <li><strong>你可能有疑问</strong>，为什么 <code>imm[11:0], imm[31:12]</code> 这样乱七八糟的？这代表什么意思？</li>
 <li><strong>首先</strong> <code>index from 0</code>. 比如 <code>B-Type</code>，其没有规定最低位是多少，我们就<strong>默认其是 <code>0</code></strong>
@@ -292,13 +181,11 @@
 <li>所以，例如 <code>J-Type</code>，<code>31bit</code> 处存储的数值应该左移 <code>20</code> 位，再和 <code>30-21</code> 存储的 bit 左移 <code>1</code> 位… 取或得到最终的结果<br>
 Similarly, the only difference between the U and J formats is that the 20-bit immediate is shifted left by 12 bits to form U immediates and by 1 bit to form J immediates.</li>
 </ul>
-</blockquote>
+</div></div>
 <hr>
 <h5 id="运行第一个-C-程序">运行第一个 C 程序</h5>
 <p>这个程序是 <code>dummy</code></p>
-<div class="note note flat"><p><strong>有趣的别名</strong></p>
-</div>
-<blockquote>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p><strong>有趣的别名</strong></p>
 <ul>
 <li>有趣的是，如果你去读 <code>nemu-log.txt</code>，你会发现和编译器给出的命令名不一样：
 <ul>
@@ -315,7 +202,7 @@ Similarly, the only difference between the U and J formats is that the 20-bit im
 </ul>
 </li>
 </ul>
-</blockquote>
+</div></div>
 <p><strong>这其实也是一道题</strong></p>
 <blockquote>
 <p>AT&amp;T 格式反汇编结果中的少量指令, 与手册中列出的指令名称不符, 如 x 86 的 <code>cltd</code>, mips 32 和 riscv 32 则有不少伪指令 (pseudo instruction). 除了 STFW 之外, 你有办法在手册中找到对应的指令吗? 如果有的话, 为什么这个办法是有效的呢?</p>
@@ -373,40 +260,33 @@ Similarly, the only difference between the U and J formats is that the 20-bit im
 <p>这里 <code>NEMUFLAGS</code> 就是我们要增加的一行语句。</p>
 <p><strong>でも、これは足りない</strong>.<br>
 这个 <code>NEMUFLAGS</code> 是如何让 <code>nemu</code> 认识到的？</p>
-<div class="note summary flat"><p>先来总结一下 Makefile 从测试到生成可执行文件的链条</p>
-</div>
-<blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">make ARCH=riscv32-nemu run</span><br><span class="line">│</span><br><span class="line">├── 顶层 tests/Makefile → 生成 Makefile.xxx 并调用</span><br><span class="line">│</span><br><span class="line">├── $(AM_HOME)/Makefile → 编译 + 链接 + include $(AM_HOME)/scripts/riscv32-nemu.mk</span><br><span class="line">│</span><br><span class="line">├── $(AM_HOME)/scripts/riscv32-nemu.mk</span><br><span class="line">│      ├── include isa/riscv.mk   （定义 ISA）</span><br><span class="line">│      └── include platform/nemu.mk（定义 run &amp; NEMU_FLAGS）</span><br><span class="line">│</span><br><span class="line">└── platform/nemu.mk 中定义 run:</span><br><span class="line">       $(NEMU) $(NEMU_FLAGS) $(IMAGE)</span><br></pre></td></tr></table></figure>
-</blockquote>
+<div class="note summary"><span class="note-label">结</span><div class="note-body"><p>先来总结一下 Makefile 从测试到生成可执行文件的链条</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">make ARCH=riscv32-nemu run</span><br><span class="line">│</span><br><span class="line">├── 顶层 tests/Makefile → 生成 Makefile.xxx 并调用</span><br><span class="line">│</span><br><span class="line">├── $(AM_HOME)/Makefile → 编译 + 链接 + include $(AM_HOME)/scripts/riscv32-nemu.mk</span><br><span class="line">│</span><br><span class="line">├── $(AM_HOME)/scripts/riscv32-nemu.mk</span><br><span class="line">│      ├── include isa/riscv.mk   （定义 ISA）</span><br><span class="line">│      └── include platform/nemu.mk（定义 run &amp; NEMU_FLAGS）</span><br><span class="line">│</span><br><span class="line">└── platform/nemu.mk 中定义 run:</span><br><span class="line">       $(NEMU) $(NEMU_FLAGS) $(IMAGE)</span><br></pre></td></tr></table></figure></div></div>
 <p>有趣的是：在这之后，<code>nemu.mk</code> 将会把&quot;<strong>控制权</strong>&quot;转交给<s>铁驭</s>nemu 处的 make</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># abstract-machine/scripts/platform/nemu.mk</span></span><br><span class="line"><span class="section">insert-arg: image</span></span><br><span class="line">	@python <span class="variable">$(AM_HOME)</span>/tools/insert-arg.py <span class="variable">$(IMAGE)</span>.bin <span class="variable">$(MAINARGS_MAX_LEN)</span> <span class="variable">$(MAINARGS_PLACEHOLDER)</span> <span class="string">&quot;<span class="variable">$(mainargs)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">image: image-dep</span></span><br><span class="line">	@<span class="variable">$(OBJDUMP)</span> -d <span class="variable">$(IMAGE)</span>.elf &gt; <span class="variable">$(IMAGE)</span>.txt</span><br><span class="line">	@echo + OBJCOPY <span class="string">&quot;-&gt;&quot;</span> <span class="variable">$(IMAGE_REL)</span>.bin</span><br><span class="line">	@<span class="variable">$(OBJCOPY)</span> -S --set-section-flags .bss=alloc,contents -O binary <span class="variable">$(IMAGE)</span>.elf <span class="variable">$(IMAGE)</span>.bin</span><br><span class="line"></span><br><span class="line"><span class="section">run: insert-arg</span></span><br><span class="line">	<span class="variable">$(MAKE)</span> -C <span class="variable">$(NEMU_HOME)</span> ISA=<span class="variable">$(ISA)</span> run ARGS=<span class="string">&quot;<span class="variable">$(NEMUFLAGS)</span>&quot;</span> IMG=<span class="variable">$(IMAGE)</span>.bin</span><br></pre></td></tr></table></figure>
 <p>其通过 <code>$NEMU_HOME</code> 处递归的进行 make，同时把 <code>NEMUFLAGS</code>（还记得吗？）<strong>作为编译参数</strong>.</p>
-<div class="note note flat"><p>$(MAKE) -C 是什么？</p>
-</div>
-<blockquote>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p>$(MAKE) -C 是什么？</p>
 <ul>
 <li><code>$(MAKE)</code> 就是当前使用的 make 程序；</li>
 <li><code>-C $(NEMU_HOME)</code> 表示切换工作目录到 <code>$(NEMU_HOME)</code> 再执行 make；</li>
 <li>所以这行命令等价于在终端手动执行：<br>
 <code>cd $(NEMU_HOME) make run ISA=$(ISA) ARGS=&quot;$(NEMUFLAGS)&quot; IMG=$(IMAGE).bin</code></li>
 </ul>
-</blockquote>
+</div></div>
 <p><strong>怎么作为的编译参数呢</strong>？</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">nemu/scripts/native.mk</span><br><span class="line"><span class="keyword">-include</span> <span class="variable">$(NEMU_HOME)</span>/../Makefile</span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(NEMU_HOME)</span>/scripts/build.mk</span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(NEMU_HOME)</span>/tools/difftest.mk</span><br><span class="line"></span><br><span class="line"><span class="section">compile_git:</span></span><br><span class="line">	<span class="variable">$(<span class="built_in">call</span> git_commit, <span class="string">&quot;compile NEMU&quot;</span>)</span></span><br><span class="line"><span class="variable">$(BINARY)</span>:: compile_git</span><br><span class="line"></span><br><span class="line"><span class="comment"># Some convenient rules</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> ARGS ?= --log=<span class="variable">$(BUILD_DIR)</span>/nemu-log.txt</span><br><span class="line"><span class="keyword">override</span> ARGS += <span class="variable">$(ARGS_DIFF)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Command to execute NEMU</span></span><br><span class="line">IMG ?=</span><br><span class="line">NEMU_EXEC := <span class="variable">$(BINARY)</span> <span class="variable">$(ARGS)</span> <span class="variable">$(IMG)</span>		<span class="comment"># THIS IS IT!</span></span><br><span class="line"></span><br><span class="line"><span class="section">run-env: <span class="variable">$(BINARY)</span> <span class="variable">$(DIFF_REF_SO)</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">run: run-env</span></span><br><span class="line">	<span class="variable">$(<span class="built_in">call</span> git_commit, <span class="string">&quot;run NEMU&quot;</span>)</span></span><br><span class="line">	<span class="variable">$(NEMU_EXEC)</span></span><br><span class="line"></span><br><span class="line"><span class="section">gdb: run-env</span></span><br><span class="line">	<span class="variable">$(<span class="built_in">call</span> git_commit, <span class="string">&quot;gdb NEMU&quot;</span>)</span></span><br><span class="line">	gdb -s <span class="variable">$(BINARY)</span> --args <span class="variable">$(NEMU_EXEC)</span></span><br><span class="line"></span><br><span class="line">clean-tools = <span class="variable">$(<span class="built_in">dir</span> $(<span class="built_in">shell</span> find ./tools -maxdepth 2 -mindepth 2 -name <span class="string">&quot;Makefile&quot;</span>)</span>)</span><br><span class="line"><span class="section">$(clean-tools):</span></span><br><span class="line">	-@<span class="variable">$(MAKE)</span> -s -C <span class="variable">$@</span> clean</span><br><span class="line"><span class="section">clean-tools: $(clean-tools)</span></span><br><span class="line"><span class="section">clean-all: clean distclean clean-tools</span></span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>: run gdb run-env clean-tools clean-all $(clean-tools)</span></span><br></pre></td></tr></table></figure>
 <p>这里的 <code>NEMU_EXEC</code> 是一个简记法，这里就可以看出其用了 <code>ARGS</code>，而 <code>Makefile</code> 语言会把命令行参数当全局变量（也就是前面我们在 AM 层写入了 <code>ARGS += NEMUFLAGS</code>），所以你的 <code>nemu</code> 知道了这个编译参数！其运行<strong>可执行二进制文件</strong>的时候，就会加上这个参数，还有 <code>IMG</code> 的文件路径。</p>
-<div class="note question flat"><p>你说得对，<strong>但我 <code>gcc</code> 命令去哪了？</strong></p>
-</div>
-<blockquote>
-<p>你总得用编译器对吧？</p>
-</blockquote>
+<div class="note question"><span class="note-label">问</span><div class="note-body"><p>你说得对，<strong>但我 <code>gcc</code> 命令去哪了？</strong><br>
+你总得用编译器对吧？</p>
+</div></div>
 <p><code>nemu</code> 对编译器的设定也要提供多 <code>ISA</code> 的支持，所以使用何种编译器和编译选项也是写在不同脚本里的。</p>
 <hr>
 <p><strong>从 <code>.c</code> 到 <code>.o</code> 的规则</strong><br>
 这里可以阅读 <code>nemu/scripts</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"># nemu/scripts/build.mk</span><br><span class="line">.DEFAULT_GOAL = app</span><br><span class="line"></span><br><span class="line"># Add necessary options if the target is a shared library</span><br><span class="line">ifeq ($(SHARE),1)</span><br><span class="line">SO = -so</span><br><span class="line">CFLAGS  += -fPIC -fvisibility=hidden</span><br><span class="line">LDFLAGS += -shared -fPIC</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">WORK_DIR  = $(shell pwd)</span><br><span class="line">BUILD_DIR = $(WORK_DIR)/build</span><br><span class="line"></span><br><span class="line">INC_PATH := $(WORK_DIR)/include $(INC_PATH)</span><br><span class="line">OBJ_DIR  = $(BUILD_DIR)/obj-$(NAME)$(SO)</span><br><span class="line">BINARY   = $(BUILD_DIR)/$(NAME)$(SO)</span><br><span class="line"></span><br><span class="line"># Compilation flags</span><br><span class="line">ifeq ($(CC),clang)</span><br><span class="line">CXX := clang++</span><br><span class="line">else</span><br><span class="line">CXX := g++</span><br><span class="line">endif</span><br><span class="line">LD := $(CXX)</span><br><span class="line">INCLUDES = $(addprefix -I, $(INC_PATH))</span><br><span class="line">CFLAGS  := -O2 -MMD -Wall -Werror $(INCLUDES) $(CFLAGS)</span><br><span class="line">LDFLAGS := -O2 $(LDFLAGS)</span><br><span class="line"></span><br><span class="line">OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o) $(CXXSRC:%.cc=$(OBJ_DIR)/%.o)</span><br><span class="line"></span><br><span class="line"># Compilation patterns</span><br><span class="line">$(OBJ_DIR)/%.o: %.c</span><br><span class="line">	@echo + CC $&lt;</span><br><span class="line">	@mkdir -p $(dir $@)</span><br><span class="line">	@$(CC) $(CFLAGS) -c -o $@ $&lt;</span><br><span class="line">	$(call call_fixdep, $(@:.o=.d), $@)</span><br><span class="line"></span><br><span class="line">$(OBJ_DIR)/%.o: %.cc</span><br><span class="line">	@echo + CXX $&lt;</span><br><span class="line">	@mkdir -p $(dir $@)</span><br><span class="line">	@$(CXX) $(CFLAGS) $(CXXFLAGS) -c -o $@ $&lt;</span><br><span class="line">	$(call call_fixdep, $(@:.o=.d), $@)</span><br><span class="line"></span><br><span class="line"># Depencies</span><br><span class="line">-include $(OBJS:.o=.d)</span><br><span class="line"></span><br><span class="line"># Some convenient rules</span><br><span class="line"></span><br><span class="line">.PHONY: app clean</span><br><span class="line"></span><br><span class="line">app: $(BINARY)</span><br><span class="line"></span><br><span class="line">$(BINARY):: $(OBJS) $(ARCHIVES)</span><br><span class="line">	@echo + LD $@</span><br><span class="line">	@$(LD) -o $@ $(OBJS) $(LDFLAGS) $(ARCHIVES) $(LIBS)</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">	-rm -rf $(BUILD_DIR)</span><br></pre></td></tr></table></figure>
 <p>这就是编译阶段执行 <code>gcc</code> 的地方, 其中你还可以看到一些编译选项 <code>Werror</code> 等。</p>
-<div class="note summary flat"><p>总结 <code>NEMU</code> 的编译链</p>
-</div>
+<div class="note summary"><span class="note-label">结</span><div class="note-body"><p>总结 <code>NEMU</code> 的编译链</p>
+</div></div>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make run</span><br><span class="line"> └── calls nemu/Makefile (with ARGS, IMG, ISA)</span><br><span class="line">      └── include scripts/native.mk</span><br><span class="line">           └── target: app (default goal)</span><br><span class="line">                ├── compile: $(CC) $(CFLAGS) -c ...</span><br><span class="line">                └── link:   $(LD) -o $(BINARY) $(OBJS) $(LDFLAGS)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>接下来我们再回到一个 <code>make</code> 指令干了什么，by input <code>make run -n</code> at <code>$NEMU_HOME</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**make run -n**</span><br><span class="line">&lt;some git operation for checking points&gt;</span><br><span class="line">$NEMU_HOME/build/riscv32-nemu-interpreter --log=$NEMU_HOME/nemu/build/nemu-log.txt  </span><br></pre></td></tr></table></figure>
@@ -420,12 +300,10 @@ Similarly, the only difference between the U and J formats is that the 20-bit im
 <ul>
 <li>之后的 <code>elf</code> 也在这里哦</li>
 </ul>
-<div class="note success flat"><p>你大致理解了 Makefile 的组织, 起码从如何加入批处理上</p>
-</div>
-<blockquote>
-<p><strong>恭喜你</strong>！<br>
+<div class="note success"><span class="note-label">成</span><div class="note-body"><p>你大致理解了 Makefile 的组织, 起码从如何加入批处理上<br>
+<strong>恭喜你</strong>！<br>
 きぼうのみちを、じぐざぐすすもう！ – Toyama kasumi</p>
-</blockquote>
+</div></div>
 <h5 id="实现字符串相关处理函数">实现字符串相关处理函数</h5>
 <p>参考库函数行为即可。</p>
 <h5 id="实现-sprintf">实现 <code>sprintf</code></h5>
@@ -595,18 +473,16 @@ From the view of <strong>code</strong>:</li>
 <h3 id="Difftest">Difftest</h3>
 <p>这部分的实现：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">isa_difftest_checkregs</span><span class="params">(CPU_state *ref_r, <span class="type">vaddr_t</span> pc)</span></span><br><span class="line">&#123; </span><br><span class="line"> 	<span class="type">int</span> reg_num = ARRLEN(cpu.gpr); </span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; reg_num; i++) </span><br><span class="line"> 	&#123; </span><br><span class="line"> 		<span class="keyword">if</span> (ref_r-&gt;gpr[i] != cpu.gpr[i]) &#123;</span><br><span class="line"> 			<span class="keyword">return</span> <span class="literal">false</span>; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line"> 	<span class="keyword">if</span> (ref_r-&gt;pc != cpu.pc) &#123;</span><br><span class="line">  		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  	&#125; </span><br><span class="line">  	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<div class="note note flat"><p><strong>感激 Difftest 的理由</strong></p>
-</div>
-<blockquote>
-<p>在跑 <code>benchmark</code> 测试的时候，新实现了 <code>ori</code> 指令，这是一个 <code>I-type</code> 的但我手滑输入成了 <code>R</code> 导致 <code>imm</code> 解析不正确，<code>coremark</code> 测试集 <code>hit bad trap</code> 而难以追踪。最后，使用 <code>Difftest</code>，我迅速定位到了导致程序这个状态机（主要是寄存器存储值）不一样的指令 <code>ori</code>，从而迅速解决了问题。（困扰了两个小时，再想到 <code>Difftest</code> 之后迎刃而解）</p>
-</blockquote>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p><strong>感激 Difftest 的理由</strong><br>
+在跑 <code>benchmark</code> 测试的时候，新实现了 <code>ori</code> 指令，这是一个 <code>I-type</code> 的但我手滑输入成了 <code>R</code> 导致 <code>imm</code> 解析不正确，<code>coremark</code> 测试集 <code>hit bad trap</code> 而难以追踪。最后，使用 <code>Difftest</code>，我迅速定位到了导致程序这个状态机（主要是寄存器存储值）不一样的指令 <code>ori</code>，从而迅速解决了问题。（困扰了两个小时，再想到 <code>Difftest</code> 之后迎刃而解）</p>
+</div></div>
 <h3 id="一键回归测试">一键回归测试</h3>
 <p>记得经常回归测试！具体方案已经在预处理部分讲过了。</p>
 <h5 id="奇怪的错误码">奇怪的错误码</h5>
 <p>为什么错误码是 <code>1</code> 呢? 你知道 <code>make</code> 程序是如何得到这个错误码的吗?<br>
 #TODO</p>
 <h2 id="IO">IO</h2>
-<div class="note tip flat"></div>
+<div class="note tip"><span class="note-label">示</span><div class="note-body"></div></div>
 <p>进行 <code>hello</code> 测试前，不要忘记在 <code>menuconfig</code> 中勾选 <code>Device</code>，否则 <code>paddr.c</code> 模块的 <code>paddr_read()</code> 和 <code>paddr_write()</code> 不能正确处理 <code>addr</code> 是物理内存还是设备空间。<strong>从而报错。</strong></p>
 <h3 id="时钟">时钟</h3>
 <p>8253 计时器初始化时会分别注册 <code>0x48</code> 处长度为 8 个字节的端口, 以及 <code>0xa0000048</code> 处长度为 8 字节的 MMIO 空间, 它们都会映射到两个 32 位的 RTC 寄存器. CPU 可以访问这两个寄存器来获得用 64 位表示的当前时间.</p>
@@ -622,10 +498,8 @@ From the view of <strong>code</strong>:</li>
 <p><code> am/src/platform/nemu/include/nemu.h</code> 中有一些相关的输入输出函数可以使用</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// abstract-machine/am/src/$ISA/$ISA.h</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint8_t</span>  <span class="title function_">inb</span><span class="params">(<span class="type">uintptr_t</span> addr)</span> &#123; <span class="keyword">return</span> *(<span class="keyword">volatile</span> <span class="type">uint8_t</span>  *)addr; &#125; </span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint16_t</span> <span class="title function_">inw</span><span class="params">(<span class="type">uintptr_t</span> addr)</span> &#123; <span class="keyword">return</span> *(<span class="keyword">volatile</span> <span class="type">uint16_t</span> *)addr; &#125; </span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint32_t</span> <span class="title function_">inl</span><span class="params">(<span class="type">uintptr_t</span> addr)</span> &#123; <span class="keyword">return</span> *(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)addr; &#125;</span><br></pre></td></tr></table></figure>
 <p>我们是 <code>32</code> 机，想获得 <code>32</code> 的地址，可以用 <code>inl</code> 这个函数。</p>
-<div class="note note flat"><p>如何进行 <code>real-time clock test</code> 测试？</p>
-</div>
-<blockquote>
-<p>这需要我们阅读源代码。<br>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p>如何进行 <code>real-time clock test</code> 测试？<br>
+这需要我们阅读源代码。<br>
 在 <code>/am-kernel/tests/am-tests/src/main.c</code> 中定义了测试的入口。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;amtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> (*entry)() = <span class="literal">NULL</span>; <span class="comment">// mp entry</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">char</span> *tests[<span class="number">256</span>] = &#123;</span><br><span class="line">  [<span class="string">&#x27;h&#x27;</span>] = <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;H&#x27;</span>] = <span class="string">&quot;display this help message&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;i&#x27;</span>] = <span class="string">&quot;interrupt/yield test&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;d&#x27;</span>] = <span class="string">&quot;scan devices&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;m&#x27;</span>] = <span class="string">&quot;multiprocessor test&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;t&#x27;</span>] = <span class="string">&quot;real-time clock test&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;k&#x27;</span>] = <span class="string">&quot;readkey test&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;v&#x27;</span>] = <span class="string">&quot;display test&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;a&#x27;</span>] = <span class="string">&quot;audio test&quot;</span>,</span><br><span class="line">  [<span class="string">&#x27;p&#x27;</span>] = <span class="string">&quot;x86 virtual memory test&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *args)</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (args[<span class="number">0</span>]) &#123;</span><br><span class="line">    CASE(<span class="string">&#x27;h&#x27;</span>, hello);</span><br><span class="line">    CASE(<span class="string">&#x27;i&#x27;</span>, hello_intr, IOE, CTE(simple_trap));</span><br><span class="line">    CASE(<span class="string">&#x27;d&#x27;</span>, devscan, IOE);</span><br><span class="line">    CASE(<span class="string">&#x27;m&#x27;</span>, mp_print, MPE);</span><br><span class="line">    CASE(<span class="string">&#x27;t&#x27;</span>, rtc_test, IOE);</span><br><span class="line">    CASE(<span class="string">&#x27;k&#x27;</span>, keyboard_test, IOE);</span><br><span class="line">    CASE(<span class="string">&#x27;v&#x27;</span>, video_test, IOE);</span><br><span class="line">    CASE(<span class="string">&#x27;a&#x27;</span>, audio_test, IOE);</span><br><span class="line">    CASE(<span class="string">&#x27;p&#x27;</span>, vm_test, CTE(vm_handler), VME(simple_pgalloc, simple_pgfree));</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;H&#x27;</span>:</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Usage: make run mainargs=*\n&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> ch = <span class="number">0</span>; ch &lt; <span class="number">256</span>; ch++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tests[ch]) &#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;  %c: %s\n&quot;</span>, ch, tests[ch]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可见我们需要这样一个参数输入给 main 函数, 如果要执行 <code>real-time clock test</code>。<br>
@@ -635,19 +509,15 @@ From the view of <strong>code</strong>:</li>
 <ul>
 <li>该命令会运行 <code>hello</code> test</li>
 </ul>
-</blockquote>
+</div></div>
 <p>运行 <code>rtc_test</code> 之后，我们来用 <code>ftrace</code> 看看调用栈。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">0x80001044  call [_trm_init]@0x80000e4c </span><br><span class="line">0x80000ff4   call [main]@0x800010e8 </span><br><span class="line">0x80001128     call [ioe_init]@0x800011c4   </span><br><span class="line">0x800011c4     ret [$x]@0x8000112c  </span><br><span class="line">0x8000112c     call [ioe_init]@0x8000117c   </span><br><span class="line">0x8000117c     ret [$x]@0x80001130  </span><br><span class="line">0x80001130     call [ioe_init]@0x80001204   </span><br><span class="line">0x80001204     ret [$x]@0x80001134  </span><br><span class="line">0x80001140   ret [ioe_init]@0x80000ff8  </span><br><span class="line">0x80000ff8   call [main]@0x80000aec </span><br><span class="line">0x80000b4c     call [rtc_test]@0x80001144   </span><br><span class="line">0x80001194     ret [__am_timer_uptime]@0x80000b50   </span><br><span class="line">0x80000b60     call [rtc_test]@0x80001858   </span><br><span class="line">0x800015ac     ret [__udivmoddi4]@0x80000b64    </span><br><span class="line">0x80000b4c     call [rtc_test]@0x80001144   </span><br><span class="line">/.../</span><br></pre></td></tr></table></figure>
 <p>该程序就是不断的调用 <code>rtc_test</code>，最终调用到 <code>__am_timer_uptime</code> 来更新信息的。</p>
-<div class="note tip flat"><p><strong>yzh 先生埋得雷</strong></p>
-</div>
-<blockquote>
-<p>根据 pa manuel 和群友讨论，先更新低位或者高位似乎会影响跑分结果，这是 yzh 老师对大家的考验。</p>
-</blockquote>
-<div class="note note flat"><p><code>__am_timer_uptime</code> 是怎么调用 <code>nemu</code> 这个系统来获得时间的？</p>
-</div>
-<blockquote>
-<p>我们在 <code>am</code> 层的访存最后也会翻译成机器指令交给 <code>nemu</code> 执行，<br>
+<div class="note tip"><span class="note-label">示</span><div class="note-body"><p><strong>yzh 先生埋得雷</strong><br>
+根据 pa manuel 和群友讨论，先更新低位或者高位似乎会影响跑分结果，这是 yzh 老师对大家的考验。</p>
+</div></div>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p><code>__am_timer_uptime</code> 是怎么调用 <code>nemu</code> 这个系统来获得时间的？<br>
+我们在 <code>am</code> 层的访存最后也会翻译成机器指令交给 <code>nemu</code> 执行，<br>
 可以看一下 <code>__am_timer_uptime</code> ，其访问时钟本质也是访存，用的是 <code>inl</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /abstract-machine/am/src/riscv/riscv.h</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint32_t</span> <span class="title function_">inl</span><span class="params">(<span class="type">uintptr_t</span> addr)</span> </span><br><span class="line">&#123; <span class="keyword">return</span> *(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)addr; &#125;</span><br></pre></td></tr></table></figure>
 <p>这里我们使用 <code>volatile</code> 关键字避免 <strong>编辑器优化</strong>，其实也是保证 <code>nemu</code> 能够执行我们想要的访存命令。</p>
@@ -657,12 +527,10 @@ From the view of <strong>code</strong>:</li>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在nemu中，主函数会执行`init_device`初始化所有设备，会分配空间映射，绑定回调函数</span></span><br><span class="line"><span class="comment">// nemu/src/device/timer.c </span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">rtc_io_handler</span><span class="params">(<span class="type">uint32_t</span> offset, <span class="type">int</span> len, <span class="type">bool</span> is_write)</span> &#123;</span><br><span class="line">   assert(offset == <span class="number">0</span> || offset == <span class="number">4</span>);</span><br><span class="line">   <span class="keyword">if</span> (!is_write &amp;&amp; offset == <span class="number">4</span>) &#123;</span><br><span class="line">     <span class="type">uint64_t</span> us = get_time();</span><br><span class="line">     rtc_port_base[<span class="number">0</span>] = (<span class="type">uint32_t</span>)us;</span><br><span class="line">     rtc_port_base[<span class="number">1</span>] = us &gt;&gt; <span class="number">32</span>;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>所以，如果先<strong>更新低位</strong>，则 <code>offset==0</code>，则 <code>get_time</code> 不会被执行，从而导致跑分异常（你的低位时间获取的是上一次的低位，<strong>而不是系统时间</strong>）。<br>
 解决方案可以是先更新高位，或者把 <code>offset == 4 </code> 改为 <code>offset == 0</code> 并保留原来的先更新低位。</p>
-</blockquote>
-<div class="note summary flat"><p><strong>总结一下</strong></p>
-</div>
-<blockquote>
-<p>现在 <code>nemu</code> 作为我们的系统，其会运行我们写的 <code>am</code> 层中的程序，阅读代码理解两方面的行为，合理使用 <code>ftrace</code> <strong>和汇编代码等工具是很有必要的</strong>。</p>
-</blockquote>
+</div></div>
+<div class="note summary"><span class="note-label">结</span><div class="note-body"><p><strong>总结一下</strong><br>
+现在 <code>nemu</code> 作为我们的系统，其会运行我们写的 <code>am</code> 层中的程序，阅读代码理解两方面的行为，合理使用 <code>ftrace</code> <strong>和汇编代码等工具是很有必要的</strong>。</p>
+</div></div>
 <p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251101140512.png" alt="image.png|400"></p>
 <ul>
 <li>正常运行了。</li>
@@ -688,13 +556,11 @@ From the view of <strong>code</strong>:</li>
 </li>
 </ul>
 <p>**现在我们把 <code>am-kernels/kernels/demo/include/io.h</code>**中的 <code>HAS_GUI</code> 注释掉了，来看字符版本的 <code>Bad Apple</code> 吧！</p>
-<div class="note note flat"><p><strong>am</strong> <strong>层的 malloc</strong> 函数</p>
-</div>
-<blockquote>
-<p>阅读 elf 表可以发现 mario 频繁地调用了 <code>malloc</code> 函数。而我发生了访存错误，并且访存错误恰好是 <code>init_mem</code> 分配的 <code>0 x 80000000 - 0 x 8 fffffff</code> 的后一个字节。思考可能是我的 <code>malloc</code> 动了不该动的 <code>heap. end</code> 导致内存异常。<br>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p><strong>am</strong> <strong>层的 malloc</strong> 函数<br>
+阅读 elf 表可以发现 mario 频繁地调用了 <code>malloc</code> 函数。而我发生了访存错误，并且访存错误恰好是 <code>init_mem</code> 分配的 <code>0 x 80000000 - 0 x 8 fffffff</code> 的后一个字节。思考可能是我的 <code>malloc</code> 动了不该动的 <code>heap. end</code> 导致内存异常。<br>
 修改后，果然正常运行了 <code>mario</code>。<br>
 <code>malloc</code> 在 am 层的本质是让 nemu 划分一部分内存给 <code>am</code> 使用。这里我们只是声明了一段地址归这个 <code>malloc</code> 所有，并将 <code>malloc</code> 使用过的地址位置维护一下。</p>
-</blockquote>
+</div></div>
 <h3 id="键盘">键盘</h3>
 <p><code>nemu</code> 中提供了对键盘的解读，这需要我们在 <code>am</code> 层维护队 <code>keyboard</code> 信息的维护，我们通过 <code>inl</code> 函数去调用 <code>nemu</code> 上的访问设备的函数，从而得到系统上 <code>keyboard</code> 的信息。<br>
 理解这一点，可能还要阅读一点 <code>sdl</code> 和 keyboard 相关的东西</p>
@@ -771,15 +637,13 @@ From the view of <strong>code</strong>:</li>
 <p><strong>至于</strong>编译过程和最终执行到 <code>nemu</code>，可以参考[[#通过批处理模式运行 NEMU (理解 Makefile)|从批处理看Makefile组织]]</p>
 <h2 id="其他必答题">其他必答题</h2>
 <h5 id="编译与链接-2">编译与链接 2</h5>
-<div class="note question flat"><p>编译和链接</p>
-</div>
-<blockquote>
+<div class="note question"><span class="note-label">问</span><div class="note-body"><p>编译和链接</p>
 <ol>
 <li>在<code>nemu/include/common. h</code>中添加一行<code>volatile static int dummy;</code> 然后重新编译 NEMU. 请问重新编译后的 NEMU 含有多少个<code>dummy</code>变量的实体? 你是如何得到这个结果的?</li>
 <li>添加上题中的代码后, 再在<code>nemu/include/debug. h</code>中添加一行<code>volatile static int dummy;</code> 然后重新编译 NEMU. 请问此时的 NEMU 含有多少个<code>dummy</code>变量的实体? 与上题中<code>dummy</code>变量实体数目进行比较, 并解释本题的结果.</li>
 <li>修改添加的代码, 为两处 <code>dummy</code> 变量进行初始化: <code>volatile static int dummy = 0;</code> 然后重新编译 NEMU. 你发现了什么问题? 为什么之前没有出现这样的问题? (回答完本题后可以删除添加的代码.)</li>
 </ol>
-</blockquote>
+</div></div>
 <ol>
 <li>
 <ul>
@@ -812,96 +676,58 @@ output <code>35</code></li>
 </ol>
 <p>在同时包含了 <code>common. h</code> 和 <code>debug. h</code> 的 <code>dummy</code> 的编译单元发生了 <code>redefinition error</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">error: redefinition of ‘dummy’</span><br><span class="line">   52 | volatile static int dummy=0;</span><br><span class="line">      |                     ^~~~~</span><br><span class="line">In file included from /home/kasumi/PAs/ics 2024/nemu/include/debug. h: 19,</span><br><span class="line">                 from /home/kasumi/PAs/ics 2024/nemu/include/common. h: 47,</span><br><span class="line">                 from src/device/device. c:16:</span><br></pre></td></tr></table></figure>
-<div class="note note flat"><p><strong>Declaration and Definition</strong> (<s>真是一对苦命鸳鸯</s>)</p>
-</div>
-<blockquote>
-<p>This error is actually because the <strong>difference</strong> between <strong>Declaration</strong> and <strong>Definition</strong><br>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p><strong>Declaration and Definition</strong> (<s>真是一对苦命鸳鸯</s>)<br>
+This error is actually because the <strong>difference</strong> between <strong>Declaration</strong> and <strong>Definition</strong><br>
 When you write down <code>volatile static int dummy;</code>, it’s a <strong>declaration</strong>, to tell the interpreter there is a static variable <code>dummy</code>, but no alloc store space, no initialize.<br>
 While, for <code>valatile static int dummy =0</code>, it’s a <code>definition</code>. When an <strong>interpret unit</strong> appear 2 definition for same-named static variable, a error caused.</p>
-</blockquote>
+</div></div>
 <p>声明 <code>Declaration</code> 是可重复的，定义则不可以。</p>
 <hr>
 <h5 id="了解-Makefile">了解 Makefile</h5>
-<div class="note question flat"><p>了解 Makefile</p>
-</div>
-<blockquote>
-<p>请描述你在 <code>am-kernels/kernels/hello/</code> 目录下敲入 <code>make ARCH=$ISA-nemu</code> 后, <code>make</code> 程序如何组织. c 和. h 文件, 最终生成可执行文件 <code>am-kernels/kernels/hello/build/hello-$ISA-nemu. elf</code>. (这个问题包括两个方面: <code>Makefile</code> 的工作方式和编译链接的过程.)</p>
-</blockquote>
+<div class="note question"><span class="note-label">问</span><div class="note-body"><p>了解 Makefile<br>
+请描述你在 <code>am-kernels/kernels/hello/</code> 目录下敲入 <code>make ARCH=$ISA-nemu</code> 后, <code>make</code> 程序如何组织. c 和. h 文件, 最终生成可执行文件 <code>am-kernels/kernels/hello/build/hello-$ISA-nemu. elf</code>. (这个问题包括两个方面: <code>Makefile</code> 的工作方式和编译链接的过程.)</p>
+</div></div>
 <p>我在[[#通过批处理模式运行 NEMU (理解 Makefile)|批处理部分]] <strong>做的分析就可以回答这个问题</strong>, 其虽然在 <code>cpu-tests</code> 目录做的分析，但和 <code>hello</code> 只有多了一个 <code>ioe</code> 层的 <code>. h, .c </code> 组织的问题，并没有本质区别，这里不再赘述。<br>
 <a href="#%E7%90%86%E8%A7%A3%60Makefile%60">批处理部分</a></p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://redkold.github.io/">RedKold</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://redkold.github.io/2025/11/06/ics-pa2/">https://redkold.github.io/2025/11/06/ics-pa2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://redkold.github.io" target="_blank">RedKold的小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/">止于至善</a></div><div class="post-share"><div class="social-share" data-image="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2025/12/12/some-thoughts/" title="some-thoughts"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">some-thoughts</div></div></div></a><a class="pagination-related" href="/2025/10/10/FBDP-lab1/" title="金融大数据处理技术(FBDP) lab1 日志"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">金融大数据处理技术(FBDP) lab1 日志</div></div><div class="info-2"><div class="info-item-1">实验概况 本实验是南京大学计算机金融实验班 2023 级，金融大数据处理技术 (FBDP) 的 Hadoop 实验 1，主要是熟悉环境配置。  设备：Macbook Pro M4, ram: 24g docker + ubuntu 22.04 hadoop-3.4.2-aarch64  任务 1 环境准备 我们先用 docker 部署一个单机伪分布模式。  在终端 (我使用 iTerm2 -zsh) 输入 docker exec -it &lt;container_id&gt; /bin/bash 进入容器 sudo apt install 安装 vim 以修改设置 docker cp 命令将宿主机 Mac 下载好的 Hadoop 文件传输，解压，配置环境变量。  vi ~/.bashrc    123456789export HADOOP_HOME=/usr/local/hadoopexport HADOOP_INSTALL=$HADOOP_HOMEexport HADOOP_MAPRED_HOME=$HADOOP_HOMEexport HADOOP_COMMON_HOME=$...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/10/FBDP-lab1/" title="金融大数据处理技术(FBDP) lab1 日志"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-10</div><div class="info-item-2">金融大数据处理技术(FBDP) lab1 日志</div></div><div class="info-2"><div class="info-item-1">实验概况 本实验是南京大学计算机金融实验班 2023 级，金融大数据处理技术 (FBDP) 的 Hadoop 实验 1，主要是熟悉环境配置。  设备：Macbook Pro M4, ram: 24g docker + ubuntu 22.04 hadoop-3.4.2-aarch64  任务 1 环境准备 我们先用 docker 部署一个单机伪分布模式。  在终端 (我使用 iTerm2 -zsh) 输入 docker exec -it &lt;container_id&gt; /bin/bash 进入容器 sudo apt install 安装 vim 以修改设置 docker cp 命令将宿主机 Mac 下载好的 Hadoop 文件传输，解压，配置环境变量。  vi ~/.bashrc    123456789export HADOOP_HOME=/usr/local/hadoopexport HADOOP_INSTALL=$HADOOP_HOMEexport HADOOP_MAPRED_HOME=$HADOOP_HOMEexport HADOOP_COMMON_HOME=$...</div></div></div></a><a class="pagination-related" href="/2025/08/29/ICS-dairy/" title="ICS-PA日记-PA0"><img class="cover" src="https://www.manongbook.com/d/file/other/4d618006a4f9bf0b13c8a84c0de380f40.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-29</div><div class="info-item-2">ICS-PA日记-PA0</div></div><div class="info-2"><div class="info-item-1">这学期选了大名鼎鼎的 ICS，在刘杰老师班做 RISC-V 的 PA 实验。写一篇博客，来记录踩过的坑和心路历程。 PA 实验手册可参考：PA 实验手册 PA 0 主要是环境的安装和配置，我采取的方案是 MacOS 用 Windows App 连接阿里云服务器 (Ub untu 22.04) 做实验。本来以为在计算机网络课上完之后，对配置远程连接已经不在话下。但是还是遇到了一些问题。  在希望的道路上，曲曲折折的前进  运行环境搭建 1. 环境准备   云服务器：阿里云 Ubuntu 20.04   用户：kasumi（非 root，避免直接用 root 破坏环境）  之前的计网实验我都是用 root 账户做的，还沾沾自喜不用 sudo 真方便，现在看来是隐患极大的…    桌面环境：xfce 4 + xrdp  配置远程桌面 GUI，是为后面的 PA 需要一些图形化内容做准备。这个方案我的 Windows 和 Mac 都可以很方便访问阿里云的 Ubuntu，很方便我做实验和玩耍    目标：能跑 make menuconfig，配置并启动 PA 框架。    2. 安装和基本配...</div></div></div></a><a class="pagination-related" href="/2025/12/22/ics-2/" title="NJU ICS Section2 数据的机器级表示与处理 Note"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-22</div><div class="info-item-2">NJU ICS Section2 数据的机器级表示与处理 Note</div></div><div class="info-2"><div class="info-item-1"> Section 2 ：数据的机器级表示与处理 ——数值数据的表示 关于高级语言-&gt;机器语言  表示 链接 执行  本章主要学习数据的机器级表示 Intro. Kahan 累加算法  浮点数存在误差  4000000 个 0.1(float) 相加（C 语言）结果可能不是 400,000 为了解决累加误差，有经典的 Kahan 累加算法    1234567891011function KahanSum(input)    var sum = 0.0    var c = 0.0          //A running compensation for lost low-order bits.    for i = 1 to input.length do        y = input[i] - c    //So far, so good: c is zero.        t = sum + y         //Alas, sum is big, y small, so low-order digits of y are lost.        c = (...</div></div></div></a><a class="pagination-related" href="/2025/12/29/ics-5-link-load/" title="NJU ICS 程序的链接和加载 Note"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-29</div><div class="info-item-2">NJU ICS 程序的链接和加载 Note</div></div><div class="info-2"><div class="info-item-1">Section 5 程序的链接和加载执行 本文结合了 CMU CSAPP 课程和 NJU ICS 的内容 由于 CSAPP 英文讲授且英文打起来更方便, 多数用英文书写。 ELF Executable and Linkable Format 关于 ELF 表可以阅读 PA 2 的部分。 链接的本质  合并不同的 Section，形成一个大的表。 可执行文件的内存映像   符号和符号解析 每一个 可重定位目标模块m 都有一个符号表，定义了在 m 中定义的符号。有三种链接器符号。  Global symbols（全局符号）  由模块 m 定义并能被其他模块引用的模块。 非 Static 的函数名和非 static 的全局变量名。   External symbols(外部符号)  由其他模块定义并被模块 m 引用的全局符号  如 main.c，函数名 swap     Local symbols(本地符号)  由模块 m 定义和引用的带 static 的函数名和变量名。因其生存期为整个程序运行过程，故并不分配在栈中，而是分配在 static data 区（静态数据区），即在 .dat...</div></div></div></a><a class="pagination-related" href="/2025/07/29/algorithm-blog/" title="算法成长日记"><img class="cover" src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_6759.jpeg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-29</div><div class="info-item-2">算法成长日记</div></div><div class="info-2"><div class="info-item-1">前面的话 到大三了才深刻意识到自己算法基础的薄弱，趁暑期有时间应该多做一些算法题。 写一个 c++小算法还不如大一的自己了。所以在这里分享一些。   更新了分类栏目。 争取每工作日做一道题。 POPIAPA，PIPOPA,  POPIPAPAPIPOPA!  其他小知识 树状数组 树状数组-利用 lowbit 的特殊数组数据结构，有奇效   前置知识 lowbit  lowbit 即一个 $n$ 的数用二进制表示，其最低位的为 1 以及其后的 0 组成的数。 $44=(101100){(2)}$，$lowbit((101100{(2)}))=(100)_{(2)}=4$ 怎么得到呢？  将这个数取反，然后+1（这其实等价于取负），再和原来的数 与 就好了。 可以论证，$lowbit(x)=x&amp;(-x)$      通过树状数组结构可以快速得到一个数组某个位置前面的数 （作为一个数，它前面的数是它的子节点）  注意：$t[x]$ 保存以 $x$ 为根的子树中叶节点的值的和。$t[4]=t[2]+t[3]+a[4]=a[1]+a[2]+a[3]+a[4]$    观察进一步发...</div></div></div></a><a class="pagination-related" href="/2025/09/14/pa1/" title="ICS PA1 report"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">ICS PA1 report</div></div><div class="info-2"><div class="info-item-1">前言 这是 ICS PA 要求提交的实验报告。一份更具有生活化气息的通关日记待我总结一下通关全流程，修一点 bug 再来更新～ 实验进度 我完成了 PA 1 的所有内容，通过了所有测试样例，并为了调试方便，加入了逻辑与或非等运算符。 一些问题和思考 为什么 printf() 的输出要换行  事实上我经常忘记加换行，但我发现这样就会出现 &lt;some word you print balabala&gt; (nemu) ，这会使得终端页面异常丑陋，同时输出可能堆叠在一堆里，不好看。 同时，printf() 写到标准输出 stdout 并不是立刻刷新，而 \n 起到一个刷新的作用，使用换行符能及时显示，避免程序异常退出导致缓存区 log 信息没有输出。  再探表达式解析 - 分治法和栈 我在大一的 程序设计基础实验 曾经完成过一个基于 Qt 的图形化计算器，可以计算包含括号的、有小数和负数的四则运算计算器。 事实上，当时我对于 - 的多义性（二目运算符 SUB? 单目运算符 NEG ?）的处理是采用了复杂的分类讨论。由于我用栈+后缀表达式实现算术式解析 (我曾经参考的文章) ，我...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">RedKold</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/redkold"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/redkold" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:redkold233@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/23341766" target="_blank" title="Bilibili"><i class="fa-brands fa-bilibili" style="color: ##23ade5;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">为博客加入了giscus评论区系统~~来水群~~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%86%B5"><span class="toc-number">1.</span> <span class="toc-text">概况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%81%9C%E8%AE%A1%E7%AE%97%E7%9A%84%E6%9C%BA%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">不停计算的机器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-YEMU-%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">理解 YEMU 如何执行程序</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RTFSC-2"><span class="toc-number">3.</span> <span class="toc-text">RTFSC (2)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#RTFSC-%E7%90%86%E8%A7%A3-NEMU-%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">RTFSC 理解 NEMU 指令执行的过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E9%93%BE%E6%8E%A5-1"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">编译与链接 1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA-C-%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">运行第一个 C 程序</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83%E4%B8%8E-AM"><span class="toc-number">4.</span> <span class="toc-text">程序，运行时环境与 AM</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%89%B9%E5%A4%84%E7%90%86%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C-NEMU-%E7%90%86%E8%A7%A3-Makefile"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">通过批处理模式运行 NEMU (理解 Makefile)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-Makefile"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">理解 Makefile</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">实现字符串相关处理函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-sprintf"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">实现 sprintf</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="toc-number">5.</span> <span class="toc-text">基础设施</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#itrace"><span class="toc-number">5.1.</span> <span class="toc-text">itrace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mtrace"><span class="toc-number">5.2.</span> <span class="toc-text">mtrace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ftrace"><span class="toc-number">5.3.</span> <span class="toc-text">ftrace</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E5%88%AB-elf"><span class="toc-number">5.3.1.</span> <span class="toc-text">如何判别 elf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E7%AC%A6%E5%8F%B7%E8%A1%A8%EF%BC%9F"><span class="toc-number">5.3.2.</span> <span class="toc-text">如何找到符号表？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#find-the-section-header-table"><span class="toc-number">5.3.2.1.</span> <span class="toc-text">find the section header table</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find-the-%E5%AD%97%E7%AC%A6%E8%8A%82"><span class="toc-number">5.3.2.2.</span> <span class="toc-text">find the 字符节</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E7%AC%A6%E5%8F%B7%E8%A1%A8%EF%BC%8C%E5%AF%B9%E7%85%A7%E5%AD%97%E7%AC%A6%E8%A1%A8"><span class="toc-number">5.3.3.</span> <span class="toc-text">阅读符号表，对照字符表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E5%AF%B9-elf%E6%96%87%E4%BB%B6%E7%9A%84%E6%94%AF%E6%8C%81"><span class="toc-number">5.3.4.</span> <span class="toc-text">增加对 elf文件的支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#riscv-%E5%A6%82%E4%BD%95%E5%88%A4%E5%88%AB-call-%E5%92%8C-ret%EF%BC%9F"><span class="toc-number">5.3.5.</span> <span class="toc-text">riscv 如何判别 call 和 ret？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%B4%E6%8A%A4%E8%B0%83%E7%94%A8%E6%A0%88%EF%BC%9Acall-%E8%BF%9B-ret-%E5%87%BA%E3%80%82"><span class="toc-number">5.3.6.</span> <span class="toc-text">维护调用栈：call 进 ret 出。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difftest"><span class="toc-number">5.4.</span> <span class="toc-text">Difftest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%94%AE%E5%9B%9E%E5%BD%92%E6%B5%8B%E8%AF%95"><span class="toc-number">5.5.</span> <span class="toc-text">一键回归测试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A5%87%E6%80%AA%E7%9A%84%E9%94%99%E8%AF%AF%E7%A0%81"><span class="toc-number">5.5.0.1.</span> <span class="toc-text">奇怪的错误码</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO"><span class="toc-number">6.</span> <span class="toc-text">IO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F"><span class="toc-number">6.1.</span> <span class="toc-text">时钟</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%91%E5%88%86%E6%B5%8B%E8%AF%95"><span class="toc-number">6.1.1.</span> <span class="toc-text">跑分测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%AE%E7%9B%98"><span class="toc-number">6.2.</span> <span class="toc-text">键盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VGA"><span class="toc-number">6.3.</span> <span class="toc-text">VGA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%95%E7%A4%BA%E4%BD%A0%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F"><span class="toc-number">6.4.</span> <span class="toc-text">展示你的计算机系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E6%89%93%E5%AD%97%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C"><span class="toc-number">6.4.0.1.</span> <span class="toc-text">理解打字小游戏如何运行</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%BF%85%E7%AD%94%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">其他必答题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E9%93%BE%E6%8E%A5-2"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">编译与链接 2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3-Makefile"><span class="toc-number">7.0.0.2.</span> <span class="toc-text">了解 Makefile</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/own-the-moment/" title="Own the moment - To kids in 阳光学校">Own the moment - To kids in 阳光学校</a><time datetime="2026-04-30T08:47:03.000Z" title="发表于 2026-04-30 16:47:03">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/24/pa4-note/" title="ICS-PA日记-PA4">ICS-PA日记-PA4</a><time datetime="2026-03-24T02:00:45.000Z" title="发表于 2026-03-24 10:00:45">2026-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/29/ics-5-link-load/" title="NJU ICS 程序的链接和加载 Note"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NJU ICS 程序的链接和加载 Note"/></a><div class="content"><a class="title" href="/2025/12/29/ics-5-link-load/" title="NJU ICS 程序的链接和加载 Note">NJU ICS 程序的链接和加载 Note</a><time datetime="2025-12-29T05:18:27.000Z" title="发表于 2025-12-29 13:18:27">2025-12-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/22/ics-2/" title="NJU ICS Section2 数据的机器级表示与处理 Note"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NJU ICS Section2 数据的机器级表示与处理 Note"/></a><div class="content"><a class="title" href="/2025/12/22/ics-2/" title="NJU ICS Section2 数据的机器级表示与处理 Note">NJU ICS Section2 数据的机器级表示与处理 Note</a><time datetime="2025-12-22T03:05:17.000Z" title="发表于 2025-12-22 11:05:17">2025-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/12/some-thoughts/" title="some-thoughts">some-thoughts</a><time datetime="2025-12-12T13:40:51.000Z" title="发表于 2025-12-12 21:40:51">2025-12-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By RedKold</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
-  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
-  const option = null
 
-  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+    </div>
 
-  const createScriptElement = config => {
-    const ele = document.createElement('script')
-    Object.entries(config).forEach(([key, value]) => {
-      ele.setAttribute(key, value)
-    })
-    return ele
-  }
+    
+    <div class="post-tags">
+      <a class="tag" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/"># 止于至善</a>
+    </div>
+    
 
-  const loadGiscus = (el = document, key) => {
-    const mappingConfig = isShuoshuo
-      ? { 'data-mapping': 'specific', 'data-term': key }
-      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+    <nav class="post-nav">
+      
+        <a class="post-nav-item prev" href="/2025/12/12/some-thoughts/"><span>← 上一篇</span><b>some-thoughts</b></a>
+      
+      
+        <a class="post-nav-item next" href="/2025/10/10/FBDP-lab1/"><span>下一篇 →</span><b>金融大数据处理技术(FBDP) lab1 日志</b></a>
+      
+    </nav>
+  </article>
 
-    const giscusConfig = {
-      src: 'https://giscus.app/client.js',
-      'data-repo': 'RedKold/redkold.github.io',
-      'data-repo-id': 'R_kgDOPFXMMA',
-      'data-category-id': 'DIC_kwDOPFXMMM4Cvdm_',
-      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
-      'data-reactions-enabled': '1',
-      crossorigin: 'anonymous',
-      async: true,
-      ...option,
-      ...mappingConfig
-    }
+  <aside class="toc" id="toc" aria-label="目录">
+    <h3 class="toc-title">目 录</h3>
+    <ol class="toc-list" id="toc-list"></ol>
+  </aside>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-line">
+      <span class="seal-mark small" aria-hidden="true">K</span>
+      <span>© 2025–2026 RedKold</span>
+      
+        <span class="footer-dot">·</span>
+        <span>勇敢、智慧、真诚</span>
+      
+    </p>
+    <p class="footer-extra">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> · Theme Ink</p>
+  </div>
+</footer>
+<button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
 
-    const scriptElement = createScriptElement(giscusConfig)
-
-    el.querySelector('#giscus-wrap').appendChild(scriptElement)
-
-    if (isShuoshuo) {
-      window.shuoshuoComment.destroyGiscus = () => {
-        if (el.children.length) {
-          el.innerHTML = ''
-          el.classList.add('no-comment')
-        }
-      }
-    }
-  }
-
-  const changeGiscusTheme = theme => {
-    const iframe = document.querySelector('#giscus-wrap iframe')
-    if (iframe) {
-      const message = {
-        giscus: {
-          setConfig: {
-            theme: getGiscusTheme(theme)
-          }
-        }
-      }
-      iframe.contentWindow.postMessage(message, 'https://giscus.app')
-    }
-  }
-
-  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
-
-  if (isShuoshuo) {
-    'Giscus' === 'Giscus'
-      ? window.shuoshuoComment = { loadComment: loadGiscus }
-      : window.loadOtherComment = loadGiscus
-    return
-  }
-
-  if ('Giscus' === 'Giscus' || !false) {
-    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
-    else loadGiscus()
-  } else {
-    window.loadOtherComment = loadGiscus
-  }
-})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+<script src="/js/main.js"></script>
+</body>
+</html>

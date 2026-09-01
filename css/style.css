@@ -30,21 +30,21 @@
 [data-theme="dark"] {
   color-scheme: dark;
   --paper: #141311;
-  --card: #1c1a17;
-  --ink: #dddacf;
-  --ink-soft: #b7b3a7;
-  --ink-muted: #817d70;
-  --line: #38352d;
-  --line-strong: #524d40;
+  --card: #231d15;
+  --ink: #ebe3d3;
+  --ink-soft: #c9c0ad;
+  --ink-muted: #938972;
+  --line: #3c3527;
+  --line-strong: #564b36;
   --seal: #c8503a;
   --seal-deep: #b0402e;
   --code-bg: #100f0d;
   --code-text: #d8d4c7;
   --code-gutter: #6e6a5d;
-  --highlight: #282520;
+  --highlight: #2d2619;
   --source-bg: #141311;
-  --header-bg: rgba(28, 26, 23, 0.94);
-  --watermark: rgba(221, 218, 207, 0.045);
+  --header-bg: rgba(20, 19, 17, 0.9);
+  --watermark: rgba(235, 227, 211, 0.05);
 }
 
 * { box-sizing: border-box; }
@@ -92,14 +92,118 @@ body {
   );
 }
 
-[data-theme="dark"] .site-bg { --bg-opacity: 0.28; }
+[data-theme="dark"] .site-bg {
+  --bg-opacity: var(--bg-dark-opacity, 0.55);
+  animation: starShimmer 9s ease-in-out infinite;
+}
+
+@keyframes starShimmer {
+  0%, 100% { filter: blur(var(--bg-blur)) saturate(var(--bg-saturate)) brightness(1); }
+  50% { filter: blur(var(--bg-blur)) saturate(var(--bg-saturate)) brightness(1.16); }
+}
+
 [data-theme="dark"] .site-bg::after {
   background: linear-gradient(
     180deg,
-    rgba(20, 19, 17, 0.25),
-    rgba(20, 19, 17, 0.55) 45%,
-    rgba(20, 19, 17, 0.86)
+    rgba(20, 19, 17, 0.12),
+    rgba(20, 19, 17, 0.38) 45%,
+    rgba(20, 19, 17, 0.62)
   );
+}
+
+/* ---------- 夜空星光轻闪（仅夜间） ---------- */
+.site-stars {
+  position: fixed;
+  inset: -60px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+[data-theme="dark"] .site-stars { opacity: 0.9; }
+
+.site-stars,
+.site-stars::before,
+.site-stars::after {
+  background-repeat: repeat;
+}
+
+.site-stars {
+  animation: twinkle 7s ease-in-out infinite;
+}
+
+.site-stars::before,
+.site-stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.site-stars::before {
+  animation: twinkle 11s ease-in-out 1.4s infinite;
+}
+
+.site-stars::after {
+  animation: twinkle 9s ease-in-out 3s infinite;
+}
+
+/* 三组不同位置的星点，错开闪烁 */
+.site-stars {
+  background-image:
+    radial-gradient(circle at 30px 40px, rgba(255,255,255,0.9) 0 1.1px, transparent 1.8px),
+    radial-gradient(circle at 120px 180px, rgba(255,255,255,0.7) 0 1.4px, transparent 2.2px),
+    radial-gradient(circle at 200px 90px, rgba(255,255,255,0.6) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 250px 250px, rgba(255,255,255,0.8) 0 1.2px, transparent 2px);
+  background-size: 300px 300px;
+}
+
+.site-stars::before {
+  background-image:
+    radial-gradient(circle at 60px 160px, rgba(255,255,255,0.8) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 170px 50px, rgba(255,255,255,0.65) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle at 90px 260px, rgba(255,255,255,0.55) 0 1px, transparent 1.6px);
+  background-size: 440px 440px;
+}
+
+.site-stars::after {
+  background-image:
+    radial-gradient(circle at 140px 220px, rgba(255,255,255,0.75) 0 1.3px, transparent 2px),
+    radial-gradient(circle at 320px 120px, rgba(255,255,255,0.6) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 260px 300px, rgba(255,255,255,0.85) 0 1.2px, transparent 1.9px);
+  background-size: 520px 520px;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 1; }
+}
+
+/* ---------- 暖色阅读光晕（仅夜间） ---------- */
+.site-glow {
+  position: fixed;
+  top: 26%;
+  left: 50%;
+  width: 76vw;
+  height: 62vh;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 189, 118, 0.12), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+[data-theme="dark"] .site-glow { opacity: 1; }
+
+/* 夜间卡片呈现被灯光照亮的温润纸面 + 细纸纹 */
+[data-theme="dark"] .card,
+[data-theme="dark"] .post,
+[data-theme="dark"] .shuoshuo-item,
+[data-theme="dark"] .taxonomy-item {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  box-shadow: 0 0 40px rgba(255, 189, 118, 0.05);
 }
 
 a { color: inherit; text-decoration: none; }

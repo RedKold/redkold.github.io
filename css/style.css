@@ -390,6 +390,31 @@ img { max-width: 100%; height: auto; }
 .post-nav-item:hover b { color: var(--seal); }
 .post-nav-item.next { text-align: right; }
 
+/* ---------- 评论 ---------- */
+.post-comments {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.post-comments-title {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 4px 16px;
+  font-size: 15px;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 3px;
+}
+
+.post-comments .giscus,
+.post-comments iframe {
+  width: 100%;
+  border: none;
+}
+
 /* ---------- 目录 ---------- */
 .toc {
   flex: 0 0 200px;

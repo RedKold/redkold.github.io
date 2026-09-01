@@ -789,6 +789,71 @@ img { max-width: 100%; height: auto; }
 .typography .highlight pre { margin: 0; padding: 0; border: none; background: transparent; }
 .typography .highlight .line { line-height: 1.75; }
 
+/* ---------- 代码高亮配色（兼容裸类名与 hljs- 前缀，适配主流语言） ---------- */
+.typography .highlight .comment,
+.typography .highlight .hljs-comment { color: #6e6a5c; }
+
+.typography .highlight .keyword,
+.typography .highlight .hljs-keyword,
+.typography .highlight .doctag,
+.typography .highlight .hljs-doctag,
+.typography .highlight .meta .keyword { color: #d1654a; }
+
+.typography .highlight .string,
+.typography .highlight .hljs-string,
+.typography .highlight .addition,
+.typography .highlight .hljs-addition { color: #9db56e; }
+
+.typography .highlight .number,
+.typography .highlight .hljs-number,
+.typography .highlight .literal,
+.typography .highlight .hljs-literal,
+.typography .highlight .regexp,
+.typography .highlight .hljs-regexp { color: #d9a26b; }
+
+.typography .highlight .title,
+.typography .highlight .hljs-title,
+.typography .highlight .function,
+.typography .highlight .function_,
+.typography .highlight .hljs-function,
+.typography .highlight .built_in,
+.typography .highlight .hljs-built_in,
+.typography .highlight .class,
+.typography .highlight .class_,
+.typography .highlight .hljs-class,
+.typography .highlight .hljs-class_,
+.typography .highlight .type,
+.typography .highlight .hljs-type,
+.typography .highlight .attribute,
+.typography .highlight .hljs-attribute { color: #85b3cc; }
+
+.typography .highlight .params,
+.typography .highlight .hljs-params,
+.typography .highlight .variable,
+.typography .highlight .hljs-variable,
+.typography .highlight .name,
+.typography .highlight .hljs-name,
+.typography .highlight .tag .name { color: #cabfa4; }
+
+.typography .highlight .meta,
+.typography .highlight .hljs-meta,
+.typography .highlight .section,
+.typography .highlight .hljs-section,
+.typography .highlight .subst,
+.typography .highlight .hljs-subst,
+.typography .highlight .symbol,
+.typography .highlight .hljs-symbol { color: #93a0b4; }
+
+.typography .highlight .operator,
+.typography .highlight .hljs-operator,
+.typography .highlight .punctuation,
+.typography .highlight .hljs-punctuation { color: #a99f8a; }
+
+.typography .highlight .emphasis,
+.typography .highlight .hljs-emphasis { font-style: italic; }
+.typography .highlight .strong,
+.typography .highlight .hljs-strong { font-weight: 700; }
+
 /* markdown-it-admon 提示块 */
 .typography .admonition {
   margin: 1.6em 0;

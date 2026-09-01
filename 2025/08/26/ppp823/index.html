@@ -3,6 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var d = 'light';
+      try {
+        var t = localStorage.getItem('ink-theme');
+        var q = new URLSearchParams(location.search).get('theme');
+        if (q === 'dark' || q === 'light') d = q;
+        else if (t === 'dark' || t === 'light') d = t;
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) d = 'dark';
+      } catch (e) { d = 'light'; }
+      document.documentElement.setAttribute('data-theme', d);
+    })();
+  </script>
   <title>现地记录: 8.23 Poppin&#39; Party · RedKold的小站</title>
   <meta name="description" content="勇敢、智慧、真诚">
   
@@ -11,6 +25,13 @@
   <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
+
+<div class="site-bg" aria-hidden="true"
+  style="background-image:url(/img/ppp-bg.jpg);
+    --bg-blur:12px;
+    --bg-opacity:0.16;
+    --bg-saturate:0.55;"></div>
+
 
 <header class="site-header">
   <div class="container header-inner">
@@ -23,13 +44,18 @@
         </span>
       </a>
     </div>
-    <nav class="site-nav">
-      <a href="/">首页</a>
-      <a href="/archives">归档</a>
-      <a href="/tags">标签</a>
-      <a href="/categories">分类</a>
-      <a href="/shuoshuo">说说</a>
-    </nav>
+    <div class="header-right">
+      <nav class="site-nav">
+        <a href="/">首页</a>
+        <a href="/archives">归档</a>
+        <a href="/tags">标签</a>
+        <a href="/categories">分类</a>
+        <a href="/shuoshuo">说说</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式" title="切换夜间模式">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -103,20 +129,23 @@
     
     <section class="post-comments" id="comments">
       <h2 class="post-comments-title">评 论</h2>
-      <div class="giscus" id="giscus-wrap"></div>
-      <script src="https://giscus.app/client.js"
-        data-repo="RedKold/redkold.github.io"
-        data-repo-id="R_kgDOPFXMMA"
-        data-category-id="DIC_kwDOPFXMMM4Cvdm_"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="light"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async></script>
+      <div class="giscus" id="giscus-wrap"
+        data-light="light"
+        data-dark="dark">
+        <script src="https://giscus.app/client.js"
+          data-repo="RedKold/redkold.github.io"
+          data-repo-id="R_kgDOPFXMMA"
+          data-category-id="DIC_kwDOPFXMMM4Cvdm_"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="light"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async></script>
+      </div>
     </section>
     
   </article>

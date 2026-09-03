@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var d = 'light';
+      try {
+        var t = localStorage.getItem('ink-theme');
+        var q = new URLSearchParams(location.search).get('theme');
+        if (q === 'dark' || q === 'light') d = q;
+        else if (t === 'dark' || t === 'light') d = t;
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) d = 'dark';
+      } catch (e) { d = 'light'; }
+      document.documentElement.setAttribute('data-theme', d);
+    })();
+  </script>
+  <title>算法 | 最小椭圆覆盖 · RedKold的小站</title>
+  <meta name="description" content="勇敢、智慧、真诚">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+
+<div class="site-bg" aria-hidden="true"
+  style="background-image:url(/img/ppp-bg.jpg);
+    --bg-blur:9px;
+    --bg-opacity:0.4;
+    --bg-saturate:0.85;
+    --bg-dark-opacity:0.55;"></div>
+<div class="site-stars" aria-hidden="true"></div>
+<div class="site-glow" aria-hidden="true"></div>
+
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <a class="brand-link" href="/">
+        <span class="seal-mark" aria-hidden="true">墨</span>
+        <span class="brand-text">
+          <span class="brand-title">RedKold的小站</span>
+          <span class="brand-subtitle">勇敢、智慧、真诚</span>
+        </span>
+      </a>
+    </div>
+    <div class="header-right">
+      <nav class="site-nav">
+        <a href="/">首页</a>
+        <a href="/archives">归档</a>
+        <a href="/tags">标签</a>
+        <a href="/categories">分类</a>
+        <a href="/shuoshuo">说说</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式" title="切换夜间模式">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container post-wrap">
+  <article class="post">
+    <header class="post-header">
+      <p class="post-date">2026年09月03日</p>
+      <h1 class="post-title">算法 | 最小椭圆覆盖</h1>
+      <div class="post-meta">
+        <span>作者：RedKold</span>
+        
+          <span class="meta-sep">·</span>
+          <span class="card-tags">
+            <a class="tag" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/">止于至善</a>
+          </span>
+        
+        
+          <span class="meta-sep">·</span>
+          <span>更新于 2026年09月03日</span>
+        
+      </div>
+    </header>
+
+    
+      <figure class="post-cover"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_2748.jpeg" alt="算法 | 最小椭圆覆盖 封面"></figure>
+    
+
+    <div class="post-content typography" id="post-content">
+      <p>众所周知，<strong>南京大学</strong> 计算机学院非常喜欢考察计算几何（<em><s>和一些奇怪东西</s></em>），2025 年开放日 jyy 出了一道最小椭圆覆盖，哀鸿遍野。在 2024 年，则考了一道图形识别题（判断三角形/椭圆/矩形）。</p>
+<p>这类题往往八仙过海，突破了传统算法八股，对码力的要求仍然很高，必须做好准备。</p>
+<p><s>这里祝福笔者在后天(9.5)上午的机考中获得成功</s></p>
+<hr>
+<h2 id="最小圆覆盖">最小圆覆盖</h2>
+<div class="note question"><span class="note-label">问</span><div class="note-body"><p>问题阐述<br>
+输入 $N$ 个点的坐标 $(x,y)$，你需要输出一个最小的覆盖这些点的圆（输出圆心坐标和半径大小即可）。</p>
+</div></div>
+<p>解决这道题我们使用<em>随机增量法</em>。</p>
+<div class="note note"><span class="note-label">注</span><div class="note-body"><p>随机增量法 (<a target="_blank" rel="noopener" href="https://oi-wiki.org/geometry/random-incremental/">OI Wiki</a>)<br>
+随机增量算法是计算几何的一个重要算法，它对理论知识要求不高，算法时间复杂度低，应用范围广大．</p>
+<p>增量法 (Incremental Algorithm) 的思想与第一数学归纳法类似，它的本质是将一个问题化为规模刚好小一层的子问题．解决子问题后加入当前的对象．写成递归式是：</p>
+<ul>
+<li>$T(n)=T(n-1)+g(n)$<br>
+增量法形式简洁，可以应用于许多的几何题目中．</li>
+</ul>
+<p>增量法往往结合随机化，可以避免最坏情况的出现．</p>
+</div></div>
+<p>对于此题的做法：</p>
+<p>假设 $C_{i-1}$ 是前 $i-1$ 个点所确定下来的最小圆（覆盖），则考虑新加入的点 $P_{i}$</p>
+<ul>
+<li>若 $P_{i}$ 在 $C_{i-1}$ 中，则什么都不做</li>
+<li>否则，加入这个点，具体来说是以 $P_{i}$ 为基础，重复以上流程加入第 $j$ 个点 $(j&lt;i)$。（这里使用两个点 $p[i]$ 和 $p[j]$ 构造圆）
+<ul>
+<li>构造完毕后，由于 $p[i]$ 永远是直径的一个端点，所以 $p[i]$ 一定在圆上。</li>
+<li>但是可能会有 $p[j]$ 在这个过程偏移开来。所以需要再做一次。</li>
+<li>对所有的 $p[i],p[j]$，我们遍历第 $k$ 个点 $p[k]$ 满足（$k&lt;j$）。由于三个点能唯一确定一个圆，所以三层遍历实际遍历了所有的<em>三点组合</em>找到了 <strong>所有最小圆覆盖</strong> 中最大的一个（或者说最小上界？），可以覆盖所有点。（又是一个 $\max\min$ 类型问题）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"># 万能头不是好习惯，但是先这样吧..</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> eps 1e-9</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">double</span> x;</span><br><span class="line">    <span class="type">double</span> y;</span><br><span class="line">    <span class="built_in">Point</span>(<span class="type">double</span> x, <span class="type">double</span> y) : <span class="built_in">x</span>(x), <span class="built_in">y</span>(y) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">distance</span><span class="params">(Point u, Point v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> dx = <span class="built_in">abs</span>(u.x - v.x);</span><br><span class="line">    <span class="keyword">auto</span> dy = <span class="built_in">abs</span>(u.y - v.y);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sqrt</span>(dx * dx + dy * dy);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Circle</span> &#123;</span><br><span class="line">    Point o = <span class="built_in">Point</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Circle</span>()&#123;</span><br><span class="line">        r = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Circle</span>(Point o, <span class="type">double</span> r) : <span class="built_in">o</span>(o), <span class="built_in">r</span>(r) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Circle <span class="title">circle_from</span><span class="params">(Point p1, Point p2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// two get one;</span></span><br><span class="line">        <span class="keyword">auto</span> _o = <span class="built_in">Point</span>((p<span class="number">1.</span>x + p<span class="number">2.</span>x) / <span class="number">2</span>, (p<span class="number">1.</span>y + p<span class="number">2.</span>y) / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">auto</span> _r = <span class="built_in">distance</span>(p1, p2) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Circle</span>(_o, _r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">static</span> Circle <span class="title">circle_from</span><span class="params">(Point u, Point v, Point w)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> a1 = <span class="number">2</span> * (v.x - u.x);</span><br><span class="line">        <span class="keyword">auto</span> b1 = <span class="number">2</span> * (v.y - u.y);</span><br><span class="line">        <span class="keyword">auto</span> c1 = v.x * v.x + v.y * v.y - u.x * u.x - u.y * u.y;</span><br><span class="line">        <span class="keyword">auto</span> a2 = <span class="number">2</span> * (w.x - v.x);</span><br><span class="line">        <span class="keyword">auto</span> b2 = <span class="number">2</span> * (w.y - v.y);</span><br><span class="line">        <span class="keyword">auto</span> c2 = w.x * w.x + w.y * w.y - v.x * v.x - v.y * v.y;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 克拉默法则推导出来</span></span><br><span class="line">        <span class="keyword">auto</span> x = ((c1 * b2) - c2 * b1) / ((a1 * b2) - (a2 * b1));</span><br><span class="line">        <span class="keyword">auto</span> y = ((a1 * c2) - (a2 * c1)) / ((a1 * b2) - (a2 * b1));</span><br><span class="line">        <span class="keyword">auto</span> o = <span class="built_in">Point</span>(x, y);</span><br><span class="line">        <span class="comment">// 圆心到任一顶点的距离就是外接圆半径，不需要再除以 2</span></span><br><span class="line">        <span class="keyword">auto</span> r = <span class="built_in">distance</span>(o, u);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Circle</span>(o, r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">inside</span><span class="params">(Point p, Point o, <span class="type">double</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">distance</span>(p, o) &lt;= r + eps;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Circle <span class="title">smallest_circle_cover</span><span class="params">(vector&lt;Point&gt;&amp; p)</span> </span>&#123;</span><br><span class="line">    Point o = p[<span class="number">0</span>];</span><br><span class="line">    <span class="type">double</span> r = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">inside</span>(p[i], o, r)) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// p[i] 在圆外，新圆必经过 p[i]；</span></span><br><span class="line">        <span class="comment">// 先取过 p[i]、p[0] 的两点圆作为候选</span></span><br><span class="line">        o.x = (p[i].x + p[<span class="number">0</span>].x) / <span class="number">2</span>;</span><br><span class="line">        o.y = (p[i].y + p[<span class="number">0</span>].y) / <span class="number">2</span>;</span><br><span class="line">        r = <span class="built_in">distance</span>(p[i], p[<span class="number">0</span>]) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">inside</span>(p[j], o, r)) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// p[j] 也在圆外，改取过 p[i]、p[j] 的两点圆</span></span><br><span class="line">            o.x = (p[i].x + p[j].x) / <span class="number">2</span>;</span><br><span class="line">            o.y = (p[i].y + p[j].y) / <span class="number">2</span>;</span><br><span class="line">            r = <span class="built_in">distance</span>(p[i], p[j]) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; j; k++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">inside</span>(p[k], o, r)) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// p[k] 也在圆外，取 p[i]、p[j]、p[k] 的外接圆，</span></span><br><span class="line">                <span class="comment">// 并把它同步为当前圆</span></span><br><span class="line">                Circle c = Circle::<span class="built_in">circle_from</span>(p[i], p[j], p[k]);</span><br><span class="line">                o = c.o;</span><br><span class="line">                r = c.r;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Circle</span>(o, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    vector&lt;Point&gt; ps;</span><br><span class="line">    ps.<span class="built_in">reserve</span>(N);</span><br><span class="line">    <span class="type">double</span> x, y;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        ps.<span class="built_in">emplace_back</span>(x, y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打乱（Fisher-Yates），下标必须落在 [0, N)</span></span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">static_cast</span>&lt;<span class="type">unsigned</span>&gt;(<span class="built_in">time</span>(<span class="literal">nullptr</span>)));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = N - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="built_in">swap</span>(ps[i], ps[<span class="built_in">rand</span>() % (i + <span class="number">1</span>)]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">smallest_circle_cover</span>(ps);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%.9f\n%.9f %.9f\n&quot;</span>, c.r, c.o.x, c.o.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="后记">后记</h2>
+<p>结构体是一个伟大的发明，多用结构体和函数来写更好读的代码。</p>
+<p><em>你又不是 OIer 那样的高手</em>，写稳点呗</p>
+
+    </div>
+
+    
+    <div class="post-tags">
+      <a class="tag" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/"># 止于至善</a>
+    </div>
+    
+
+    <nav class="post-nav">
+      
+      
+        <a class="post-nav-item next" href="/2026/06/17/kold-is-not-coder/"><span>下一篇 →</span><b>Kold is not a Coder</b></a>
+      
+    </nav>
+
+    
+    <section class="post-comments" id="comments">
+      <h2 class="post-comments-title">评 论</h2>
+      <div class="giscus" id="giscus-wrap"
+        data-light="light"
+        data-dark="dark">
+        <script src="https://giscus.app/client.js"
+          data-repo="RedKold/redkold.github.io"
+          data-repo-id="R_kgDOPFXMMA"
+          data-category-id="DIC_kwDOPFXMMM4Cvdm_"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="light"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async></script>
+      </div>
+    </section>
+    
+  </article>
+
+  <aside class="toc" id="toc" aria-label="目录">
+    <h3 class="toc-title">目 录</h3>
+    <ol class="toc-list" id="toc-list"></ol>
+  </aside>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-line">
+      <span class="seal-mark small" aria-hidden="true">K</span>
+      <span>© 2025–2026 RedKold</span>
+      
+        <span class="footer-dot">·</span>
+        <span>勇敢、智慧、真诚</span>
+      
+    </p>
+    <p class="footer-extra">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> · Theme Ink</p>
+  </div>
+</footer>
+<button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

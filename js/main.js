@@ -120,4 +120,73 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
+
+  // ---------- 代码复制 ----------
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* 忽略 */ }
+    document.body.removeChild(ta);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(function () { legacyCopy(text); });
+    }
+    legacyCopy(text);
+    return Promise.resolve();
+  }
+
+  function initCopyButtons() {
+    var postContent = document.querySelector('.post-content');
+    if (!postContent) return;
+
+    var targets = Array.prototype.slice.call(postContent.querySelectorAll('.highlight'));
+    postContent.querySelectorAll('pre').forEach(function (p) {
+      if (!p.closest('.highlight')) targets.push(p);
+    });
+
+    targets.forEach(function (el) {
+      if (el.parentElement && el.parentElement.classList.contains('code-wrap')) return;
+
+      var wrap = document.createElement('div');
+      wrap.className = 'code-wrap';
+      el.parentNode.replaceChild(wrap, el);
+      wrap.appendChild(el);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.setAttribute('aria-label', '复制代码');
+      btn.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<rect x="9" y="9" width="13" height="13" rx="2"></rect>' +
+        '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
+        '<span class="copy-label">复制</span>';
+
+      var codeEl = el.tagName === 'PRE' ? el : (el.querySelector('td.code') || el.querySelector('pre') || el);
+      btn.addEventListener('click', function () {
+        var text = (codeEl.innerText || '').replace(/\n+$/, '');
+        if (!text) return;
+        copyText(text).then(function () {
+          btn.classList.add('copied');
+          btn.querySelector('.copy-label').textContent = '已复制';
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.querySelector('.copy-label').textContent = '复制';
+          }, 1600);
+        });
+      });
+
+      wrap.appendChild(btn);
+    });
+  }
+
+  initCopyButtons();
 })();

@@ -20,6 +20,9 @@
   <title>NJU ICS Section2 数据的机器级表示与处理 Note · RedKold的小站</title>
   <meta name="description" content="勇敢、智慧、真诚">
   
+<link rel="stylesheet" href="/css/katex.min.css">
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
   <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
@@ -212,10 +215,9 @@
 <p>IEEE 754 标准是目前最广泛使用的<strong>浮点数</strong>（Floating-Point Number）表示标准，被绝大多数现代处理器所采用。它定义了一种统一的方式来存储和处理非整数，极大地保证了不同计算机系统间浮点计算的<strong>一致性</strong>。</p>
 <p>这个标准的核心思想是将一个浮点数拆分成三个部分：<strong>符号位</strong>、<strong>指数</strong>和<strong>尾数</strong>（或称<strong>有效数字</strong>）。</p>
 <p>一个浮点数的最终值可以表示为：</p>
-<p>$$<br>
-V=(-1)^{S}\times M\times 2^{E}<br>
-$$<br>
-其中：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>=</mo><mo>(</mo><mo>−</mo><mn>1</mn><msup><mo>)</mo><mrow><mi>S</mi></mrow></msup><mo>×</mo><mi>M</mi><mo>×</mo><msup><mn>2</mn><mrow><mi>E</mi></mrow></msup></mrow><annotation encoding="application/x-tex">V=(-1)^{S}\times M\times 2^{E}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8913309999999999em;"></span><span class="strut bottom" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathrm">1</span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mbin">×</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
+<p>其中：</p>
 <ul>
 <li>
 <p><strong>S</strong> 是<strong>符号位</strong>（Sign）：占 1 个比特位，决定了数的正负。<code>0</code> 表示正数，<code>1</code> 表示负数。</p>
@@ -246,7 +248,7 @@ $$<br>
 <p><strong>尾数</strong>：23 位 (第 0-22 位)</p>
 </li>
 </ul>
-<p>指数的偏移量为 127。计算实际指数 $E_{real} = E_{stored} - 127$。</p>
+<p>指数的偏移量为 127。计算实际指数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>E</mi><mrow><mi>r</mi><mi>e</mi><mi>a</mi><mi>l</mi></mrow></msub><mo>=</mo><msub><mi>E</mi><mrow><mi>s</mi><mi>t</mi><mi>o</mi><mi>r</mi><mi>e</mi><mi>d</mi></mrow></msub><mo>−</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><annotation encoding="application/x-tex">E_{real} = E_{stored} - 127</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">d</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span><span class="mord mathrm">7</span></span></span></span>。</p>
 <p>尾数采用归一化表示，默认隐藏了小数点前的 1。所以实际尾数 M_real = 1. M_stored。</p>
 <hr>
 <h3 id="双精度（Double-Precision，64-位）">双精度（Double-Precision，64 位）</h3>
@@ -329,10 +331,11 @@ Finally, we assemble the three parts in order: <strong>Sign bit</strong> | <stro
 <li><strong>符号位</strong>：<code>0</code>（正数）</li>
 <li><strong>指数域</strong>：<code>00000000</code>（全为 0）</li>
 <li><strong>尾数域</strong>：<strong>最小非零值</strong>，即 <code>00000000000000000000001</code>（最后一位为 1，其余为 0）<br>
-根据公式<br>
-$$<br>
-V=(-1)^{S}\times M\times 2^{E}<br>
-$$</li>
+根据公式</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>=</mo><mo>(</mo><mo>−</mo><mn>1</mn><msup><mo>)</mo><mrow><mi>S</mi></mrow></msup><mo>×</mo><mi>M</mi><mo>×</mo><msup><mn>2</mn><mrow><mi>E</mi></mrow></msup></mrow><annotation encoding="application/x-tex">V=(-1)^{S}\times M\times 2^{E}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8913309999999999em;"></span><span class="strut bottom" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathrm">1</span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mbin">×</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
+<ul>
 <li><strong>S</strong> = 0</li>
 <li><strong>指数 E</strong>：在非规格化数中，实际指数值被定义为 <code>1 - 偏移量</code>，单精度的偏移量为<strong>127</strong>，所以 Ereal​=1−127=−126。</li>
 <li><strong>尾数 M</strong>：由于没有隐藏的 1，其值为 0.00… 012​ （共 23 位），即 2−23。<br>
@@ -596,7 +599,7 @@ Little Endian<br>
 <li>将阶码较小的那个数的<strong>小数部分</strong>向右移动，同时增加其阶码，直到两个数的阶码相等。</li>
 </ul>
 </li>
-<li>对 IEEE 754 SP 格式来说，$\Delta E$ 大于多少时候，结果就等于阶大的那个数？（大数被小数吃掉）
+<li>对 IEEE 754 SP 格式来说，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>E</mi></mrow><annotation encoding="application/x-tex">\Delta E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">Δ</span><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span></span> 大于多少时候，结果就等于阶大的那个数？（大数被小数吃掉）
 <ul>
 <li><code>25</code>
 <ul>

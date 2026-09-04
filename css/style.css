@@ -371,6 +371,56 @@ img { max-width: 100%; height: auto; }
   text-indent: 0.3em;
 }
 
+.hero-avatar {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.hero-avatar img {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  object-fit: cover;
+  padding: 5px;
+  background: var(--paper);
+  border: 2px solid var(--seal);
+  box-shadow: 0 0 0 5px rgba(166, 59, 42, 0.08), 0 6px 18px rgba(38, 36, 31, 0.08);
+}
+
+.hero-social {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  transition: color 0.2s, border-color 0.2s, transform 0.2s, background 0.2s;
+}
+
+.social-icon:hover {
+  color: var(--seal);
+  border-color: var(--seal);
+  background: var(--highlight);
+  transform: translateY(-2px);
+}
+
+.social-icon svg { width: 19px; height: 19px; display: block; }
+.social-dot { font-size: 12px; line-height: 1; }
+
 .hero-small {
   padding: 52px 0 28px;
 }
@@ -1170,6 +1220,10 @@ img { max-width: 100%; height: auto; }
   .hero-subtitle { font-size: 13px; letter-spacing: 0.28em; text-indent: 0.28em; }
   .hero::before { font-size: 130px; }
   .hero-small .hero-title { font-size: 26px; }
+  .hero-avatar img { width: 90px; height: 90px; }
+  .hero-social { gap: 12px; margin-top: 20px; }
+  .social-icon { width: 36px; height: 36px; }
+  .social-icon svg { width: 17px; height: 17px; }
 
   .card { padding: 22px 20px; }
   .card-cover { margin: -22px -20px 20px; }

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var d = 'light';
+      try {
+        var t = localStorage.getItem('ink-theme');
+        var q = new URLSearchParams(location.search).get('theme');
+        if (q === 'dark' || q === 'light') d = q;
+        else if (t === 'dark' || t === 'light') d = t;
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) d = 'dark';
+      } catch (e) { d = 'light'; }
+      document.documentElement.setAttribute('data-theme', d);
+    })();
+  </script>
+  <title>kold 的推免「奥德赛」｜mainly NJUCS经验贴 · RedKold的小站</title>
+  <meta name="description" content="希望能帮助到后来者。">
+  
+<link rel="stylesheet" href="/css/katex.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+
+<div class="site-bg" aria-hidden="true"
+  style="background-image:url(/img/ppp-bg.jpg);
+    --bg-blur:9px;
+    --bg-opacity:0.4;
+    --bg-saturate:0.85;
+    --bg-dark-opacity:0.55;"></div>
+<div class="site-stars" aria-hidden="true"></div>
+<div class="site-glow" aria-hidden="true"></div>
+
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <a class="brand-link" href="/">
+        <span class="seal-mark" aria-hidden="true">墨</span>
+        <span class="brand-text">
+          <span class="brand-title">RedKold的小站</span>
+          <span class="brand-subtitle">勇敢、智慧、真诚</span>
+        </span>
+      </a>
+    </div>
+    <div class="header-right">
+      <nav class="site-nav">
+        <a href="/">首页</a>
+        <a href="/archives">归档</a>
+        <a href="/tags">标签</a>
+        <a href="/categories">分类</a>
+        <a href="/shuoshuo">说说</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式" title="切换夜间模式">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container post-wrap">
+  <article class="post">
+    <header class="post-header">
+      <p class="post-date">2026年09月25日</p>
+      <h1 class="post-title">kold 的推免「奥德赛」｜mainly NJUCS经验贴</h1>
+      <div class="post-meta">
+        <span>作者：RedKold</span>
+        
+          <span class="meta-sep">·</span>
+          <span class="card-tags">
+            <a class="tag" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/">止于至善</a>
+          </span>
+        
+        
+          <span class="meta-sep">·</span>
+          <span>更新于 2026年09月25日</span>
+        
+      </div>
+    </header>
+
+    
+      <figure class="post-cover"><img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_5680.PNG" alt="kold 的推免「奥德赛」｜mainly NJUCS经验贴 封面"></figure>
+    
+
+    <div class="post-content typography" id="post-content">
+      <h2 id="个人背景">个人背景</h2>
+<p>按理说，这类经验贴这里要有一个 bg 介绍</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本科院校</td>
+<td>南京大学</td>
+</tr>
+<tr>
+<td>专业</td>
+<td>工程管理学院-计金</td>
+</tr>
+<tr>
+<td>GPA</td>
+<td>4.40/5.0</td>
+</tr>
+<tr>
+<td>rank</td>
+<td>34%</td>
+</tr>
+<tr>
+<td>CET-6</td>
+<td>583</td>
+</tr>
+<tr>
+<td>科研</td>
+<td>无（一段水大创）</td>
+</tr>
+<tr>
+<td>实习</td>
+<td>两段暑期水实习，数据库和 agent（计金安排的暑期金融科技实践）</td>
+</tr>
+<tr>
+<td><strong>最终去向</strong>：南京大学计算机学院</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>笔者的 bg 一般，可以说外保希望不大，<s>但实际入营比我想的还少则没绷住</s></p>
+<p>笔者情况略有特殊，是南京大学计算机金融实验班的学生，这个班入学年的奇偶年分归属工程管理学院和计算机学院管理，笔者 23 年入学，归<strong>工管</strong>。（或许算半个跨保）</p>
+<p>如果你是计金的学生欢迎加入计金开源资料群！</p>
+<p>南大今年预推免可以报两个志愿，笔者理所当然地填报了工管和计科，而没有填报智科和软工，后来证明是正确的——CS、AI、SE 、IS 的考核全部“撞车”，必须做出取舍。</p>
+<h2 id="线上笔试">线上笔试</h2>
+<p>南大大概放了 1000 人参加线上笔试，获得“<strong>决战仙林</strong>”的机会。这阶段看本校的基本都能通过简历的初筛，而线上测试就没那么乐观了。</p>
+<p>本校学生提供了在线下机房考试的机会，这次是在基础实验楼乙的机房。8.29 下午 3:00-4:00，一个小时的时间，65 道题，35 道单选，30 道多选。前者 2 分/题，后者 1 分/题。</p>
+<p>覆盖内容包括 408、概率论（我抽到了一个掷硬币 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span></span> 次，关于向上次数的随机变量的一些问题）、C 语言（包括 static 关键字的不同用法，可执行文件的 section，指针的使用）、<strong>编译原理</strong>、动态规划等内容。覆盖范围极广。出人意料的是前几年的热门“<strong>离散数学</strong>”这次没有考察。（至少笔者没有抽到），但这不意味后面不会有！</p>
+<p>据悉笔者所在的计金班最终三名同学参加线下营，有斩杀情况，听闻隔壁 cs 大班也有斩杀情况，<strong>不得掉以轻心</strong>。同时建议修读编译原理。</p>
+<p>当晚 21:30，我在仙林万达茂看诺兰电影《奥德赛》的时候，在奥德修斯回到伊萨卡，在海风中神色凝重思索着自己的愤怒的同时，<strong>我收到了入营线下的通知</strong>。</p>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260901150407.png" alt="image.png|600"></p>
+<h2 id="线下测试">线下测试</h2>
+<p>今年的线下活动分三天，9.4-9.6。</p>
+<ul>
+<li>9.4: 活动报道，领取营员证和餐票（很难吃）</li>
+<li>9.5: 上午硕士机考，直博面试，下午直博机考，硕士面试</li>
+<li>9.6: 硕士面试</li>
+</ul>
+<p>有趣的是 9.6 下午多数都是本校/南京本地的硕士面试。</p>
+<p>9.5 早上，笔者穿着 <em>Poppin’ Party</em> 的痛衣图个吉利，前往机房参加<strong>硕士机考</strong>，开始 doki doki 地调试环境。</p>
+<p>南大的 OJ 评测支持的特性很新，教务发的邮件说支持 C/C++/Java，但 OJ 平台说也支持 Rust。</p>
+<p>笔者使用 C++，留意了一下，OJ 最高支持 C++21 。</p>
+<p>本地的 IDE 一应俱全，VS Code, Clion, Dev C++都有，该装的插件也都有。支持低限度的代码补全（copilot 那种就别想了）。<strong>没有装 vim</strong>插件。<s>习惯 vim 操作方式的我有点不会打字了</s></p>
+<p>第一道题是一个 BFS 板子题，一个 <code>m*n</code> 的方格图，0 为可到达的格，1 为障碍物，<em>小蓝鲸</em>可以上下左右移动，问从左上角到右下角的最小步数。<strong>BFS 即可解决</strong>。但笔者因为太紧张走错了方向（真不应该，更难的多源 BFS 腐坏的橘子笔者也是写过的），dfs 也能做出来但是一直调的有错，最后慌了阵脚，又想起来 bellman-ford 算法的最短路板子（其实这题后来听大佬讨论还真可以），只需要把所有边都松弛 <code>点数 n*m</code> 次就可以了（保证对于任意点的每一条边，都已经尝试了将其他点作中转来松弛边）。一个再简单不过的遍历。</p>
+<p>笔者最后使用了更弱的条件来骗分，假设小蓝鲸只能向右和向下走，这样小蓝鲸的最少步数退化为最简单的二维 <code>dp[i][j]</code>, <code>dp[i][j]</code> 表示到达 <code>(i,j)</code> 的最短步数，只可以从左边和上边到达，则</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mtext> </mtext><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>如果 </mtext><mi>g</mi><mi>r</mi><mi>i</mi><mi>d</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo><mo>=</mo><mn>0</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi mathvariant="normal">∞</mi><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>否则</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">dp[i][j]=\begin{cases}
+\min(dp[i][j-1],\,dp[i-1][j])+1, &amp; \text{如果 } grid[i][j]=0 \\
+\infty, &amp; \text{否则}
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">p</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:3em;vertical-align:-1.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mop">min</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">p</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">p</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mclose">])</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">∞</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">如果</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">否则</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>这样只能拿到 90/100。原因是小蓝鲸还可以向上和向左走，你可以很容易构造反例。</p>
+<p>笔者在做出签到题的 90 分之后感觉世界已经毁灭了，即使还剩下一小时，我的心态和能力也难以做出后面的树和字符串+图论问题了。骑车去食堂的路上心如死灰。</p>
+<p><strong>心如死灰</strong>永远不是绝对的因为有多差，而是相对的有多不甘心。笔者深知自己的 bg 外保很困难，本校 cs 是我这个计金 er 选择在计算机方向深造的最好机会，因此我从大二升大三的暑假就开始陆陆续续的刷 leetcode，总结题型，在机考前半年不到还打过一次 CSP 练手，本来是觉得拿 150+的分数没问题的。最后的结果，实在无法接受，然而推免对我这样海投无望，又不想下保的同学，是没有“<strong>复读</strong>”一说的，试错空间很小。巨大的绝望压得我喘不过气的同时，我开始海投一些别的院校。</p>
+<p>当晚发了一条小红书，标题为“Goodbye! NJUCS！”流量很好。</p>
+<p>吃完午饭后，扇了自己一巴掌，别停下，还没结束呢。水群和小红书发现只有签到分的同学也不在少数，又有传闻机考占比会下降（此刻在疯狂找有利的信息安慰自己）。一口气喝了两罐有糖可乐，压着绝望去继续准备面试。和联系的老师报告了机考战况，他也鼓励我继续先把面试弄过去。生活并不会等待人，<strong>只能硬着头皮继续走下去了</strong>。这里也鼓励后来准备预推免的同学们，不到最后不要灰心，永远执行生活的贪心算法，搞下去的机会总比放弃的机会大！</p>
+<h2 id="面试体验">面试体验</h2>
+<p>9.6 号下午，是我面试的时间，全体同学到计算机院楼报告厅签到后，大屏上的程序会将你抽签到各个房间，排好顺序，面试就开始了。</p>
+<p>南大的同学发挥了极优秀的<strong>友谊第一</strong>的非零和博弈精神，前面出来的同学向我慷慨的分享了他被问到的问题。</p>
+<blockquote>
+<p>英文介绍某排序算法；函数传参一个数组有哪些方式，可能有什么问题；自己科研中遇到的最大困难</p>
+</blockquote>
+<p>笔者的面试情况和前面同学的情况不太一样，专业问题很少（<em>我当时以为自己凉透了</em>）。</p>
+<p>第一位老师笔者认识，其负责教学某计院数学基础课程。</p>
+<ul>
+<li>快速排序学过吧，英文介绍一下它的主要思想、过程和时间复杂度
+<ul>
+<li>答的还行。后来复盘觉得应该把 worst case average case 都答一下</li>
+</ul>
+</li>
+<li>介绍一下自己的未来规划</li>
+</ul>
+<p>第一个老师问罢，中间的年纪大一点的老师开始追问科研相关。</p>
+<ul>
+<li>科研实践做过吧？介绍一下你科研实践项目所解决的问题，遇到的困难，可量化的成果。
+<ul>
+<li>给我问慌了。因为我不是 cs 本院的，实际没有上过他们的科研实践。我选择了我的大创项目，是运筹学相关的。感觉老师不是很感兴趣。几个压力问题如（这个项目有代码吗？你有使用 agent 吗，你是如何控制它的复杂度的？）笔者答得都很一般</li>
+</ul>
+</li>
+</ul>
+<p>最后，最后一位女老师问了我一个专业问题。</p>
+<ul>
+<li>你前面说到你对底层比较感兴趣，请你说说冯诺伊曼体系架构最大的性能瓶颈是什么？
+<ul>
+<li>我模糊的答了一下冯诺伊曼体系架构是一个存储器、运算器、控制器、IO 组成的体系，其周而复始的取指令并执行运算，中间答偏了说他不方便并行（然而我立马想到多核 CPU，丑态百出了）。看到老师皱眉，又乱答了不如“非确定性图灵机”快（这都啥），看到老师迟疑的点了点头之后，我终于答出来了内存/总线相关的内容，算是糊弄了过去。</li>
+<li><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260827151444.png" alt="image.png|500"></li>
+</ul>
+</li>
+</ul>
+<p>到这里，老师本来还想再问一个问题，但是 10 min 的铃响，第一位老师告知了我按&quot;Exit&quot;按钮出门的方法，我的 NJUCS 预推免之旅到这里就结束了。</p>
+<h2 id="奥德赛的结束">奥德赛的结束</h2>
+<p>在结束了 NJU CS 预推免之后，我深觉自己可能拿不到 NJU CS 的 offer 了，做了各种找后路的努力，包括但不限于：</p>
+<ul>
+<li>联系工程管理学院方面的老师，作为计金 er 的备选，因为听闻往届工管对本院还是有所保护的</li>
+<li>投别的营，包括 USTC-aids 和浙软。最后浙软入了，aids 因为等额推荐弱 com 无陶瓷没有入。</li>
+</ul>
+<p>NJUCS 的预推免和 NJUSME（工程管理学院，School of Management and Engineering） 的预推免以一种黑色幽默的方式相互纠缠。</p>
+<ul>
+<li>NJUCS 机考万念俱灰的时候，SME 发了入营邮件</li>
+<li>到 SME 预推免报到的当天，NJUCS 发了 offer 邮件（<strong>没有我</strong>）</li>
+<li>SME 面试的前一天，收到了浙软入营消息。</li>
+<li>出发去浙软的当天，问到了 NJUCS 的候补位次（10-20，超乎笔者想象的靠前了，似乎真的有学上了）</li>
+</ul>
+<p><s>浙软的经验贴（虽然凉了）或许也会写</s></p>
+<div class="note note-figure" role="note" aria-label="图注"><div class="note-head"><span class="note-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.6" y="5.2" width="16.8" height="13.6" rx="2"/><circle cx="9" cy="10.2" r="1.5"/><path d="m4.7 17.6 4.5-4.5 3.4 3.4 2.6-2.6 4.1 4.1"/></svg></span><span class="note-title">图注</span></div><div class="note-body"><p>里美和宁波天主教堂</p>
+</div></div>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_5667.jpeg" alt="|600"></p>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260923153952.png" alt="image.png|400"></p>
+<p>在 9.6 结束考核到 9.16 收到 wl 位次邮件的十天是我整个大学中<strong>最难熬的十天</strong>。这期间十分感谢 22 级两位河北学长 czgg 和 wbgg 的鼓励和帮助。czgg 向我分享了他当初同样没有收到 NJUCS 的 offer，直到推免当天才候补到浙软、复旦 cs、南大 cs offer 的经历，同时建议我及时海投，稳定心态，相信明天，安慰我在工管读也不会很糟糕。那晚在仙 I 二楼的平台对面长谈，解构了我许多的焦虑变为继续面对生活的动力。</p>
+<p>同时也感谢所有陪伴我的朋友，他们的安慰的话语总是如此温暖和真诚。</p>
+<p>キボウの道を　ジグザグ進もう。</p>
+<div class="note note-warning" role="note" aria-label="警告"><div class="note-head"><span class="note-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4.4 3.6 19h16.8L12 4.4Z"/><path d="M12 10.2v3.6"/><path d="M12 16.8h.01"/></svg></span><span class="note-title">警告</span></div><div class="note-body"><p>抒情段…<br>
+在我的悲愤转化为食欲的时候总能陪我去探店吃饭，在我吃饭累加的脂肪渴望燃烧的时候陪我去跑步打球散步。没拿到第一批 offer 的那一天心情差到复习不进去，a tempo 小哥陪我从仙林校区徒步走到羊山公园再到学则路，玩 ps 5 FC 26 踢球，我被踢爆了。在电玩店所在的 13 层高楼向下望夜晚的仙林，感觉 life is beautiful，深呼吸后似乎还能继续努力；在羽毛球馆里和 nerd，jxy, cooperkk，懒宅猫打球，接 nerd 的冲天炮力不从心的时候，所感受到鲜活的呼吸和 come alive 的老膝盖，都让这个世界增色，鲜艳；在和阳华打舞萌的时候，压力真的都交给了音乐，自己暂时 fresh 成另一个人类。诸如此类的瞬间不胜枚举，就用此刻耳机里的歌做个注解吧：</p>
+</div></div>
+<blockquote>
+<p>星の約束巡ってる<br>
+広がり続ける世界で<br>
+胸の奥で通じあってる<br>
+繋いだ歌と歌は　わたしたちの絆</p>
+</blockquote>
+<p>在 9.23 号上午，我在打完舞萌回学校的嘈杂的公交车上，戏剧性的接到了候补专硕成功的电话和邮件，结束了这场闹剧，这场奥德赛，这场永不终结的夏日。</p>
+<p>最终的“除夕日”9.24，今年上午无法看到待录取通知，只能下午 2:00开始确认才能看见。笔者在 14:40接到了 NJUCS 教务的 qq 通知，接受了计算机技术专硕的录取通知，至此结束了漫长的“奥德赛”。</p>
+<p><img src="https://kold.oss-cn-shanghai.aliyuncs.com/20260925224054.png" alt="image.png|400"></p>
+<h2 id="后记">后记</h2>
+<p>据闻，2026 届计金班推免生中没有人升学 njucs——都候补到了 offer，但是为时已晚而选择了 fdu 和 ustc 等校。</p>
+<p>今年 njucs 研招办似乎“改过自新”，不仅及时开放了通过邮件查询 wl 位次，同时 wl 的补录工作也开始了早一些。这无疑是好事。同时，今年新搞的花活“暑期科研实践”活动，作为以往夏令营的无效力版本，据说也占了考核一定的分数。根据作者孱弱的机考成绩和很靠前的 wl 位次，我猜测我得到了线上测试、暑期实践的眷顾。或者面试发挥不像我想的那样糟糕。后来者也可以注意准备。</p>
+<p>今年 NJUCS 的招生似乎相当平稳，在 14:00接受拟录取开放后一个半小时，似乎仅鸽到 wl 30-40，最后听说有 wl 70 的补上，比起往年的情况可以说相当稳健了。这可能和今年开放较早的 wl 查询、更平凡的机考（jyy 不再出题导致的）和大家 offer 实在太少了（笑）等有关。</p>
+<div class="note note-note" role="note" aria-label="注释"><div class="note-head"><span class="note-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11.3v5"/><path d="M12 8h.01"/></svg></span><span class="note-title">注释</span></div><div class="note-body"><p>End<br>
+This ends the odyssey story of redkold.</p>
+<p>One day more,<br>
+全新的一天，<br>
+Another day, another destiny,<br>
+新的一天，新的命运。</p>
+</div></div>
+
+    </div>
+
+    
+    <div class="post-tags">
+      <a class="tag" href="/tags/%E6%AD%A2%E4%BA%8E%E8%87%B3%E5%96%84/"># 止于至善</a>
+    </div>
+    
+
+    <nav class="post-nav">
+      
+      
+        <a class="post-nav-item next" href="/2026/09/03/smallest-circle-cover/"><span>下一篇 →</span><b>算法 | 最小椭圆覆盖</b></a>
+      
+    </nav>
+
+    
+    <section class="post-comments" id="comments">
+      <h2 class="post-comments-title">评 论</h2>
+      <div class="giscus" id="giscus-wrap"
+        data-light="light"
+        data-dark="dark">
+        <script src="https://giscus.app/client.js"
+          data-repo="RedKold/redkold.github.io"
+          data-repo-id="R_kgDOPFXMMA"
+          data-category-id="DIC_kwDOPFXMMM4Cvdm_"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="light"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async></script>
+      </div>
+    </section>
+    
+  </article>
+
+  <aside class="toc" id="toc" aria-label="目录">
+    <h3 class="toc-title">目 录</h3>
+    <ol class="toc-list" id="toc-list"></ol>
+  </aside>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-line">
+      <span class="seal-mark small" aria-hidden="true">K</span>
+      <span>© 2025–2026 RedKold</span>
+      
+        <span class="footer-dot">·</span>
+        <span>勇敢、智慧、真诚</span>
+      
+    </p>
+    <p class="footer-extra">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> · Theme Ink</p>
+  </div>
+</footer>
+<button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

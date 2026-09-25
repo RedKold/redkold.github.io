@@ -997,51 +997,91 @@ img { max-width: 100%; height: auto; }
 }
 .typography .admonition-title { font-weight: 700; margin-bottom: 6px; }
 
-/* Butterfly {% note %} 提示块（水墨风格） */
+/* {% note %} 提示块（水墨扁平 · 一型一色 + 线性图标） */
 .typography .note {
-  display: flex;
-  gap: 14px;
-  margin: 1.6em 0;
-  padding: 15px 20px;
+  --note-accent: #5b6b78;
+  margin: 1.7em 0;
+  padding: 14px 20px 15px;
   background: var(--highlight);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--line-strong);
-  border-radius: 2px;
+  border-left: 3px solid var(--note-accent);
+  border-radius: 4px;
 }
 
-.typography .note-label {
+/* 底色随类型轻微染色；不支持 color-mix 的浏览器沿用上面的中性底色 */
+@supports (background: color-mix(in srgb, red 10%, white)) {
+  .typography .note {
+    background: color-mix(in srgb, var(--note-accent) 7%, var(--card));
+    border-color: color-mix(in srgb, var(--note-accent) 22%, var(--line));
+    border-left-color: var(--note-accent);
+  }
+
+  [data-theme="dark"] .typography .note {
+    background: color-mix(in srgb, var(--note-accent) 14%, var(--card));
+    border-color: color-mix(in srgb, var(--note-accent) 32%, var(--line));
+    border-left-color: var(--note-accent);
+  }
+}
+
+.typography .note-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.typography .note-icon {
   flex: none;
-  width: 27px;
-  height: 27px;
-  margin-top: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--ink);
-  color: var(--paper);
-  border-radius: 4px;
-  font-size: 14px;
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  background: var(--note-accent);
+  color: var(--paper); /* 宣纸色 / 墨色随主题自动反转 */
+}
+
+.typography .note-title {
+  font-size: 13.5px;
   font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--note-accent);
 }
 
-.typography .note.warning .note-label,
-.typography .note.danger .note-label,
-.typography .note.update .note-label {
-  background: var(--seal);
-}
+.typography .note-body { min-width: 0; }
+.typography .note-body > p:first-child,
+.typography .note-body > ul:first-child,
+.typography .note-body > ol:first-child { margin-top: 0; }
+.typography .note-body > p:last-child,
+.typography .note-body > ul:last-child,
+.typography .note-body > ol:last-child { margin-bottom: 0; }
 
-.typography .note.tip .note-label,
-.typography .note.help .note-label {
-  background: var(--seal-deep);
-}
+/* 类型配色：浅色模式 */
+.typography .note-note { --note-accent: #5b6b78; }
+.typography .note-tip { --note-accent: #23796a; }
+.typography .note-success { --note-accent: #3d6f36; }
+.typography .note-warning { --note-accent: #96600f; }
+.typography .note-danger { --note-accent: #a63b2a; }
+.typography .note-question { --note-accent: #6b5bb5; }
+.typography .note-summary { --note-accent: #34558b; }
+.typography .note-update { --note-accent: #236b7c; }
+.typography .note-example { --note-accent: #8a4f88; }
+.typography .note-help { --note-accent: #7d6a2f; }
+.typography .note-figure { --note-accent: #7f5f36; }
 
-.typography .note.success .note-label {
-  background: #43613c;
-}
-
-.typography .note-body { flex: 1; min-width: 0; }
-.typography .note-body p:first-child { margin-top: 0; }
-.typography .note-body p:last-child { margin-bottom: 0; }
+/* 类型配色：夜间模式（提亮，保证在深色纸面上的辨识度） */
+[data-theme="dark"] .typography .note-note { --note-accent: #9aa7b4; }
+[data-theme="dark"] .typography .note-tip { --note-accent: #52c2a3; }
+[data-theme="dark"] .typography .note-success { --note-accent: #7cba66; }
+[data-theme="dark"] .typography .note-warning { --note-accent: #e2a748; }
+[data-theme="dark"] .typography .note-danger { --note-accent: #e2694f; }
+[data-theme="dark"] .typography .note-question { --note-accent: #9c8fe8; }
+[data-theme="dark"] .typography .note-summary { --note-accent: #6f9fe2; }
+[data-theme="dark"] .typography .note-update { --note-accent: #4fb4c7; }
+[data-theme="dark"] .typography .note-example { --note-accent: #c98cc6; }
+[data-theme="dark"] .typography .note-help { --note-accent: #c4ab5e; }
+[data-theme="dark"] .typography .note-figure { --note-accent: #c9a06a; }
 
 /* ---------- 归档 ---------- */
 .archive { padding-bottom: 20px; }

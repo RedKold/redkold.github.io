@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var d = 'light';
+      try {
+        var t = localStorage.getItem('ink-theme');
+        var q = new URLSearchParams(location.search).get('theme');
+        if (q === 'dark' || q === 'light') d = q;
+        else if (t === 'dark' || t === 'light') d = t;
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) d = 'dark';
+      } catch (e) { d = 'light'; }
+      document.documentElement.setAttribute('data-theme', d);
+    })();
+  </script>
+  <title>RedKold的小站</title>
+  <meta name="description" content="勇敢、智慧、真诚">
+  
+<link rel="stylesheet" href="/css/katex.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+
+<div class="site-bg" aria-hidden="true"
+  style="background-image:url(/img/ppp-bg.jpg);
+    --bg-blur:9px;
+    --bg-opacity:0.4;
+    --bg-saturate:0.85;
+    --bg-dark-opacity:0.55;"></div>
+<div class="site-stars" aria-hidden="true"></div>
+<div class="site-glow" aria-hidden="true"></div>
+
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <a class="brand-link" href="/">
+        <span class="seal-mark" aria-hidden="true">墨</span>
+        <span class="brand-text">
+          <span class="brand-title">RedKold的小站</span>
+          <span class="brand-subtitle">勇敢、智慧、真诚</span>
+        </span>
+      </a>
+    </div>
+    <div class="header-right">
+      <nav class="site-nav">
+        <a href="/">首页</a>
+        <a href="/archives">归档</a>
+        <a href="/tags">标签</a>
+        <a href="/categories">分类</a>
+        <a href="/shuoshuo">说说</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式" title="切换夜间模式">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero hero-small">
+    <h1 class="hero-title">归档</h1>
+    <p class="hero-subtitle">共 1 篇文章</p>
+  </section>
+  <section class="archive">
+    
+    
+    
+      <div class="archive-year">
+        <h2 class="archive-year-title"><span class="year-num">2026</span><span class="year-count">1 篇</span></h2>
+        <ul class="archive-list">
+          
+            <li class="archive-item">
+              <time class="archive-date">10月09日</time>
+              <a class="archive-link" href="/2026/10/09/tokyo-1009/">现地记录：10.9 从浦东到飞鸟山</a>
+            </li>
+          
+        </ul>
+      </div>
+    
+  </section>
+  
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-line">
+      <span class="seal-mark small" aria-hidden="true">K</span>
+      <span>© 2025–2026 RedKold</span>
+      
+        <span class="footer-dot">·</span>
+        <span>勇敢、智慧、真诚</span>
+      
+    </p>
+    <p class="footer-extra">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> · Theme Ink</p>
+  </div>
+</footer>
+<button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
+
+</body>
+</html>

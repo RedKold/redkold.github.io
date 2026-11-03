@@ -25,20 +25,24 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+<link rel="stylesheet" href="/css/serenity.css">
+
   <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
 
 <div class="site-bg" aria-hidden="true"
   style="background-image:url(/img/ppp-bg.jpg);
-    --bg-blur:9px;
-    --bg-opacity:0.4;
-    --bg-saturate:0.85;
-    --bg-dark-opacity:0.55;"></div>
-<div class="site-stars" aria-hidden="true"></div>
+    --bg-blur:1.5px;
+    --bg-opacity:0.46;
+    --bg-saturate:0.9;
+    --bg-dark-opacity:0.6;"></div>
+
 <div class="site-glow" aria-hidden="true"></div>
 
 
+<a class="skip-link" href="#main-content">跳至正文</a>
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
@@ -51,7 +55,7 @@
       </a>
     </div>
     <div class="header-right">
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="主导航">
         <a href="/">首页</a>
         <a href="/archives">归档</a>
         <a href="/tags">标签</a>
@@ -65,7 +69,7 @@
   </div>
 </header>
 
-<main class="container post-wrap">
+<main id="main-content" class="container post-wrap">
   <article class="post">
     <header class="post-header">
       <p class="post-date">2025年12月29日</p>
@@ -383,9 +387,10 @@
 </ul>
 </li>
 </ul>
-<div class="note note-tip" role="note" aria-label="提示"><div class="note-head"><span class="note-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5a6 6 0 0 0-3.7 10.7c.5.4.8 1 .8 1.6v.7h5.8v-.7c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3.5Z"/><path d="M9.6 19.6h4.8"/></svg></span><span class="note-title">提示</span></div><div class="note-body"><p>How to do <strong>risky</strong> link and compile?<br>
-To study link and compile, you may have to do risky <strong>link</strong>. However, gcc may prevent you from doing so by error your linkage. You can type following command to avoid it.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc &lt;your .c&gt; -fcommon</span><br></pre></td></tr></table></figure></div></div>
+<div class="note note-tip" role="note"><div class="note-head"><span class="note-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5a6 6 0 0 0-3.7 10.7c.5.4.8 1 .8 1.6v.7h5.8v-.7c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3.5Z"/><path d="M9.6 19.6h4.8"/></svg></span><span class="note-title">How to do <strong>risky</strong> link and compile?</span></div><div class="note-body">
+<p>To study link and compile, you may have to do risky <strong>link</strong>. However, gcc may prevent you from doing so by error your linkage. You can type following command to avoid it.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc &lt;your .c&gt; -fcommon</span><br></pre></td></tr></table></figure>
+</div></div>
 
     </div>
 
@@ -449,5 +454,6 @@ To study link and compile, you may have to do risky <strong>link</strong>. Howev
 <button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
 
 <script src="/js/main.js"></script>
+
 </body>
 </html>

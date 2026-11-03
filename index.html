@@ -25,20 +25,24 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+<link rel="stylesheet" href="/css/serenity.css">
+
   <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
 
 <div class="site-bg" aria-hidden="true"
   style="background-image:url(/img/ppp-bg.jpg);
-    --bg-blur:9px;
-    --bg-opacity:0.4;
-    --bg-saturate:0.85;
-    --bg-dark-opacity:0.55;"></div>
-<div class="site-stars" aria-hidden="true"></div>
+    --bg-blur:1.5px;
+    --bg-opacity:0.46;
+    --bg-saturate:0.9;
+    --bg-dark-opacity:0.6;"></div>
+
 <div class="site-glow" aria-hidden="true"></div>
 
 
+<a class="skip-link" href="#main-content">跳至正文</a>
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
@@ -51,7 +55,7 @@
       </a>
     </div>
     <div class="header-right">
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="主导航">
         <a href="/">首页</a>
         <a href="/archives">归档</a>
         <a href="/tags">标签</a>
@@ -65,16 +69,28 @@
   </div>
 </header>
 
-<main class="container">
-  <section class="hero">
+<main id="main-content" class="container">
+  <section class="hero home-hero">
+    <div class="hero-copy">
+    <p class="hero-eyebrow">山水之间 · 文字为伴</p>
+    <h1 class="hero-title">RedKold的小站</h1>
+    <p class="hero-subtitle">勇敢、智慧、真诚</p>
+    <p class="hero-description">记下所学，也收藏日常的微光。</p>
+    <a class="hero-read" href="#latest">翻开近作 <span aria-hidden="true">↓</span></a>
+    </div>
+    
+    <figure class="hero-band">
+      <img src="/img/ppp-bg.jpg" alt="Poppin’Party 五位成员在星空下的合影" width="1016" height="2200" decoding="async">
+      <figcaption><span class="band-star" aria-hidden="true">✧</span><span>Poppin’Party<small>星の鼓動 · 心之所向</small></span></figcaption>
+    </figure>
+    
+    <div class="hero-author">
     
       <div class="hero-avatar">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" alt="RedKold">
       </div>
     
-    <h1 class="hero-title">RedKold的小站</h1>
-    <p class="hero-subtitle">勇敢、智慧、真诚</p>
-    <div class="hero-rule"><span class="hero-rule-char">墨</span></div>
+
     
       <div class="hero-social">
         
@@ -98,16 +114,19 @@
         
       </div>
     
+    </div>
   </section>
 
-  <section class="post-list">
+  <section class="post-list" id="latest" aria-label="最新文章">
+    <div class="section-heading"><div><span class="section-kicker">JOURNAL</span><h2>纸上片刻</h2></div><a href="/archives">全部文章 <span aria-hidden="true">↗</span></a></div>
     
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2026/10/09/tokyo-1009/" aria-label="现地记录：10.9 从浦东到飞鸟山 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/F30133C7-BC1F-4EBE-B9F4-1B9A36096B2F_1_105_c.jpeg" alt="现地记录：10.9 从浦东到飞鸟山 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2026-10-09">2026年10月09日</time>
       
@@ -126,18 +145,20 @@
 今天 8:15 从 PVG 起飞，当地时间 11:30 到达 NRT。这次乘坐吉祥航空，飞得离富士山远了点，看得不是很清楚。
 
 这次的出关比上次 228 来要丝滑太多，大概十几分钟就全部搞定。
-图注奏多和 millsage 剧情
-在飞……</p>
+奏多和 millsage 剧情
+在飞机上……</p>
     
     <a class="card-more" href="/2026/10/09/tokyo-1009/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2026/09/25/kold-summper-odyssey/" aria-label="kold 的推免「奥德赛」｜mainly NJUCS经验贴 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_5680.PNG" alt="kold 的推免「奥德赛」｜mainly NJUCS经验贴 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2026-09-25">2026年09月25日</time>
       
@@ -197,14 +218,16 @@ CET-6
 ……</p>
     
     <a class="card-more" href="/2026/09/25/kold-summper-odyssey/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2026/09/03/smallest-circle-cover/" aria-label="算法 | 最小椭圆覆盖 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_2748.jpeg" alt="算法 | 最小椭圆覆盖 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2026-09-03">2026年09月03日</time>
       
@@ -223,14 +246,16 @@ CET-6
 这里祝福笔者在后天(9.5)上午的机考中获得成功
 
 最小圆覆盖
-问题问题阐述
-输入 ……</p>
+问题阐述
+输入 NN……</p>
     
     <a class="card-more" href="/2026/09/03/smallest-circle-cover/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2026-06-17">2026年06月17日</time>
       
@@ -250,10 +275,12 @@ Kold is not a Coder.
 在知乎上看到过一个很有意思的文章，把使用Coding Agent比作当代CS学生的赛博朋克义体（如果你玩过《赛博朋克2077》，你会更有感触）。在我获得了义体之后，我的生活就离不开他了；义体分军用/民用，性能有……</p>
     
     <a class="card-more" href="/2026/06/17/kold-is-not-coder/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2026-04-30">2026年04月30日</time>
       
@@ -277,10 +304,12 @@ Kold is not a Coder.
 结合自己求学之路，奋斗历程，还要结合自己大学生活，专业前景等……</p>
     
     <a class="card-more" href="/2026/04/30/own-the-moment/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2026-03-24">2026年03月24日</time>
       
@@ -307,14 +336,16 @@ How to find Context of other processes?
 Use a cp  ……</p>
     
     <a class="card-more" href="/2026/03/24/pa4-note/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/12/29/ics-5-link-load/" aria-label="NJU ICS 程序的链接和加载 Note 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" alt="NJU ICS 程序的链接和加载 Note 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-12-29">2025年12月29日</time>
       
@@ -340,14 +371,16 @@ Executable and Linkable Format
 可执行文件的……</p>
     
     <a class="card-more" href="/2025/12/29/ics-5-link-load/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/12/22/ics-2/" aria-label="NJU ICS Section2 数据的机器级表示与处理 Note 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/20251108153958.png" alt="NJU ICS Section2 数据的机器级表示与处理 Note 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-12-22">2025年12月22日</time>
       
@@ -383,10 +416,12 @@ Intro. Kahan 累加算法
 1234……</p>
     
     <a class="card-more" href="/2025/12/22/ics-2/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-12-12">2025年12月12日</time>
       
@@ -395,14 +430,16 @@ Intro. Kahan 累加算法
     
     
     <a class="card-more" href="/2025/12/12/some-thoughts/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/11/06/ics-pa2/" aria-label="ICS-PA日记-PA2 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_9402.WEBP" alt="ICS-PA日记-PA2 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-11-06">2025年11月06日</time>
       
@@ -427,10 +464,11 @@ Intro. Kahan 累加算法
 了解 Makefile
 不停计算的机器
 理解 YEMU 如何执行程序
-问题理解 YEMU 如何执行程序
-YEMU 可以看成是一个简化版……</p>
+理解 YEMU 如何执行程序
+YEMU 可以看成是一个简化版的 ……</p>
     
     <a class="card-more" href="/2025/11/06/ics-pa2/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
 
@@ -459,5 +497,6 @@ YEMU 可以看成是一个简化版……</p>
 <button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
 
 <script src="/js/main.js"></script>
+
 </body>
 </html>

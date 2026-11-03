@@ -25,20 +25,24 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+<link rel="stylesheet" href="/css/serenity.css">
+
   <link rel="icon" href="/img/seal.svg" type="image/svg+xml">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
 
 <div class="site-bg" aria-hidden="true"
   style="background-image:url(/img/ppp-bg.jpg);
-    --bg-blur:9px;
-    --bg-opacity:0.4;
-    --bg-saturate:0.85;
-    --bg-dark-opacity:0.55;"></div>
-<div class="site-stars" aria-hidden="true"></div>
+    --bg-blur:1.5px;
+    --bg-opacity:0.46;
+    --bg-saturate:0.9;
+    --bg-dark-opacity:0.6;"></div>
+
 <div class="site-glow" aria-hidden="true"></div>
 
 
+<a class="skip-link" href="#main-content">跳至正文</a>
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
@@ -51,7 +55,7 @@
       </a>
     </div>
     <div class="header-right">
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="主导航">
         <a href="/">首页</a>
         <a href="/archives">归档</a>
         <a href="/tags">标签</a>
@@ -65,16 +69,28 @@
   </div>
 </header>
 
-<main class="container">
-  <section class="hero">
+<main id="main-content" class="container">
+  <section class="hero home-hero">
+    <div class="hero-copy">
+    <p class="hero-eyebrow">山水之间 · 文字为伴</p>
+    <h1 class="hero-title">RedKold的小站</h1>
+    <p class="hero-subtitle">勇敢、智慧、真诚</p>
+    <p class="hero-description">记下所学，也收藏日常的微光。</p>
+    <a class="hero-read" href="#latest">翻开近作 <span aria-hidden="true">↓</span></a>
+    </div>
+    
+    <figure class="hero-band">
+      <img src="/img/ppp-bg.jpg" alt="Poppin’Party 五位成员在星空下的合影" width="1016" height="2200" decoding="async">
+      <figcaption><span class="band-star" aria-hidden="true">✧</span><span>Poppin’Party<small>星の鼓動 · 心之所向</small></span></figcaption>
+    </figure>
+    
+    <div class="hero-author">
     
       <div class="hero-avatar">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/toyama-kasumi.png" alt="RedKold">
       </div>
     
-    <h1 class="hero-title">RedKold的小站</h1>
-    <p class="hero-subtitle">勇敢、智慧、真诚</p>
-    <div class="hero-rule"><span class="hero-rule-char">墨</span></div>
+
     
       <div class="hero-social">
         
@@ -98,12 +114,15 @@
         
       </div>
     
+    </div>
   </section>
 
-  <section class="post-list">
+  <section class="post-list" id="latest" aria-label="最新文章">
+    <div class="section-heading"><div><span class="section-kicker">JOURNAL</span><h2>纸上片刻</h2></div><a href="/archives">全部文章 <span aria-hidden="true">↗</span></a></div>
     
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-10-10">2025年10月10日</time>
       
@@ -131,10 +150,12 @@ hadoop-3.4.2-aarch64
 ……</p>
     
     <a class="card-more" href="/2025/10/10/FBDP-lab1/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-09-14">2025年09月14日</time>
       
@@ -159,14 +180,16 @@ hadoop-3.4.2-aarch64
 &amp;lt;some wo……</p>
     
     <a class="card-more" href="/2025/09/14/pa1/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/09/11/jp-zzm/" aria-label="日区旅游攻略(转载) 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_1934.jpeg" alt="日区旅游攻略(转载) 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-09-11">2025年09月11日</time>
       
@@ -190,14 +213,16 @@ Kold：这是我的朋友zzm去日本游玩后写的攻略，得知我也想去�
 旺季（樱花季/枫叶季/国内假期） 购买机票提前越早越好，但不建议国内假期出行（十……</p>
     
     <a class="card-more" href="/2025/09/11/jp-zzm/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/08/29/ICS-dairy/" aria-label="ICS-PA日记-PA0 封面">
         <img src="https://www.manongbook.com/d/file/other/4d618006a4f9bf0b13c8a84c0de380f40.jpg" alt="ICS-PA日记-PA0 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-08-29">2025年08月29日</time>
       
@@ -217,14 +242,16 @@ PA 0 主要是环境的安装和配置，我采取的方案是 MacOS 用 Windows
 untu 22.04) 做实验。本来以为在计算机网络课上完之后，对配置远程连接已经不在话下……</p>
     
     <a class="card-more" href="/2025/08/29/ICS-dairy/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/08/26/ppp823/" aria-label="现地记录: 8.23 Poppin&#39; Party 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/1fcd9bb0150b30c70ba8c2cd9021d6f8_0.png" alt="现地记录: 8.23 Poppin&#39; Party 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-08-26">2025年08月26日</time>
       
@@ -246,10 +273,12 @@ untu 22.04) 做实验。本来以为在计算机网络课上完之后，对配�
 感受人……</p>
     
     <a class="card-more" href="/2025/08/26/ppp823/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
   <article class="card">
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-08-04">2025年08月04日</time>
       
@@ -264,14 +293,16 @@ untu 22.04) 做实验。本来以为在计算机网络课上完之后，对配�
 人工查找对于大文章来说比较麻烦，对于 W……</p>
     
     <a class="card-more" href="/2025/08/04/%E4%BB%8EWord%E9%80%9A%E9%85%8D%E7%AC%A6%E5%88%B0%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/07/29/algorithm-blog/" aria-label="算法成长日记 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/IMG_6759.jpeg" alt="算法成长日记 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-07-29">2025年07月29日</time>
       
@@ -288,7 +319,8 @@ untu 22.04) 做实验。本来以为在计算机网络课上完之后，对配�
       <p class="card-excerpt">前面的话
 到大三了才深刻意识到自己算法基础的薄弱，趁暑期有时间应该多做一些算法题。
 写一个 c++小算法还不如大一的自己了。所以在这里分享一些。
-更新更新了分类栏目。
+更新
+更新了分类栏目。
 争取每工作日做一道题。
 POPIAPA，PIPOPA,  POPIPAPAPIPOPA!
 
@@ -297,17 +329,19 @@ POPIAPA，PIPOPA,  POPIPAPAPIPOPA!
 树状数组-利用 lowbit 的特殊数组数据结构，有奇效
 
 
-前置知识 low……</p>
+前置知识 lo……</p>
     
     <a class="card-more" href="/2025/07/29/algorithm-blog/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/07/24/oddtaxi/" aria-label="oddtaxi 封面">
         <img src="https://www.nme.com/wp-content/uploads/2022/01/odd-taxi-film-trailer.jpg" alt="oddtaxi 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-07-24">2025年07月24日</time>
       
@@ -327,14 +361,16 @@ POPIAPA，PIPOPA,  POPIPAPAPIPOPA!
 Odd Taxi 多方势力的角逐交织极为精……</p>
     
     <a class="card-more" href="/2025/07/24/oddtaxi/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/07/22/%E8%88%9E%E5%8F%B0%E6%84%8F%E5%91%B3%E7%9D%80%E4%BB%80%E4%B9%88/" aria-label="舞台意味着什么 封面">
         <img src="https://kold.oss-cn-shanghai.aliyuncs.com/%E5%B0%91%E5%A5%B3%E6%AD%8C%E5%89%A7.JPG" alt="舞台意味着什么 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-07-22">2025年07月22日</time>
       
@@ -358,14 +394,16 @@ Odd Taxi 多方势力的角逐交织极为精……</p>
 </p>
     
     <a class="card-more" href="/2025/07/22/%E8%88%9E%E5%8F%B0%E6%84%8F%E5%91%B3%E7%9D%80%E4%BB%80%E4%B9%88/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
-  <article class="card">
+  <article class="card has-cover">
     
       <a class="card-cover" href="/2025/07/08/how-far-i-ll-go/" aria-label="没能向远处扬帆——评《海洋奇缘2》 封面">
         <img src="https://ts1.tc.mm.bing.net/th/id/R-C.b30b0a8b4f533668768eca02bac60fc5?rik=61SjcMU2qNlg9Q&amp;riu=http%3a%2f%2fk.sinaimg.cn%2fn%2fsinakd20241009ac%2f580%2fw690h690%2f20241009%2fd559-37d8a50f9e9d59ccd71c4872a2593c10.jpg%2fw700d1q75cms.jpg%3fby%3dcms_fixed_width&amp;ehk=FpKu2uVvnsr6hhtHI6M%2fc7gacgGZWk01RllUwWf3Agc%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" alt="没能向远处扬帆——评《海洋奇缘2》 封面" loading="lazy">
       </a>
     
+    <div class="card-body">
     <header class="card-header">
       <time class="card-date" datetime="2025-07-08">2025年07月08日</time>
       
@@ -385,6 +423,7 @@ Odd Taxi 多方势力的角逐交织极为精……</p>
 用主题歌的话来说是，没能Go Beyond。</p>
     
     <a class="card-more" href="/2025/07/08/how-far-i-ll-go/">阅读全文 <span aria-hidden="true">→</span></a>
+    </div>
   </article>
 
 
@@ -413,5 +452,6 @@ Odd Taxi 多方势力的角逐交织极为精……</p>
 <button id="back-top" class="back-top" aria-label="回到顶部">↑</button>
 
 <script src="/js/main.js"></script>
+
 </body>
 </html>

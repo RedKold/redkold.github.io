@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="400" viewBox="0 0 540 400" fill="none">
+  <defs>
+    <linearGradient id="wash" x1="270" y1="30" x2="270" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#a5b6a6" stop-opacity=".1"/><stop offset="1" stop-color="#a5b6a6" stop-opacity="0"/></linearGradient>
+    <linearGradient id="ridge" x1="280" y1="120" x2="280" y2="360" gradientUnits="userSpaceOnUse"><stop stop-color="#7d9990" stop-opacity=".6"/><stop offset="1" stop-color="#b1c1b2" stop-opacity=".08"/></linearGradient>
+    <linearGradient id="near" x1="220" y1="210" x2="220" y2="370" gradientUnits="userSpaceOnUse"><stop stop-color="#4e726b" stop-opacity=".7"/><stop offset="1" stop-color="#7b9988" stop-opacity=".12"/></linearGradient>
+  </defs>
+  <circle cx="285" cy="194" r="172" fill="url(#wash)"/>
+  <circle cx="364" cy="98" r="31" fill="#b78168" opacity=".55"/>
+  <path d="M46 268 113 203 146 220 217 122 251 165 279 146 346 231 393 181 481 269Z" fill="url(#ridge)"/>
+  <path d="m217 122-23 100 23-19 14 22 20-60-34-43Z" fill="#e7eae0" opacity=".48"/>
+  <path d="M7 322c48-17 69-89 114-89 32 0 45 48 74 49 38 1 47-57 81-59 30-2 55 57 82 62 43 9 66-38 105-37 29 1 53 33 77 57v66H7Z" fill="url(#near)"/>
+  <path d="M58 328c70-10 119-4 177 2s157 5 241-7M106 346c81-7 145 2 230 0m-155 17h99" stroke="#7c9890" stroke-opacity=".3" stroke-linecap="round"/>
+  <path d="M304 137q5-6 10 0 5-6 10 0m-37 13q4-4 8 0 4-4 8 0" stroke="#647c74" stroke-opacity=".65" stroke-linecap="round"/>
+  <path d="m434 273 0 40m0-36-9 14h18l-9-14Zm0 10-13 16h26l-13-16Z" stroke="#47665e" stroke-width="1.5" stroke-linejoin="round" opacity=".7"/>
+  <path d="M403 318h53" stroke="#47665e" stroke-opacity=".35"/>
+  <text x="494" y="160" fill="#71877d" font-size="12" font-family="serif" letter-spacing="8" writing-mode="tb">山静日长</text>
+</svg>
